@@ -1,0 +1,55 @@
+.header {
+	font-family: Oswald;
+	width: 100%;
+	overflow: hidden;
+}
+
+/* MENU HORIZONTAL BAR*/
+.menu_list {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: #333;
+}
+
+.menu_bar {
+	float: right;
+}
+
+.menu_bar:last-child {
+	border-right: none;
+}
+
+.menu_bar a {
+	display: block;
+	color: white;
+	text-align: left;
+	padding: 14px 16px;
+	text-decoration: none;
+}
+
+.menu_bar a:hover :not( .active ){
+background-color:#111;
+}
+.active {
+	background-color: #4CAF50;
+}
+
+/* CLICK ON MENU */
+.menu_bar > ul { /*Hiding the submenu*/
+	display: none;
+	background-color: #555;
+	position: absolute;
+	overflow: hidden;
+	margin: 0;
+	padding: 0;
+}
+
+.menu_bar:hover > ul { /*Showing the Submenu*/
+	display: block;
+}
+
+#elements a:hover {
+	background-color: #1887a3;
+}
