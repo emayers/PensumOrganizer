@@ -15,6 +15,7 @@
             The runtime will display helpful hints to correct common mistakes
             when the value is Development.
         </description>
+<<<<<<< HEAD
 		<param-name>javax.faces.PROJECT_STAGE</param-name>
 		<param-value>Development</param-value>
 	</context-param>
@@ -87,5 +88,27 @@
 		<mime-type>image/svg+xml</mime-type>
 	</mime-mapping>
 	<!-- MAPPING -->
+=======
+        <param-name>javax.faces.PROJECT_STAGE</param-name>
+        <param-value>Development</param-value>
+    </context-param>
+
+    <!-- Faces Servlet -->
+  <servlet>
+    <servlet-name>Faces Servlet</servlet-name>
+    <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+
+   <servlet-mapping>
+       <servlet-name>Faces Servlet</servlet-name>
+       <url-pattern>/faces/*</url-pattern>
+   </servlet-mapping>
+
+   <welcome-file-list>
+     <welcome-file>faces/main.xhtml</welcome-file>
+     <welcome-file>faces/Pensum Organiazado Auto.xhtml</welcome-file>
+   </welcome-file-list>
+>>>>>>> 8e5dd3480e41914c79d9f7f9bd96edec2b99cdf5
 
 </web-app>
