@@ -1,14 +1,81 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Raleway"></link>
+
 <h:head>
-  <title>A Simple JavaServer Faces 2.0 View</title>
+	<title>Pensum Organizer</title>
 </h:head>
-<h:body>
-  <h:form>
+
+<style>
+* {
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	position: relative;
+	min-height: 100%;
+}
+
+header {
+	width: 100%;
+	top: 0%;
+}
+
+body {
+	position: static;
+}
+
+.body {
+	background-image: url('resources/PO.svg');
+	background-position: center;
+	background-size: cover;
+}
+
+.body_color {
+	position: static;
+	background-color: black;
+	opacity: 0.4;
+}
+
+footer {
+	width: 100%;
+	bottom: 0%;
+	height: 25%;
+}
+
+.body_color, h1 {
+	font-family: "Raleway", sans-serif
+}
+</style>
+
+<h:body class="body">
+	<ui:include src="templates/menu.xhtml" />
+
+	<!-- DONDE SE PONE EL CUERPO -->
+	<div class="body_color">
+
+
+		<h:form>
       First name: #{userBean.firstName} Last name: #{userBean.lastName}
-    <p><h:commandButton value="submit" /></p>
-  </h:form>
+    		<p>
+				<h:commandButton value="submit" />
+			</p>
+		</h:form>
+
+	</div>
+
+
+	<!-- FIN DEL CUERPO -->
+
+	<ui:include src="templates/footer.xhtml" />
 </h:body>
 </html>
+
