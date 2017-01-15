@@ -1,0 +1,155 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+  <h:head>
+  	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+  	<link rel="Stylesheet" type="text/css" href="./po-look.css"/>
+  </h:head>
+  <h:body>
+    <div id="menu">
+		<ul id="nav-bar">
+			<li><a href="https://procesos.intec.edu.do/">Pagina Principal</a></li>
+			<li><a href="https://procesos.intec.edu.do/">Pensum Original</a></li>
+			<li><a id="org" href="https://procesos.intec.edu.do/">Organizar Pensum</a></li>
+			<li id="user">
+				<a href="https://procesos.intec.edu.do/">#{UserBean.getFirstName()} #{UserBean.getLastName()}</a>
+				<div id="dropdown-content">
+    					<a href="#">Log Out</a>
+				</div>
+			</li>
+		</ul>
+	</div>
+		<div id="Pensum_Organizado_auto">
+		<table id="Tabla-P-O">
+			<tr id="t">
+			<th >Trimestre </th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			</tr>
+			<tr>
+			<th>Clave</th>
+			<th>Asignatura</th>
+			<th>Creditos</th>
+			<th>Pre-requisito</th>
+			<th>Co-requisitos</th>
+			<th>Creditos requeridos</th>
+			</tr>
+			<tr>
+			<td>AHC101</td>
+			<td>Comunicacion en Lengua Española 1</td>
+			<td>4</td>
+			<td>-</td>
+			<td>-</td>
+			<td>-</td>
+			</tr>
+			<tr>
+			<td>AHO101</td>
+			<td>Orientacion Academica e Institucional</td>
+			<td>2</td>
+			<td>-</td>
+			<td>-</td>
+			<td>-</td>
+			</tr>
+			<tr>
+			<td>CBM101</td>
+			<td>Algebra y Geometria Analitica</td>
+			<td>5</td>
+			<td>-</td>
+			<td>-</td>
+			<td>-</td>
+			</tr>
+			<tr>
+			<td>ASH1X1</td>
+			<td>Electiva Socio-Humanistica</td>
+			<td>4</td>
+			<td>-</td>
+			<td>-</td>
+			<td>-</td>
+			</tr>
+			<tr>
+			<td>SHIXX1</td>
+			<td>Ingles</td>
+			<td>4</td>
+			<td>-</td>
+			<td>-</td>
+			<td>-</td>
+			</tr>
+			<tr id="t">
+			<th>Trimestre </th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			</tr>
+			<tr>
+			<th>Clave</th>
+			<th>Asignatura</th>
+			<th>Creditos</th>
+			<th>Pre-requisito</th>
+			<th>Co-requisitos</th>
+			<th>Creditos requeridos</th>
+			</tr>
+			<tr>
+			<td>AHC101</td>
+			<td>Comunicacion en Lengua Española 1</td>
+			<td>4</td>
+			<td>-</td>
+			<td>-</td>
+			<td>-</td>
+			</tr>
+			<tr>
+			<td>AHO101</td>
+			<td>Orientacion Academica e Institucional</td>
+			<td>2</td>
+			<td>-</td>
+			<td>-</td>
+			<td>-</td>
+			</tr>
+			<tr>
+			<td>CBM101</td>
+			<td>Algebra y Geometria Analitica</td>
+			<td>5</td>
+			<td>-</td>
+			<td>-</td>
+			<td>-</td>
+			</tr>
+			<tr>
+			<td>ASH1X1</td>
+			<td>Electiva Socio-Humanistica</td>
+			<td>4</td>
+			<td>-</td>
+			<td>-</td>
+			<td>-</td>
+			</tr>
+			<tr>
+			<td>SHIXX1</td>
+			<td>Ingles</td>
+			<td>4</td>
+			<td>-</td>
+			<td>-</td>
+			<td>-</td>
+			</tr>
+
+		</table>
+	</div>
+		<div id="Information_and_bottons">
+		<div id="Reorganizar"><a href="https://procesos.intec.edu.do/">Re-organizar Pensum</a></div>
+		<div id="dloadinfo">
+			<div id="Descargar"><a href="https://procesos.intec.edu.do/">Descargar PDF</a></div>
+		<div id="Duracion-P">
+			<p>Duracion del Pensum:</p>
+			<p>X Trimestre</p>
+		</div>
+		<div id="Tiempo-R">
+			<p>Permanencia:</p>
+			<p>X Meses  X Trimestres</p>
+		</div>
+                </div>
+		<div id="Modificar"><a href="https://procesos.intec.edu.do/">Modificar Pensum</a></div>
+	</div>
+  </h:body>
+</html>
