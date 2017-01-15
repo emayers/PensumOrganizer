@@ -1,0 +1,141 @@
+
+/*Background*/
+body{
+    background: #CDCDCD;
+}
+/*barra de navegacion - start*/
+#nav-bar{
+    list-style-type: none;
+    margin: 0;
+    padding: 0px;
+    background: #343434;
+    overflow: hidden;
+}
+#dropdown-content{
+    display: none;
+    position: absolute;
+    background-color: #343434;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    min-width: 160px;
+    right: 8px;
+}
+#dropdown-content a {
+    color: white;
+    text-align: left;
+    text-decoration: none;
+    display: block;
+}
+#dropdown-content a:hover{
+    background-color: #EC3E3F;
+}
+li{
+    float: left;
+}
+li a{
+    display: block;
+    color: white;
+    text-align: center;
+    padding:15px;
+    text-decoration: none;
+}
+li a:hover:not(#org){
+    background-color: #EC3E3F;
+}
+#user:hover #dropdown-content {
+    display: block;
+}
+#user{
+    float: right;
+}
+#org{
+    background-color: #EC3E3F;
+}
+/*barra de navegacion - end*/
+
+/*tabla con pensum organizado - start*/
+#Pensum_Organizado_auto{
+    background: white;
+    border: solid;
+    height: 353px;
+    overflow-y: scroll;
+    margin-top:25px;
+}
+#Tabla-P-O{
+    border-collapse:collapse;
+    width:100%;
+}
+th,td{
+    text-align: center;
+    border-bottom: solid;
+    padding: 15px;
+    margin: 10px;
+}
+#t{
+	color: white;
+	background: #EC3E3F;
+}
+/*tabla con pensum organizado - end*/
+
+/*botones e info - start*/
+#Information_and_bottons a{
+    text-decoration: none;
+    color: black;
+}
+#Reorganizar,#Modificar,#Descargar{
+    padding: 10px;
+    width: 150px;
+    text-align: center;
+    margin-left: 5%;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); 
+    transition: all 0.3s; 
+    border-radius: 5px;
+}
+#Reorganizar:hover,#Modificar:hover,#Descargar:hover{
+    box-shadow: 0 6px 12px rgba(0,0,0,0.25), 0 6px 12px rgba(0,0,0,0.22);
+    background-color: #EC3E3F;
+    transition: all 0.3s;
+}
+#Reorganizar a,#Modificar a,#Descargar a{
+    color: white;
+}
+#Reorganizar{
+    background: #343434;
+    margin-top: 15px;
+}
+#dloadinfo{
+    height: 40px;
+}
+#Descargar{
+    background: #343434;
+    margin-left: 20%;
+    margin-top: auto;
+}
+#Modificar{
+    background: #343434;
+    margin-top: auto;
+}
+#Tiempo-R{
+    border-radius: 3px;
+    background: #72AF47;
+    position:relative;
+    padding: 10px;
+    color: white;
+    width: 12%;
+    left: 1052px;
+    bottom: 262%;
+}
+#Duracion-P{
+    background: white;
+    border: solid black 1px;
+    border-radius: 3px;
+    position:relative;
+    width: 12%;
+    padding: 10px;
+    left: 62%;
+    bottom: 120%;
+}
+p{
+    padding: 0px;
+    margin: 0px;
+}
+/*botones e info - end*/
