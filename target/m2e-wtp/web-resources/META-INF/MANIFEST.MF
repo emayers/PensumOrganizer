@@ -1,9 +1,5 @@
 Manifest-Version: 1.0
-<<<<<<< HEAD
-Built-By: Nicole Guzman Cleto
-=======
-Built-By: Ney Casilla
->>>>>>> 8e5dd3480e41914c79d9f7f9bd96edec2b99cdf5
-Build-Jdk: 1.8.0_111
+Built-By: carola
+Build-Jdk: 1.8.0_65
 Created-By: Maven Integration for Eclipse
 
