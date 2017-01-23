@@ -56,6 +56,12 @@ li a:hover:not(#org){
 #user:HOVER #dropdown-content {
     display: block;
 }
+<<<<<<< HEAD
+=======
+#user{
+    float: right;
+}
+>>>>>>> a4dbcee6e41e5ccd59aaec6e902809d0badac8ab
 #org{
     background-color: #EC3E3F;
 }
@@ -65,17 +71,13 @@ li a:hover:not(#org){
 #Pensum_Organizado_auto{
     background: white;
     border: solid;
-    height: 423px;
+    height: 353px;
     overflow-y: scroll;
     margin-top:25px;
 }
-table{
+#Tabla-P-O{
     border-collapse:collapse;
     width:100%;
-}
-#table_head{
-	color: white;
-	background: #EC3E3F;
 }
 th,td{
     text-align: center;
@@ -83,10 +85,7 @@ th,td{
     padding: 15px;
     margin: 10px;
 }
-tfoot td{
-	font-weight: bold;
-}
-table p{
+#t{
 	color: white;
 	background: #EC3E3F;
 }
