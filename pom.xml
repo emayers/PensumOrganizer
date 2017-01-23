@@ -13,11 +13,43 @@
     <description>Pensum Organizer Web App</description>
     <url>http://pensumorganizer.com</url>
     
-    <build>
-        <finalName>${project.artifactId}</finalName>
-        <plugins>
-        
-           <plugin>
+    <dependencies>
+  	<dependency>
+	<groupId>org.primefaces</groupId>
+	<artifactId>primefaces</artifactId>
+</dependency>
+<dependency>
+    <groupId>com.sun.faces</groupId>
+    <artifactId>jsf-impl</artifactId>
+</dependency>
+<dependency>
+    <groupId>com.sun.faces</groupId>
+    <artifactId>jsf-api</artifactId>
+</dependency>
+
+<dependency>
+	<groupId>javax.servlet</groupId>
+	<artifactId>javax.servlet-api</artifactId>
+	<scope>provided</scope>
+</dependency>
+
+<dependency>
+	<groupId>org.webjars</groupId>
+	<artifactId>font-awesome</artifactId>
+</dependency>
+		
+<dependency>
+    <groupId>javax.el</groupId>
+    <artifactId>javax.el-api</artifactId>
+</dependency>
+		
+
+  </dependencies>
+  
+  <build>
+  	  <pluginManagement>
+	  	<plugins>
+	  		<plugin>
 	  			<groupId>org.apache.maven.plugins</groupId>
 	  			<artifactId>maven-compiler-plugin</artifactId>
 	  			<version>2.5.1</version>
@@ -26,117 +58,54 @@
 	  				<target>1.8</target>
 	  			</configuration>
 	  		</plugin>
-	  		
-            <plugin>
-                <artifactId>maven-war-plugin</artifactId>
-                <configuration>
-                  <failOnMissingWebXml>false</failOnMissingWebXml>
-                </configuration>
-            </plugin>
-            
-            <plugin>
-				<groupId>org.eclipse.jetty</groupId>
-				<artifactId>jetty-maven-plugin</artifactId>
-				<version>9.3.0.v20150612</version>
+	  		<plugin>
+			  <groupId>org.eclipse.jetty</groupId>
+			  <artifactId>jetty-maven-plugin</artifactId>
+			  <version>9.3.0.v20150612</version>
 			</plugin>
-        </plugins>
-    </build>
-    
-    <properties>
-    	<spec.snapshot.version>2.2</spec.snapshot.version>
-    </properties>
-    
-    <dependencies>
-    
-        <dependency>
-        	<groupId>javax.faces</groupId>
-            <artifactId>javax.faces-api</artifactId>
-            <version>${spec.snapshot.version}</version>
-        </dependency>
-        
-        <dependency>
-            <groupId>javax</groupId>
-            <artifactId>javaee-api</artifactId>
-            <version>6.0</version>
-        </dependency>
-        
-        <dependency>
-		    <groupId>javax.faces</groupId>
-		    <artifactId>jsf-api</artifactId>
-		    <version>2.1</version>
-		</dependency>
-        
-        <dependency>
-			<groupId>org.primefaces</groupId>
-			<artifactId>primefaces</artifactId>
-		</dependency>
-		
-		<dependency>
-		    <groupId>com.sun.faces</groupId>
-		    <artifactId>jsf-impl</artifactId>
-		</dependency>
-		
-		<dependency>
-		    <groupId>com.sun.faces</groupId>
-		    <artifactId>jsf-api</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-		</dependency>	
-    </dependencies>
-
-	<dependencyManagement>
-	  	<dependencies>
-	  	
-	  		<dependency>
-	  			<groupId>org.primefaces</groupId>
-	  			<artifactId>primefaces</artifactId>
-	  			<version>5.1</version>
-	  		</dependency>
-	  		
-	  		<dependency>
-	  			<groupId>org.glassfish</groupId>
-	  			<artifactId>javax.faces</artifactId>
-	  			<version>2.2.9</version>
-	  		</dependency>
-	  		
-	  		<dependency>
-	  			<groupId>javax.servlet</groupId>
-	  			<artifactId>javax.servlet-api</artifactId>
-	  			<version>3.1.0</version>
-	  		</dependency>
-	  		
-	  		<dependency>
-	  			<groupId>com.sun.faces</groupId>
-	  			<artifactId>jsf-impl</artifactId>
-	  			<version>2.2.10</version>
-	  		</dependency>
-	  		
-	  		<dependency>
-	  			<groupId>com.sun.faces</groupId>
-	  			<artifactId>jsf-api</artifactId>
-	  			<version>2.2.10</version>
-	  		</dependency>
-	  	</dependencies>
-	</dependencyManagement>
-	  
-    <repositories>
-    
-        <repository>
-            <id>java.net-maven2-SNAPSHOT-repository</id>
-            <name>Java.net SNAPSHOT-Repository for Maven</name>
-            <url>https://maven.java.net/content/repositories/snapshots/</url>
-            <layout>default</layout>
-        </repository>
-        
-        <repository>
-            <id>java.net-maven2-repository</id>
-            <name>Java.net Repository for Maven</name>
-            <url>https://maven.java.net/content/repositories/releases/</url>
-            <layout>default</layout>
-        </repository>
-    </repositories>
+	  	</plugins>
+	  </pluginManagement>
+  </build>
+  
+  
+  <dependencyManagement>
+  	<dependencies>
+  		<dependency>
+  			<groupId>org.primefaces</groupId>
+  			<artifactId>primefaces</artifactId>
+  			<version>5.1</version>
+  		</dependency>
+  		<dependency>
+  			<groupId>org.glassfish</groupId>
+  			<artifactId>javax.faces</artifactId>
+  			<version>2.2.9</version>
+  		</dependency>
+  		<dependency>
+  			<groupId>javax.servlet</groupId>
+  			<artifactId>javax.servlet-api</artifactId>
+  			<version>3.1.0</version>
+  		</dependency>
+  		<dependency>
+  			<groupId>com.sun.faces</groupId>
+  			<artifactId>jsf-impl</artifactId>
+  			<version>2.2.10</version>
+  		</dependency>
+  		<dependency>
+  			<groupId>com.sun.faces</groupId>
+  			<artifactId>jsf-api</artifactId>
+  			<version>2.2.10</version>
+  		</dependency>
+  		<dependency>
+  			<groupId>org.webjars</groupId>
+  			<artifactId>font-awesome</artifactId>
+  			<version>4.7.0</version>
+  		</dependency>
+  		<dependency>
+  			<groupId>javax.el</groupId>
+  			<artifactId>javax.el-api</artifactId>
+  			<version>3.0.0</version>
+  		</dependency>
+  	</dependencies>
+  </dependencyManagement>
     
 </project>

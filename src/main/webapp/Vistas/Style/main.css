@@ -2,6 +2,7 @@
 body{
     background: #CDCDCD;
 }
+
 /*barra de navegacion - start*/
 #nav-bar{
     list-style-type: none;
@@ -9,6 +10,7 @@ body{
     padding: 0px;
     background: #343434;
     overflow: hidden;
+    height: 48px;
 }
 #dropdown-content{
     display: none;
@@ -30,6 +32,14 @@ body{
 li{
     float: left;
 }
+li p{
+    display: block;
+    color: white;
+    text-align: center;
+    padding:15px;
+    text-decoration: none;
+    margin-top: 3px;
+}
 li a{
     display: block;
     color: white;
@@ -37,14 +47,14 @@ li a{
     padding:15px;
     text-decoration: none;
 }
+#user{
+    float: right;
+}
 li a:hover:not(#org){
     background-color: #EC3E3F;
 }
-#user:hover #dropdown-content {
+#user:HOVER #dropdown-content {
     display: block;
-}
-#user{
-    float: right;
 }
 #org{
     background-color: #EC3E3F;
@@ -55,13 +65,17 @@ li a:hover:not(#org){
 #Pensum_Organizado_auto{
     background: white;
     border: solid;
-    height: 353px;
+    height: 423px;
     overflow-y: scroll;
     margin-top:25px;
 }
-#Tabla-P-O{
+table{
     border-collapse:collapse;
     width:100%;
+}
+#table_head{
+	color: white;
+	background: #EC3E3F;
 }
 th,td{
     text-align: center;
@@ -69,7 +83,10 @@ th,td{
     padding: 15px;
     margin: 10px;
 }
-#t{
+tfoot td{
+	font-weight: bold;
+}
+table p{
 	color: white;
 	background: #EC3E3F;
 }
@@ -80,7 +97,10 @@ th,td{
     text-decoration: none;
     color: black;
 }
-#Reorganizar,#Modificar,#Descargar{
+#Bottons{
+	height: 98px;
+}
+#Editar,#Cancelar,#Descargar,#Guardar{
     padding: 10px;
     width: 150px;
     text-align: center;
@@ -89,29 +109,38 @@ th,td{
     transition: all 0.3s; 
     border-radius: 5px;
 }
-#Reorganizar:hover,#Modificar:hover,#Descargar:hover{
+#Editar:hover,#Cancelar:hover,#Descargar:hover, #Guardar:hover{
     box-shadow: 0 6px 12px rgba(0,0,0,0.25), 0 6px 12px rgba(0,0,0,0.22);
     background-color: #EC3E3F;
     transition: all 0.3s;
 }
-#Reorganizar a,#Modificar a,#Descargar a{
+#Editar a,#Cancelar a,#Descargar a,#Guardar a{
     color: white;
 }
-#Reorganizar{
+#Editar{
     background: #343434;
     margin-top: 15px;
 }
-#dloadinfo{
-    height: 40px;
+#Guardar{
+    background: #343434;
+    position:relative;
+    margin-top: 15px;
+    bottom: 53px;
+    left: 16%;
 }
 #Descargar{
     background: #343434;
-    margin-left: 20%;
-    margin-top: auto;
+    position:relative;
+    bottom: 32px;
 }
-#Modificar{
+#Cancelar{
     background: #343434;
-    margin-top: auto;
+    position:relative;
+    bottom: 70px;
+    left: 16%;
+}
+#Information{
+	height: 0px;
 }
 #Tiempo-R{
     border-radius: 3px;
@@ -121,7 +150,7 @@ th,td{
     color: white;
     width: 12%;
     left: 1052px;
-    bottom: 262%;
+    bottom: 129px;
 }
 #Duracion-P{
     background: white;
@@ -131,7 +160,7 @@ th,td{
     width: 12%;
     padding: 10px;
     left: 62%;
-    bottom: 120%;
+    bottom: 72px;
 }
 p{
     padding: 0px;

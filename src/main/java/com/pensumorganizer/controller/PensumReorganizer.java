@@ -6,14 +6,28 @@ import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 
+import com.pensumorganizer.dao.Course;
+import com.pensumorganizer.util.CourseComparator;
+import com.pensumorganizer.util.TrialDataSetter;
+
 public class PensumReorganizer {
 	final private static int IDEAL_TOTAL_TRIMESTERS = 14,
 							 MAX_CREDITS_PER_TRIMESTER = 19,
 							 HIGH_PRIORITY_WEIGHT = 10,
 							 LOW_PRIORITY_WEIGHT = 5; 
-	private static List<Course> coursesProgram = TrialDataSetter.coursesProgram;
+	private static List<Course> coursesProgram = TrialDataSetter.getCoursesProgram();
 	
-	public PriorityQueue<Course> prioritizeCourses(){
+	public static Map<Integer, List<Course>> getOrganizedPensum(){
+		TrialDataSetter dataSetter = new TrialDataSetter();
+		dataSetter.setData();
+		
+		PriorityQueue<Course> orderedCourses = prioritizeCourses();
+		Map<Integer, List<Course>> trimesters = reorganizePensum(orderedCourses);
+		
+		return trimesters;
+	}
+	
+	private static PriorityQueue<Course> prioritizeCourses(){
 		PriorityQueue<Course> coursesToTake = 
 				new PriorityQueue<Course>(new CourseComparator());
 		
@@ -35,7 +49,7 @@ public class PensumReorganizer {
 		return coursesToTake;
 	}
 	
-	public Map<Integer, List<Course>> 
+	private static Map<Integer, List<Course>> 
 	reorganizePensum(PriorityQueue<Course> prioritizedCourses){
 		
 		Map<Integer, List<Course>> trimesters = 

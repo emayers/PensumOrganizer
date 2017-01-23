@@ -9,9 +9,7 @@ body {
 	/*background: #DEDEDE;*/
 	display: flex;
 	min-height: 100vh;
-	background-image: url(resources/PO.svg);
-	background-position: 50% 50%;
-	background-repeat: no-repeat;
+	background: #CDCDCD;
 	width: 100%;
 }
 
@@ -36,19 +34,23 @@ input {
 	width: 100%;
 	margin: 30px 0;
 	font-size: 20px;
+	
+}
+
+input:HOVER{
 }
 
 input[type="submit"] {
-	background: linear-gradient(#FFDA63, #FFB940);
+	background-color: #EC3E3F;
 	border: 0;
-	color: brown;
+	color: black;
 	cursor: pointer;
 	border-radius: 20px;
 	margin-bottom: 0;
 }
 
 input[type="submit"]:hover {
-	opacity: 0.8;
+	background-color: gray;
 }
 
 input[type="submit"]: active {
