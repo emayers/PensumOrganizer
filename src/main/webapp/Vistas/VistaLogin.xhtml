@@ -3,7 +3,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
 	<!-- GOOGLE FONTS -->
@@ -22,11 +22,14 @@
 
 	<h:form>
 		<h2>PENSUM ORGANIZER</h2>
+		<!--  
+		<p:inputText name="user" placeholder="User ID"/>
+		<p:password name="password" placeholder="User ID"/>
+		-->
 		
-		<h:inputText p:placeholder="ID Institucional" id="user"/>
-		<h:inputSecret id="passw" p:placeholder="Contraseña" />
-		<h:commandButton action="index"  value="Iniciar Sesion" />
-		<h:commandButton action="UnderConstruction"  value="Registrarse" />
+		<input type="text" placeholder="User ID" name="user" /> 
+		<input type="password" placeholder="Password" name="password" /> 
+		<input type="submit" value="Log In" />
 	</h:form>
 
 </h:body>
