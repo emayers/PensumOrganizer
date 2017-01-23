@@ -1,0 +1,234 @@
+@CHARSET "ISO-8859-1";
+body{
+	height: 100%;
+	background: #CDCDCD;
+}
+footer {
+	opacity: 0.5;
+	color: green;
+}
+
+
+/*barra de navegacion - start*/
+#nav-bar{
+    list-style-type: none;
+    margin: 0;
+    padding: 0px;
+    background: #343434;
+    overflow: hidden;
+}
+#dropdown-content, #dropdown-help{
+    display: none;
+    position: absolute;
+    background-color: #343434;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    min-width: 160px;
+    right: 8px;
+}
+#dropdown-help{
+	margin-top: 47px;
+}
+#dropdown-content a, #dropdown-help a {
+    color: white;
+    text-align: left;
+    text-decoration: none;
+    display: block;
+}
+#dropdown-content a:hover,  #dropdown-help a:HOVER{
+    background-color: #EC3E3F;
+    z-index: 100;
+}
+#menu li:not(#user){
+    float: left;
+}
+li a{
+    display: block;
+    color: white;
+    text-align: center;
+    padding:15px;
+    text-decoration: none;
+}
+li a:hover:not(#org){
+    background-color: #EC3E3F;
+    transition: all 0.3s;
+}
+#user:hover #dropdown-content {
+    display: block;
+    z-index: 100;
+}
+#user:hover #dropdown-help {
+    display: block;
+    z-index: 100;
+}
+#user{
+    float: right;
+}
+#org{
+    background-color: #EC3E3F;
+}
+/*barra de navegacion - end*/
+
+
+
+/*Datos de la derecha e izquierda*/
+#datosIzq{
+   display: inline;
+   color: black;
+   position: absolute;
+   top: 150px;
+   font-size: 20px;
+   z-index: 0;
+}
+.datosDer{
+   display: inline;
+   color: black;
+   position: absolute;
+   right: 10px;
+   top: 150px;
+   font-size: 20px;
+   z-index: 0;
+}
+.datone p{
+	text-align: center;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+.dattwo  p{
+	text-align: center;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+.datone{
+	margin-top: 40px;
+	margin-bottom: 100px;
+}
+.dattwo{
+	margin-top: 30px;
+}
+.list{
+	list-style:none;
+	font-family: Oswald;
+	z-index: 0;
+}
+.listtwo{
+	list-style:none;
+	font-family: Oswald;
+	z-index: 0;
+	padding: 0px;
+}
+.meter{
+	height: 20px;  /* Can be anything */
+	position: relative;
+	background: #555;
+	border-radius: 25px;
+	box-shadow: inset 0 -1px 1px rgba(255,255,255,0.3);
+	font-size: 20px;
+	text-align: center;
+	font-family: Oswald;
+	z-index: 0;
+}
+.meter span{
+  display: block;
+  height: 100%;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  background-color: #DB332C;
+  background-image: linear-gradient(
+    center bottom,
+    rgb(43,194,83) 37%,
+    rgb(84,240,84) 69%
+  );
+  box-shadow: 
+    inset 0 2px 9px  rgba(255,255,255,0.3),
+    inset 0 -2px 6px rgba(0,0,0,0.4);
+  position: relative;
+  overflow: hidden;
+  z-index: 0;
+}
+/*Datos de la derecha*/
+
+
+/*tabla*/
+#DashPensum{
+    background: white;
+    border: solid;
+    height: 423px;
+    overflow-y: scroll;
+    margin-top:25px;
+    margin-left:200px;
+    margin-right: 200px;
+}
+table{
+    border-collapse:collapse;
+    width:100%;
+}
+#table_head{
+	color: white;
+	background: #EC3E3F;
+}
+th,td{
+    text-align: center;
+    border-bottom: solid;
+    padding: 15px;
+    margin: 10px;
+}
+tfoot td{
+	font-weight: bold;
+}
+table p{
+	color: white;
+	background: #EC3E3F;
+}
+/*tabla*/
+
+
+
+/*Bottom container*/
+.col-md-3{
+	display: list-item;
+	list-style:none;
+    justify-content: center;
+   	padding-top:0px;
+    font-size: 50px;
+    position: relative;
+    right: 162px;
+}
+.col-md-4{
+	display: list-item;
+	list-style:none;
+    justify-content: center;
+   	padding-top:0px;
+    font-size: 50px;
+    position: relative;
+    left: 164px;
+}
+.col-md-4 p{
+	margin-top: 5px; 
+	color: white;
+}
+.col-md-3 p{
+	margin-top: 5px;
+	color: white; 
+}
+.container{
+	display: inline-flex;
+    justify-content: center;
+    border: solid #EC3E3F;
+    background: #EC3E3F;
+    position: relative;
+    right: -198px;
+    padding-right: -147px;
+    width: 950px;
+    border-radius: 3px;
+    margin-top: 10px;
+}
+.general{
+    text-align: center;
+    color:black;
+    font-size: 20px;
+    margin-bottom: 20px;
+    font-family:Oswald;
+}
+/*Bottom container*/
