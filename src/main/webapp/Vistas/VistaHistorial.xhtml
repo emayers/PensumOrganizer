@@ -3,12 +3,11 @@
 	xmlns:h="http://java.sun.com/jsf/html" 
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets" >
+	
   <h:head>
-  	<link rel="Stylesheet" type="text/css" href="./Historial/WebContent/look/po-look.css"/>
+	<link rel="stylesheet" type="text/css" href="./Style/main.css?version=1"/>
   </h:head>
-  <h:head>
-		<title>Fruit Store</title>
-  </h:head>
+
 <h:body>
 	    <h:panelGroup layout="block" id="menu">
 		<ul id="nav-bar">
@@ -23,7 +22,6 @@
 			</li>
 		</ul>
 	</h:panelGroup>
-	<h1>Fruit store</h1>
 	
 	<h:dataTable value="#{vistaBean.fruits}" var="fruits">
 		<h:column>

@@ -1,4 +1,3 @@
-
 /*Background*/
 body{
     background: #CDCDCD;
@@ -56,7 +55,7 @@ li a:hover:not(#org){
 #Pensum_Organizado_auto{
     background: white;
     border: solid;
-    height: 423px;
+    height: 353px;
     overflow-y: scroll;
     margin-top:25px;
 }
@@ -81,10 +80,7 @@ th,td{
     text-decoration: none;
     color: black;
 }
-#Bottons{
-	height: 98px;
-}
-#Cancelar,#Cancelar,#Descargar,#Guardar{
+#Reorganizar,#Modificar,#Descargar{
     padding: 10px;
     width: 150px;
     text-align: center;
@@ -93,31 +89,31 @@ th,td{
     transition: all 0.3s; 
     border-radius: 5px;
 }
-#Cancelar:hover,#Cancelar:hover,#Descargar:hover, #Guardar:hover{
+#Reorganizar:hover,#Modificar:hover,#Descargar:hover{
     box-shadow: 0 6px 12px rgba(0,0,0,0.25), 0 6px 12px rgba(0,0,0,0.22);
     background-color: #EC3E3F;
     transition: all 0.3s;
 }
-#Cancelar a,#Cancelar a,#Descargar a,#Guardar a{
+#Reorganizar a,#Modificar a,#Descargar a{
     color: white;
 }
-#Cancelar{
+#Reorganizar{
     background: #343434;
-    margin-top: 40px;
-}
-#Guardar{
-    background: #343434;
-    position:relative;
     margin-top: 15px;
-    bottom: 53px;
-    left: 16%;
 }
-
-#Information{
-	height: 0px;
+#dloadinfo{
+    height: 40px;
+}
+#Descargar{
+    background: #343434;
+    margin-left: 20%;
+    margin-top: auto;
+}
+#Modificar{
+    background: #343434;
+    margin-top: auto;
 }
 #Tiempo-R{
-	border:  solid black  1px
     border-radius: 3px;
     background: #72AF47;
     position:relative;
@@ -125,7 +121,7 @@ th,td{
     color: white;
     width: 12%;
     left: 1052px;
-    bottom: 167px;
+    bottom: 262%;
 }
 #Duracion-P{
     background: white;
@@ -135,7 +131,7 @@ th,td{
     width: 12%;
     padding: 10px;
     left: 62%;
-    bottom: 110px;
+    bottom: 120%;
 }
 p{
     padding: 0px;

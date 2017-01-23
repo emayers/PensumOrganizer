@@ -3,9 +3,11 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets" >
+	
   <h:head>
-  	<link rel="Stylesheet" type="text/css" href="./Css/po-look.css?version=1"/>
+  	<link rel="stylesheet" type="text/css" href="./Style/main.css?version=1"/>
   </h:head>
+  
   <h:body>
     <h:panelGroup layout="block" id="menu">
 		<ul id="nav-bar">
@@ -20,6 +22,7 @@
 			</li>
 		</ul>
 	</h:panelGroup>
+	
 	<h:panelGroup layout="block" id="Pensum_Organizado_auto" >
 		<h:dataTable id="Tabla-P-O" value="#{courseBean.trimester}" var="list">
 				<f:facet name="header">
@@ -77,6 +80,7 @@
 			</h:column>
 		</h:dataTable>
 	</h:panelGroup>
+	
 	<h:panelGroup layout="block" id="Information_and_bottons">
 		<h:panelGroup layout="block" id="Bottons">
 			<h:panelGroup layout="block" id="Cancelar"><h:link value="Cancelar" outcome="index"></h:link></h:panelGroup>
