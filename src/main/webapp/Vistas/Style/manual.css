@@ -10,7 +10,7 @@ body{
     background: #343434;
     overflow: hidden;
 }
-#dropdown-content, #dropdown-help{
+#dropdown-content{
     display: none;
     position: absolute;
     background-color: #343434;
@@ -19,7 +19,13 @@ body{
     right: 8px;
 }
 #dropdown-help{
-	margin-top: 47px;
+    display: none;
+    position: absolute;
+    background-color: #343434;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    min-width: 160px;
+    margin-top: 47px;
+    right: 8px;
 }
 #dropdown-content a, #dropdown-help a {
     color: white;
@@ -27,9 +33,10 @@ body{
     text-decoration: none;
     display: block;
 }
-#dropdown-content a:hover,  #dropdown-help a:HOVER{
+#dropdown-content a:hover{
     background-color: #EC3E3F;
 }
+
 li{
     float: left;
 }
@@ -42,12 +49,12 @@ li a{
 }
 li a:hover:not(#org){
     background-color: #EC3E3F;
-    transition: all 0.3s;
+     transition: all 0.3s;
 }
-#user:hover #dropdown-content {
+#user:hover #dropdown-content{
     display: block;
 }
-#user:hover #dropdown-help {
+#user:hover #dropdown-help{
     display: block;
 }
 #user{
@@ -70,7 +77,7 @@ table{
     border-collapse:collapse;
     width:100%;
 }
-#table_head{
+table p{
 	color: white;
 	background: #EC3E3F;
 }
@@ -80,10 +87,7 @@ th,td{
     padding: 15px;
     margin: 10px;
 }
-tfoot td{
-	font-weight: bold;
-}
-table p{
+#t{
 	color: white;
 	background: #EC3E3F;
 }
@@ -97,7 +101,7 @@ table p{
 #Bottons{
 	height: 98px;
 }
-#Editar,#Cancelar,#Descargar,#Guardar{
+#Cancelar,#Cancelar,#Descargar,#Guardar{
     padding: 10px;
     width: 150px;
     text-align: center;
@@ -106,17 +110,17 @@ table p{
     transition: all 0.3s; 
     border-radius: 5px;
 }
-#Editar:hover,#Cancelar:hover,#Descargar:hover, #Guardar:hover{
+#Cancelar:hover,#Cancelar:hover,#Descargar:hover, #Guardar:hover{
     box-shadow: 0 6px 12px rgba(0,0,0,0.25), 0 6px 12px rgba(0,0,0,0.22);
     background-color: #EC3E3F;
     transition: all 0.3s;
 }
-#Editar a,#Cancelar a,#Descargar a,#Guardar a{
+#Cancelar a,#Cancelar a,#Descargar a,#Guardar a{
     color: white;
 }
-#Editar{
+#Cancelar{
     background: #343434;
-    margin-top: 15px;
+    margin-top: 40px;
 }
 #Guardar{
     background: #343434;
@@ -125,21 +129,12 @@ table p{
     bottom: 53px;
     left: 16%;
 }
-#Descargar{
-    background: #343434;
-    position:relative;
-    bottom: 32px;
-}
-#Cancelar{
-    background: #343434;
-    position:relative;
-    bottom: 70px;
-    left: 16%;
-}
+
 #Information{
 	height: 0px;
 }
 #Tiempo-R{
+	border:  solid black  1px
     border-radius: 3px;
     background: #72AF47;
     position:relative;
@@ -147,7 +142,7 @@ table p{
     color: white;
     width: 12%;
     left: 1052px;
-    bottom: 129px;
+    bottom: 167px;
 }
 #Duracion-P{
     background: white;
@@ -157,7 +152,7 @@ table p{
     width: 12%;
     padding: 10px;
     left: 62%;
-    bottom: 72px;
+    bottom: 110px;
 }
 p{
     padding: 0px;

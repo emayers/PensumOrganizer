@@ -1,52 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html" 
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://java.sun.com/jsf/core"
-<<<<<<< HEAD
 	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
-
-  <h:head>
-  	<link rel="Stylesheet" type="text/css" href="./Style/main.css"/>
-=======
-	xmlns:ui="http://java.sun.com/jsf/facelets" >
 	
   <h:head>
-  	<link rel="stylesheet" type="text/css" href="./Style/main.css?version=1"/>
->>>>>>> a4dbcee6e41e5ccd59aaec6e902809d0badac8ab
+  	<link rel="Stylesheet" type="text/css" href="./Style/main.css?version=4"/>
+  	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway"></link>
   </h:head>
   
   <h:body>
     <h:panelGroup layout="block" id="menu">
 		<ul id="nav-bar">
-<<<<<<< HEAD
-			<li><h:link value="Pagina Principal" outcome="VistaLogin">
+			<li><h:link value="Pagina Principal" outcome="VistaDashboard">
 				</h:link></li>
 			<li><h:link value="Ver Historial" outcome="VistaHistorial"></h:link></li>
-			<li><h:link value="Programa de la Carrera" outcome="VistaLogin">
+			<li><h:link value="Programa de la Carrera" outcome="VistaPrograma">
 				</h:link></li>
-			<li><h:link id="org" value="Reorganizar Pensum"></h:link></li>
+			<li><h:link id="org" value="Reorganizar Pensum" outcome="VistaPOAuto"></h:link></li>
 			<li id="user">
-				<p>Cerrar Sesion</p>
+				<h:link>#{studentBean.student.name} #{studentBean.student.last_name}</h:link>
 				<h:panelGroup layout="block" id="dropdown-content">
     					<h:link value="Log Out" outcome="VistaLogin"></h:link>
-=======
-			<li><h:link value="Pagina Principal" outcome="Pensum Organizado Auto"></h:link></li>
-			<li><h:link value="Pensum Original" outcome="Pensum Organizado Auto"></h:link></li>
-			<li><h:link id="org" value="Pensum Organizado" outcome="Pensum Organizado Auto"></h:link></li>
-			<li id="user">
-				<h:link outcome="Pensum Organizado Auto">#{helloController.Name()} #{helloController.Last()}</h:link>
-				<h:panelGroup layout="block" id="dropdown-content">
-    					<h:link value="Log Out" outcome="Pensum Organizado Auto"></h:link>
->>>>>>> a4dbcee6e41e5ccd59aaec6e902809d0badac8ab
+				</h:panelGroup>
+				<h:panelGroup layout="block" id="dropdown-help">
+    					<h:link value="Help" outcome="EnConstruccion"></h:link>
 				</h:panelGroup>
 			</li>
 		</ul>
 	</h:panelGroup>
-	
-	<h:panelGroup layout="block" id="Pensum_Organizado_auto" >
-<<<<<<< HEAD
+	<h:panelGroup layout="block" id="Pensum_Organizado_auto"  >
 		<c:forEach items="#{autoPOBean.trimester}" var="entry">
 			<c:set var="tricuant" value="#{tricuant}"></c:set>
 			<h:dataTable id="Tabla-P-O" value="#{entry.value}" var="list">
@@ -94,7 +80,7 @@
 					<h:outputText rendered="#{list.creditsReq == '0'}" value="-" />
 				</h:column>
 					<f:facet name="footer">
-						<p> 
+						<p>
 							Total de creditos:
 							<c:forEach items="#{entry.value}" var="ls">
 								<c:set var="crdtotal" value="#{crdtotal + ls.credits}"></c:set>	
@@ -105,73 +91,24 @@
 					</f:facet>
 			</h:dataTable>	
 		</c:forEach>
-=======
-		<h:dataTable id="Tabla-P-O" value="#{courseBean.trimester}" var="list">
-				<f:facet name="header">
-					Trimestre
-				</f:facet>
-				
-			<h:column>
-				<f:facet name="header">
-					Clave
-				</f:facet>
-			</h:column>
-			<h:column>
-				<f:facet name="header">
-					Asignatura
-				</f:facet>
-				#{list.name}
-			</h:column>
-			<h:column>
-				<f:facet name="header">
-					Creditos
-				</f:facet>
-				#{list.credits}
-			</h:column>
-			<h:column>
-				<f:facet name="header">
-					Pre-Requisito
-				</f:facet>
-<!-- 				#{list.PreReq} -->
-			</h:column>
-			<h:column>
-				<f:facet name="header">
-					Co-Requisito
-				</f:facet>
-			</h:column>
-			<h:column>
-				<f:facet name="header">
-					Creditos Requeridos
-				</f:facet>
-<!-- 				#{list.ReqCredts} -->
-			</h:column>
-		</h:dataTable>
->>>>>>> a4dbcee6e41e5ccd59aaec6e902809d0badac8ab
 	</h:panelGroup>
-	
 	<h:panelGroup layout="block" id="Information_and_bottons">
 		<h:panelGroup layout="block" id="Bottons">
-<<<<<<< HEAD
 			<h:panelGroup layout="block" id="Editar"><h:link value="Editar" outcome="VistaPOManual"></h:link></h:panelGroup>
-			<h:panelGroup layout="block" id="Guardar"><h:link  value="Guardar"></h:link></h:panelGroup>
-=======
-			<h:panelGroup layout="block" id="Editar"><h:link value="Editar" outcome="Pensum Organizado Auto"></h:link></h:panelGroup>
-			<h:panelGroup layout="block" id="Guardar"><h:link value="Guardar" outcome="Pensum Organizado Auto"></h:link></h:panelGroup>
->>>>>>> a4dbcee6e41e5ccd59aaec6e902809d0badac8ab
+			<h:panelGroup layout="block" id="Guardar"><h:link  value="Guardar" outcome="EnConstruccion"></h:link></h:panelGroup>
 			<h:panelGroup layout="block" id="Information">
 				<h:panelGroup layout="block" id="Duracion-P">
 					<p>Duracion del Pensum:</p>
-					<p>X Trimestre</p>
+					<p>#{tricuant} Trimestre</p>
 				</h:panelGroup>
 				<h:panelGroup layout="block" id="Tiempo-R">
 					<p>Permanencia:</p>
-					<p>X Meses  X Trimestres</p>
+					<p>61 Meses / 21 Trimestres</p>
 				</h:panelGroup>
          	</h:panelGroup>
-			<h:panelGroup layout="block" id="Descargar"><h:link value="Descargar"></h:link></h:panelGroup>
-         	<h:panelGroup layout="block" id="Cancelar"><h:link value="Cancelar"></h:link></h:panelGroup>
+			<h:panelGroup layout="block" id="Descargar"><h:link value="Descargar" outcome="EnConstruccion"></h:link></h:panelGroup>
+         	<h:panelGroup layout="block" id="Cancelar"><h:link value="Cancelar" outcome="VistaDashboard"></h:link></h:panelGroup>
 		</h:panelGroup>
 	</h:panelGroup>
-	
   </h:body>
 </html>

@@ -13,18 +13,19 @@
   <h:body>
 	<h:panelGroup layout="block" id="menu">
 		<ul id="nav-bar">
-			<li><h:link value="Pagina Principal" outcome="VistaLogin">
+			<li><h:link value="Pagina Principal" outcome="VistaDashboard">
 				</h:link></li>
-			<li><h:link id="org" value="Ver Historial" outcome="VistaHistorial">
+			<li><h:link id="org" value="Ver Historial" outcome="VistaHistorial"></h:link></li>
+			<li><h:link value="Programa de la Carrera" outcome="VistaPrograma">
 				</h:link></li>
-			<li><h:link value="Programa de la Carrera" outcome="VistaLogin">
-				</h:link></li>
-			<li><h:link value="Reorganizar Pensum" outcome="VistaPOAuto">
-				</h:link></li>
+			<li><h:link value="Reorganizar Pensum" outcome="VistaPOAuto"></h:link></li>
 			<li id="user">
-				<p>Cerrar Sesion</p>
+				<h:link>#{studentBean.student.name} #{studentBean.student.last_name}</h:link>
 				<h:panelGroup layout="block" id="dropdown-content">
     					<h:link value="Log Out" outcome="VistaLogin"></h:link>
+				</h:panelGroup>
+				<h:panelGroup layout="block" id="dropdown-help">
+    					<h:link value="Help" outcome="EnConstruccion"></h:link>
 				</h:panelGroup>
 			</li>
 		</ul>
@@ -33,7 +34,7 @@
 	<h1 text-align= "center">Ingenieria de Software - 2010</h1>
 	
 	<h:panelGroup layout="block" id="Pensum_Organizado_auto" >
-		<c:forEach items="#{autoPOBean.trimester}" var="entry">
+		<c:forEach items="#{historyBean.trimester}" var="entry">
 			<c:set var="tricuant" value="#{tricuant}"></c:set>
 			<h:dataTable id="Tabla-P-O" value="#{entry.value}" var="list">
 					<c:set var="tricuant" value="#{tricuant + 1}"></c:set>
