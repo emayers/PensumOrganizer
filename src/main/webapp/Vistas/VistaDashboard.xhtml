@@ -9,34 +9,42 @@
 
 <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta> -->
 <h:head>
-	<link type="text/css" rel="stylesheet" href="./Style/Dash.css?version=1"></link>
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway"></link>
+	<link type="text/css" rel="stylesheet" href="./Style/Dash.css?version=3"></link>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,800,600"></link>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css"></link>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
 </h:head>
 
 <h:body>
-	<h:panelGroup layout="block" id="menu">
-		<ul id="nav-bar">
-			<li><h:link id="org" value="Pagina Principal">
-				</h:link></li>
-			<li><h:link value="Ver Historial" outcome="VistaHistorial"></h:link></li>
-			<li><h:link value="Programa de la Carrera" outcome="VistaPrograma">
-				</h:link></li>
-			<li><h:link value="Reorganizar Pensum" outcome="VistaPOAuto"></h:link></li>
-			<li id="user">
-				<h:link>#{studentBean.student.name} #{studentBean.student.last_name}</h:link>
-				<h:panelGroup layout="block" id="dropdown-content">
-    					<h:link value="Log Out" outcome="VistaLogin"></h:link>
-				</h:panelGroup>
-				<h:panelGroup layout="block" id="dropdown-help">
-    					<h:link value="Help" outcome="EnConstruccion"></h:link>
-				</h:panelGroup>
-			</li>
-		</ul>
+	<nav id="nav-menu">
+		<h:panelGroup layout="block" id="menu" styleClass="nav-wrapper">
+			<ul id="nav-bar">
+				<li><h:link id="org" value="Pagina Principal">
+					</h:link></li>
+				<li><h:link value="Ver Historial" outcome="VistaHistorial"></h:link></li>
+				<li><h:link value="Programa de la Carrera" outcome="VistaPrograma">
+					</h:link></li>
+				<li><h:link value="Reorganizar Pensum" outcome="VistaPOAuto"></h:link></li>
+				<li id="user">
+					<h:link>#{studentBean.student.name} #{studentBean.student.last_name}</h:link>
+					<h:panelGroup layout="block" id="dropdown-content">
+	    					<h:link value="Log Out" outcome="VistaLogin"></h:link>
+					</h:panelGroup>
+					<h:panelGroup layout="block" id="dropdown-help">
+	    					<h:link value="Help" outcome="EnConstruccion"></h:link>
+					</h:panelGroup>
+				</li>
+			</ul>
+		</h:panelGroup>
+	</nav>
+	
+	<h:panelGroup layout="block" id="title">
+		<h3>Ingeniera Software-Pensum Organizado</h3>
 	</h:panelGroup>
 	<h:panelGroup layout="block" id="DashPensum" >
 		<c:forEach items="#{autoPOBean.trimester}" var="entry">
 			<c:set var="tricuant" value="#{tricuant}"></c:set>
-			<h:dataTable id="Tabla-P-O" value="#{entry.value}" var="list">
+			<h:dataTable id="Tabla-P-O" styleClass="highlight centered bordered" value="#{entry.value}" var="list">
 					<c:set var="tricuant" value="#{tricuant + 1}"></c:set>
 					<f:facet name="header">
 						<p>Trimestre #{tricuant}</p> 
@@ -93,60 +101,137 @@
 			</h:dataTable>	
 		</c:forEach>
 	</h:panelGroup>
+	
 	<h:panelGroup layout="block" id="datosIzq">
-		<ul class="listtwo">
-			<li>
-			    <h:panelGroup layout="block" class="datone">
-					<h:panelGroup layout="block" class="meter">
-						<h:panelGroup style="width: 100%"></h:panelGroup>
-					</h:panelGroup >
-					<p>Indice Acumulado</p>
-					<p>4.00</p>
-				</h:panelGroup>
-			</li>
-			<li>
-				<h:panelGroup layout="block" class="dattwo">
-					<h:panelGroup layout="block" class="meter">
-						<h:panelGroup style="width: 10%"></h:panelGroup>
-					</h:panelGroup >
-					<p>Creditos Aprobados</p>
-					<p>5/56</p>
-				</h:panelGroup>
-			</li>
-		</ul>
+		
+		<h:graphicImage id="chart" value="http://simpleicon.com/wp-content/uploads/pie-chart-11.png" />
+<!-- 		<h:panelGroup layout="block" id="circle_pro" styleClass="preloader-wrapper big active determinate"> -->
+<!-- 			<h:panelGroup layout="block" styleClass="spinner-layer"> -->
+<!-- 				<h:panelGroup layout="block" styleClass="circle-clipper left determinate"> -->
+<!-- 					<h:panelGroup layout="block" styleClass="circle"></h:panelGroup> -->
+<!-- 				</h:panelGroup> -->
+<!-- 				<h:panelGroup layout="block" styleClass="gap-patch determinate"> -->
+<!-- 					<h:panelGroup layout="block" styleClass="circle"></h:panelGroup> -->
+<!-- 				</h:panelGroup> -->
+<!-- 				<h:panelGroup layout="block" styleClass="circle-clipper right determinate"> -->
+<!-- 					<h:panelGroup layout="block" styleClass="circle"></h:panelGroup> -->
+<!-- 				</h:panelGroup> -->
+<!-- 			</h:panelGroup> -->
+<!-- 		</h:panelGroup> -->
+	
+<!-- 		<ul class="list"> -->
+<!-- 			<li> -->
+<!-- 				<h:panelGroup layout="block" class="datone"> -->
+<!-- 					<h:panelGroup layout="block" class="meter"> -->
+<!-- 						<h:panelGroup style="width: 10%"></h:panelGroup> -->
+<!-- 					</h:panelGroup > -->
+<!-- 					<p>Materias cursadas</p> -->
+<!-- 					<p>4/59</p> -->
+<!-- 				</h:panelGroup> -->
+<!-- 			</li> -->
+<!-- 			<li> -->
+<!-- 				<h:panelGroup layout="block" class="dattwo"> -->
+<!-- 					<h:panelGroup layout="block" class="meter"> -->
+<!-- 						<h:panelGroup style="width: 10%"></h:panelGroup> -->
+<!-- 					</h:panelGroup > -->
+<!-- 					<p>Trimestres cursados</p> -->
+<!-- 					<p>1/21</p> -->
+<!-- 				</h:panelGroup> -->
+<!-- 			</li> -->
+<!-- 		</ul> -->
+<!-- 		<ul class="listtwo"> -->
+<!-- 			<li> -->
+<!-- 			    <h:panelGroup layout="block" class="datone"> -->
+<!-- 					<h:panelGroup layout="block" class="meter"> -->
+<!-- 						<h:panelGroup style="width: 100%"></h:panelGroup> -->
+<!-- 					</h:panelGroup > -->
+<!-- 					<p>Indice Acumulado</p> -->
+<!-- 					<p>4.00</p> -->
+<!-- 				</h:panelGroup> -->
+<!-- 			</li> -->
+<!-- 			<li> -->
+<!-- 				<h:panelGroup layout="block" class="dattwo"> -->
+<!-- 					<h:panelGroup layout="block" class="meter"> -->
+<!-- 						<h:panelGroup style="width: 10%"></h:panelGroup> -->
+<!-- 					</h:panelGroup > -->
+<!-- 					<p>Creditos Aprobados</p> -->
+<!-- 					<p>5/56</p> -->
+<!-- 				</h:panelGroup> -->
+<!-- 			</li> -->
+<!-- 		</ul> -->
 	</h:panelGroup>
-	<h:panelGroup layout="block" class="datosDer">
-		<ul class="list">
-			<li>
-				<h:panelGroup layout="block" class="datone">
-					<h:panelGroup layout="block" class="meter">
-						<h:panelGroup style="width: 10%"></h:panelGroup>
-					</h:panelGroup >
-					<p>Materias cursadas</p>
-					<p>4/59</p>
-				</h:panelGroup>
-			</li>
-			<li>
-				<h:panelGroup layout="block" class="dattwo">
-					<h:panelGroup layout="block" class="meter">
-						<h:panelGroup style="width: 10%"></h:panelGroup>
-					</h:panelGroup >
-					<p>Trimestres cursados</p>
-					<p>1/21</p>
-				</h:panelGroup>
-			</li>
-		</ul>
-	</h:panelGroup >
-<h:panelGroup layout="block" class="container">
-	<h:panelGroup layout="block" class="col-md-3" >
-			<p class="general">ID: #{studentBean.student.ID}</p>
-			<p class="general">Carrera: Ingeniería de Software</p>
-	</h:panelGroup >
-	<h:panelGroup layout="block" class="col-md-4" >
-			<p class="general">Trimestre de ingreso: #{studentBean.student.trimesterEntry} #{studentBean.student.yearEntry}</p>
-			<p class="general">Trimestre en curso: Noviembre-Enero 2016</p>
-	</h:panelGroup >
-</h:panelGroup >
+
+<!-- 	<h:panelGroup layout="block" class="container"> -->
+<!-- 		<h:panelGroup layout="block" class="col-md-3" > -->
+<!-- 				<p class="general">ID: #{studentBean.student.ID}</p> -->
+<!-- 				<p class="general">Carrera: Ingeniería de Software</p> -->
+<!-- 		</h:panelGroup > -->
+<!-- 		<h:panelGroup layout="block" class="col-md-4" > -->
+<!-- 				<p class="general">Trimestre de ingreso: #{studentBean.student.trimesterEntry} #{studentBean.student.yearEntry}</p> -->
+<!-- 				<p class="general">Trimestre en curso: Noviembre-Enero 2016</p> -->
+<!-- 		</h:panelGroup > -->
+<!-- 	</h:panelGroup > -->
+	
+	<h:panelGroup layout="block" id="cards">
+<!-- 		<h:panelGroup layout="block" styleClass="row" id="btm_cards"> -->
+<!-- 			<h:panelGroup layout="block" styleClass="col s12 m2"> -->
+<!-- 				<h:panelGroup layout="block" styleClass="card-panel" id="color_shift"> -->
+<!-- 					<h:panelGroup layout="block" styleClass="card-content white-text"> -->
+<!-- 						<h:panelGroup styleClass="card-title"> -->
+<!-- 							ID: -->
+<!-- 						</h:panelGroup> -->
+<!-- 						<p>#{studentBean.student.ID}</p> -->
+<!-- 					</h:panelGroup> -->
+<!-- 				</h:panelGroup> -->
+<!-- 			</h:panelGroup> -->
+<!-- 		</h:panelGroup> -->
+<!-- 		<h:panelGroup layout="block" styleClass="row" id="btm_cards"> -->
+<!-- 			<h:panelGroup layout="block" styleClass="col s2 m2"> -->
+<!-- 				<h:panelGroup layout="block" styleClass="card-panel" id="color_shift"> -->
+<!-- 					<h:panelGroup layout="block" styleClass="card-content white-text"> -->
+<!-- 						<h:panelGroup styleClass="card-title"> -->
+<!-- 							Carrera: -->
+<!-- 						</h:panelGroup> -->
+<!-- 						<p>Ingeniería de Software</p> -->
+<!-- 					</h:panelGroup> -->
+<!-- 				</h:panelGroup> -->
+<!-- 			</h:panelGroup> -->
+<!-- 		</h:panelGroup> -->
+<!-- 		<h:panelGroup layout="block" styleClass="row" id="btm_cards"> -->
+<!-- 			<h:panelGroup layout="block" styleClass="col s2 m2"> -->
+<!-- 				<h:panelGroup layout="block" styleClass="card-panel" id="color_shift"> -->
+<!-- 					<h:panelGroup layout="block" styleClass="card-content white-text"> -->
+<!-- 						<h:panelGroup styleClass="card-title"> -->
+<!-- 							Trimestre de ingreso: -->
+<!-- 						</h:panelGroup> -->
+<!-- 						<p>#{studentBean.student.trimesterEntry} #{studentBean.student.yearEntry}</p> -->
+<!-- 					</h:panelGroup> -->
+<!-- 				</h:panelGroup> -->
+<!-- 			</h:panelGroup> -->
+<!-- 		</h:panelGroup> -->
+<!-- 		<h:panelGroup layout="block" styleClass="row" id="btm_cards"> -->
+<!-- 			<h:panelGroup layout="block" styleClass="col s2 m2"> -->
+<!-- 				<h:panelGroup layout="block" styleClass="card-panel" id="color_shift"> -->
+<!-- 					<h:panelGroup layout="block" styleClass="card-content white-text"> -->
+<!-- 						<h:panelGroup styleClass="card-title"> -->
+<!-- 							Trimestre en curso: -->
+<!-- 						</h:panelGroup> -->
+<!-- 						<p>Noviembre-Enero 2016</p> -->
+<!-- 					</h:panelGroup> -->
+<!-- 				</h:panelGroup> -->
+<!-- 			</h:panelGroup> -->
+<!-- 		</h:panelGroup> -->
+		
+		<h:panelGroup layout="block" id="logo-div">
+			<h:graphicImage id="img" value="https://openclipart.org/image/2400px/svg_to_png/189657/Double-Cutted-Circle.png" />
+		</h:panelGroup>
+		<h:panelGroup layout="block" id="copy">
+			<p>2017 Copyright</p>
+		</h:panelGroup>
+		<h:panelGroup layout="block" id="intec-logo">
+			<h:graphicImage id="intec" value="http://www.intec.edu.do/images/logos/logo-intec.svg" />
+		</h:panelGroup>
+	</h:panelGroup>
 		
 
 </h:body>
