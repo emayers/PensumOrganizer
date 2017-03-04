@@ -1,7 +1,7 @@
 * {
 	margin: 0;
 	padding: 0;
-	font-family: Nunito;
+	font-family: 'Open Sans';
 	box-sizing: border-box;
 }
 
@@ -9,7 +9,9 @@ body {
 	/*background: #DEDEDE;*/
 	display: flex;
 	min-height: 100vh;
-	background: #CDCDCD;
+	background: #cdcdcd;
+	background-image: url('../Images/login_image1.jpg');
+	background-size: 100%;
 	width: 100%;
 }
 
@@ -18,6 +20,8 @@ form {
 	width: 50%;
 	max-width: 500px;
 	background: #F3F3F3;
+	opacity: 0.8;
+	filter: alpha(opacity=90);
 	padding: 30px;
 	border: 1px solid rgba(0, 0, 0, 0.2);
 }
@@ -25,7 +29,7 @@ form {
 h2 {
 	text-align: center;
 	margin-bottom: 20px;
-	color: rgba(0, 0, 0, 0.5);
+	color: rgba(0, 0, 0, 1.0);
 }
 
 input {
@@ -41,11 +45,11 @@ input:HOVER{
 }
 
 input[type="submit"] {
-	background-color: #EC3E3F;
+	background-color: rgba(236, 62, 63, 0.8);
 	border: 0;
-	color: black;
+	color: rgba(0, 0, 0, 1.0);
 	cursor: pointer;
-	border-radius: 20px;
+	border-radius: 0px;
 	margin-bottom: 0;
 }
 
