@@ -147,14 +147,19 @@ li a:hover:not(#org){
 }
 /*Datos de la derecha*/
 
+#title{
+	position: fixed;
+    left: 45%;
+    top: 11%
+}
 
 /*tabla*/
 #DashPensum{
     background: white;
     height: 423px;
     overflow-y: scroll;
-    margin-top:70px;
-    margin-left:370px;
+    margin-top:117px;
+    margin-left:445px;
     margin-right: 13px;
 }
 table{
@@ -243,6 +248,7 @@ table p{
 	background:#343434;
 	position: fixed;
    	width: 100%;
-   	top: 85%;
+   	top: 89%;
 }
 /*footer*/
+

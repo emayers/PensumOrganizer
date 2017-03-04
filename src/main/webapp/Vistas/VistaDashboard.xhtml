@@ -9,10 +9,12 @@
 
 <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta> -->
 <h:head>
-	<link type="text/css" rel="stylesheet" href="./Style/Dash.css?version=3"></link>
+	<link type="text/css" rel="stylesheet" href="./Style/Dash.css?version=4"></link>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,800,600"></link>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css"></link>
-  	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
+  	
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
 </h:head>
 
 <h:body>
@@ -39,7 +41,7 @@
 	</nav>
 	
 	<h:panelGroup layout="block" id="title">
-		<h3>Ingeniera Software-Pensum Organizado</h3>
+		<h4>Ingeniera Software-Pensum Organizado</h4>
 	</h:panelGroup>
 	<h:panelGroup layout="block" id="DashPensum" >
 		<c:forEach items="#{autoPOBean.trimester}" var="entry">
@@ -103,8 +105,46 @@
 	</h:panelGroup>
 	
 	<h:panelGroup layout="block" id="datosIzq">
+	
+	
+	<h:panelGroup layout="block" id="chart_div"></h:panelGroup>
+<!-- 	<canvas id="mycanvas" width="300" height="300"></canvas> -->
+<canvas id="myChart" width="400" height="400"></canvas>
+<script>
+var ctx = document.getElementById("myChart");
+var myChart = new Chart(ctx, {
+    type: 'polarArea',
+    data: {
+    datasets: [{
+        data: [
+            11,
+            16,
+            7,
+            3,
+            14
+        ],
+        backgroundColor: [
+            "#FF6384",
+            "#4BC0C0",
+            "#FFCE56",
+            "#E7E9ED",
+            "#36A2EB"
+        ],
+        label: 'My dataset' // for legend
+    }],
+    labels: [
+        "Red",
+        "Green",
+        "Yellow",
+        "Grey",
+        "Blue"
+    ]
+}
+});
+</script>
+
 		
-		<h:graphicImage id="chart" value="http://simpleicon.com/wp-content/uploads/pie-chart-11.png" />
+<!-- 		<h:graphicImage id="chart" value="http://simpleicon.com/wp-content/uploads/pie-chart-11.png" /> -->
 <!-- 		<h:panelGroup layout="block" id="circle_pro" styleClass="preloader-wrapper big active determinate"> -->
 <!-- 			<h:panelGroup layout="block" styleClass="spinner-layer"> -->
 <!-- 				<h:panelGroup layout="block" styleClass="circle-clipper left determinate"> -->
@@ -172,7 +212,12 @@
 <!-- 		</h:panelGroup > -->
 <!-- 	</h:panelGroup > -->
 	
-	<h:panelGroup layout="block" id="cards">
+	<footer id="cards" class="page-footer">
+          <h:panelGroup layout="block" class="footer-copyright">
+            <h:panelGroup layout="block" class="container">
+            © 2014 Copyright Text
+            </h:panelGroup>
+          </h:panelGroup>
 <!-- 		<h:panelGroup layout="block" styleClass="row" id="btm_cards"> -->
 <!-- 			<h:panelGroup layout="block" styleClass="col s12 m2"> -->
 <!-- 				<h:panelGroup layout="block" styleClass="card-panel" id="color_shift"> -->
@@ -221,17 +266,20 @@
 <!-- 				</h:panelGroup> -->
 <!-- 			</h:panelGroup> -->
 <!-- 		</h:panelGroup> -->
+
 		
-		<h:panelGroup layout="block" id="logo-div">
-			<h:graphicImage id="img" value="https://openclipart.org/image/2400px/svg_to_png/189657/Double-Cutted-Circle.png" />
-		</h:panelGroup>
-		<h:panelGroup layout="block" id="copy">
-			<p>2017 Copyright</p>
-		</h:panelGroup>
-		<h:panelGroup layout="block" id="intec-logo">
-			<h:graphicImage id="intec" value="http://www.intec.edu.do/images/logos/logo-intec.svg" />
-		</h:panelGroup>
-	</h:panelGroup>
+<!-- 		<h:panelGroup layout="block" id="logo-div"> -->
+<!-- 			<h:graphicImage id="img" value="https://openclipart.org/image/2400px/svg_to_png/189657/Double-Cutted-Circle.png" /> -->
+<!-- 		</h:panelGroup> -->
+
+
+<!-- 		<h:panelGroup layout="block" id="copy"> -->
+<!-- 			<p>2017 Copyright</p> -->
+<!-- 		</h:panelGroup> -->
+<!-- 		<h:panelGroup layout="block" id="intec-logo"> -->
+<!-- 			<h:graphicImage id="intec" value="http://www.intec.edu.do/images/logos/logo-intec.svg" /> -->
+<!-- 		</h:panelGroup> -->
+	</footer>
 		
 
 </h:body>
