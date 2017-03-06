@@ -76,8 +76,8 @@ li a:hover:not(#org){
    display: inline;
    color: black;
    position: absolute;
-   top: 108px;
-   left: 2px;
+   top: 90px;
+   left: 20px;
    font-size: 20px;
    z-index: 0;
 }
