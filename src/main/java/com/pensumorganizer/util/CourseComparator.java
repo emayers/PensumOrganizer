@@ -1,6 +1,8 @@
-package com.pensumorganizer.controller;
+package com.pensumorganizer.util;
 
 import java.util.Comparator;
+
+import com.pensumorganizer.dao.Course;
 
 public class CourseComparator implements Comparator<Course> {
 

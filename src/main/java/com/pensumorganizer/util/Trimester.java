@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.pensumorganizer.controller;
+package com.pensumorganizer.util;
 
 public enum Trimester {
 

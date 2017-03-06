@@ -1,7 +1,9 @@
 /**
  * 
  */
-package com.pensumorganizer.controller;
+package com.pensumorganizer.dao;
+
+import com.pensumorganizer.util.Trimester;
 
 public class Student {
 	private String name, last_name;

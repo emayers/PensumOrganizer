@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+	
+  <h:head>
+  	<link rel="Stylesheet" type="text/css" href="./Style/main.css?version=4"/>
+  	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway"></link>
+  </h:head>
+  
+  <h:body>
+    <h:panelGroup layout="block" id="menu">
+		<ul id="nav-bar">
+			<li><h:link value="Pagina Principal" outcome="VistaDashboard">
+				</h:link></li>
+			<li><h:link value="Ver Historial" outcome="VistaHistorial"></h:link></li>
+			<li><h:link value="Programa de la Carrera" outcome="VistaPrograma">
+				</h:link></li>
+			<li><h:link id="org" value="Reorganizar Pensum" outcome="VistaPOAuto"></h:link></li>
+			<li id="user">
+				<h:link>#{studentBean.student.name} #{studentBean.student.last_name}</h:link>
+				<h:panelGroup layout="block" id="dropdown-content">
+    					<h:link value="Log Out" outcome="VistaLogin"></h:link>
+				</h:panelGroup>
+				<h:panelGroup layout="block" id="dropdown-help">
+    					<h:link value="Help" outcome="EnConstruccion"></h:link>
+				</h:panelGroup>
+			</li>
+		</ul>
+	</h:panelGroup>
+	<h:panelGroup layout="block" id="Pensum_Organizado_auto"  >
+		<c:forEach items="#{autoPOBean.trimester}" var="entry">
+			<c:set var="tricuant" value="#{tricuant}"></c:set>
+			<h:dataTable id="Tabla-P-O" value="#{entry.value}" var="list">
+					<c:set var="tricuant" value="#{tricuant + 1}"></c:set>
+					<f:facet name="header">
+						<p>Trimestre #{tricuant}</p> 
+					</f:facet>
+				<h:column>
+					<f:facet name="header">
+						Clave
+					</f:facet>
+					#{list.id}
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						Asignatura
+					</f:facet>
+					#{list.name}
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						Creditos
+					</f:facet>
+					#{list.credits}
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						Pre-Requisito
+					</f:facet>
+						<h:outputText rendered="${fn:length(list.preqID) == '0'}" value="-" />
+						<h:outputText rendered="${fn:length(list.preqID) != '0'}" value="#{list.preqID}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						Co-Requisito
+					</f:facet>
+						<h:outputText rendered="${fn:length(list.coReqID) == '0'}" value="-" />
+						<h:outputText rendered="${fn:length(list.coReqID) != '0'}" value="#{list.preqID}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						Creditos Requeridos
+					</f:facet>
+					<h:outputText rendered="#{list.creditsReq != '0'}" value="#{list.creditsReq}" />
+					<h:outputText rendered="#{list.creditsReq == '0'}" value="-" />
+				</h:column>
+					<f:facet name="footer">
+						<p>
+							Total de creditos:
+							<c:forEach items="#{entry.value}" var="ls">
+								<c:set var="crdtotal" value="#{crdtotal + ls.credits}"></c:set>	
+							</c:forEach>
+							#{crdtotal}
+							<c:set var="crdtotal" value="0"></c:set>
+						</p>
+					</f:facet>
+			</h:dataTable>	
+		</c:forEach>
+	</h:panelGroup>
+	<h:panelGroup layout="block" id="Information_and_bottons">
+		<h:panelGroup layout="block" id="Bottons">
+			<h:panelGroup layout="block" id="Editar"><h:link value="Editar" outcome="VistaPOManual"></h:link></h:panelGroup>
+			<h:panelGroup layout="block" id="Guardar"><h:link  value="Guardar" outcome="EnConstruccion"></h:link></h:panelGroup>
+			<h:panelGroup layout="block" id="Information">
+				<h:panelGroup layout="block" id="Duracion-P">
+					<p>Duracion del Pensum:</p>
+					<p>#{tricuant} Trimestre</p>
+				</h:panelGroup>
+				<h:panelGroup layout="block" id="Tiempo-R">
+					<p>Permanencia:</p>
+					<p>61 Meses / 21 Trimestres</p>
+				</h:panelGroup>
+         	</h:panelGroup>
+			<h:panelGroup layout="block" id="Descargar"><h:link value="Descargar" outcome="EnConstruccion"></h:link></h:panelGroup>
+         	<h:panelGroup layout="block" id="Cancelar"><h:link value="Cancelar" outcome="VistaDashboard"></h:link></h:panelGroup>
+		</h:panelGroup>
+	</h:panelGroup>
+  </h:body>
+</html>

@@ -1,4 +1,4 @@
-package com.pensumorganizer.controller;
+package com.pensumorganizer.dao;
 
 import java.util.List;
 
@@ -6,7 +6,8 @@ public class Course {
 	private String name, id;
 	private List<String> preqID, coReqID;
 	private boolean preqTaken, taken, coReqTaken, creditsReqReached;
-	private int creditsReq, credits, idealTrimestrer, weight, trimesterTaken;
+	private int creditsReq, credits, idealTrimestrer, weight;
+	private Integer trimesterTaken;
 	
 	public Course(){
 		super();
@@ -108,11 +109,11 @@ public class Course {
 		this.weight = weight;
 	}
 
-	public int getTrimesterTaken() {
+	public Integer getTrimesterTaken() {
 		return trimesterTaken;
 	}
 
-	public void setTrimesterTaken(int trimesterTaken) {
+	public void setTrimesterTaken(Integer trimesterTaken) {
 		this.trimesterTaken = trimesterTaken;
 	}
 }

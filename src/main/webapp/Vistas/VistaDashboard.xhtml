@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	 xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+<h:head>
+	<link type="text/css" rel="stylesheet" href="./Style/Dash.css?version=5.1"></link>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,800,600"></link>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css"></link>
+  	
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+</h:head>
+
+<h:body>
+	<nav id="nav-menu">
+		<h:panelGroup layout="block" id="menu" styleClass="nav-wrapper">
+			<ul id="nav-bar">
+				<li><h:link id="org" value="Página Principal">
+					</h:link></li>
+				<li><h:link value="Ver Historial" outcome="VistaHistorial"></h:link></li>
+				<li><h:link value="Programa de la Carrera" outcome="VistaPrograma">
+					</h:link></li>
+				<li><h:link value="Reorganizar Pensum" outcome="VistaPOAuto"></h:link></li>
+				<li id="user">
+					<h:link>#{studentBean.student.name} #{studentBean.student.last_name}</h:link>
+					<h:panelGroup layout="block" id="dropdown-content">
+	    					<h:link value="Log Out" outcome="VistaLogin"></h:link>
+					</h:panelGroup>
+					<h:panelGroup layout="block" id="dropdown-help">
+	    					<h:link value="Help" outcome="EnConstruccion"></h:link>
+					</h:panelGroup>
+				</li>
+			</ul>
+		</h:panelGroup>
+	</nav>
+	
+	<h:panelGroup layout="block" id="DashPensum" >
+		<c:forEach items="#{autoPOBean.trimester}" var="entry">
+			<c:set var="tricuant" value="#{tricuant}"></c:set>
+			<h:dataTable id="Tabla-P-O" styleClass="highlight centered bordered" value="#{entry.value}" var="list">
+					<c:set var="tricuant" value="#{tricuant + 1}"></c:set>
+					<f:facet name="header">
+						<p id="table_head">Trimestre #{tricuant}</p> 
+					</f:facet>
+				<h:column>
+					<f:facet name="header">
+						Clave
+					</f:facet>
+					#{list.id}
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						Asignatura
+					</f:facet>
+					#{list.name}
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						Créditos
+					</f:facet>
+					#{list.credits}
+					<f:facet name="footer">
+						<c:forEach items="#{entry.value}" var="ls">
+							<c:set var="crdtotal" value="#{crdtotal + ls.credits}"></c:set>	
+						</c:forEach>
+							<p>#{crdtotal}</p>
+						<c:set var="crdtotal" value="0"></c:set>
+					</f:facet>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						Pre-Requisito
+					</f:facet>
+						<h:outputText rendered="${fn:length(list.preqID) == '0'}" value="-" />
+						<h:outputText rendered="${fn:length(list.preqID) != '0'}" value="#{list.preqID}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						Co-Requisito
+					</f:facet>
+						<h:outputText rendered="${fn:length(list.coReqID) == '0'}" value="-" />
+						<h:outputText rendered="${fn:length(list.coReqID) != '0'}" value="#{list.preqID}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						Créditos Requeridos
+					</f:facet>
+					<h:outputText rendered="#{list.creditsReq != '0'}" value="#{list.creditsReq}" />
+					<h:outputText rendered="#{list.creditsReq == '0'}" value="-" />
+				</h:column>
+			</h:dataTable>	
+		</c:forEach>
+	</h:panelGroup>
+	
+	<h:panelGroup layout="block" id="datosIzq">
+		<h:panelGroup layout="block" id="chart_div"></h:panelGroup>
+			<canvas id="myChart" width="400" height="450"></canvas>
+				<script>
+					var ctx = document.getElementById("myChart");
+					var myChart = new Chart(ctx, {
+					    type: 'polarArea',
+					    data: {
+						    datasets: [{
+						        data: [
+						            (36 * 20) / 56,
+						            (11 * 20) / 14,
+						            (187 * 20) / 248,
+						            (3.40 * 20) / 4.00
+						        ],
+						        backgroundColor: [
+						            "#72af47",
+						            "#343434",
+						            "#BD3630",
+						            "#797979"
+						        ],
+						        label: 'Datos Institucionales'
+						    }],
+						    labels: [
+						        "Asignaturas Aprobadas",
+						        "Trimestres Cursados",
+						        "Créditos Aprobados",
+						        "Índice General"      
+						    ]
+						},
+						options:{
+						    scale: {
+						        scaleShowLine:false,
+						        display:false,
+						    },
+						    legend: {
+					            display: true,
+					            labels: {
+					                padding: 20
+					            }
+					        },
+					        tooltips: {
+						        callbacks: {
+							        label: function(tooltipItem, data) {
+								        var dataset = data.datasets[tooltipItem.datasetIndex];
+								        
+								        var total = dataset.data.reduce(function() {
+									        var currentValue;
+									        
+									        switch(tooltipItem.index){
+	
+									        case 0:
+										        currentValue = dataset.data[tooltipItem.index];
+										        return (currentValue * 56) / 20;
+										        
+									        case 1:
+										        currentValue = dataset.data[tooltipItem.index];
+										        return (currentValue * 14) / 20;
+	
+									        case 2:
+										        currentValue = dataset.data[tooltipItem.index];
+										        return (currentValue * 248) / 20;
+	
+									         case 3:
+										         currentValue = dataset.data[tooltipItem.index];
+										         return (currentValue * 4) / 20;
+	
+									         default:
+										          return 0;
+								          	}
+							          	});
+	
+							          	return total;
+						          	}
+			          			}
+		          			}
+						}
+					});
+				</script>
+	</h:panelGroup>
+	
+	<footer id="footer" class="page-footer">
+       <h:panelGroup id="copyright" layout="block" class="footer-copyright">
+         <h:panelGroup layout="block" class="container">
+         © 2017 Copyright Text
+         </h:panelGroup>
+       </h:panelGroup>
+		
+		<h:panelGroup layout="block" id="logo-div">
+			<h:graphicImage id="logo" value="/Vistas/Images/Logo.png" />
+		</h:panelGroup>
+
+		<h:panelGroup layout="block" id="intec-logo">
+			<h:graphicImage id="intec" value="http://www.intec.edu.do/images/logos/logo-intec.svg" />
+		</h:panelGroup>
+	</footer>
+		
+</h:body>
+</html>
