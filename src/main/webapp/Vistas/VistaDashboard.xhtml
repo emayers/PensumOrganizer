@@ -9,7 +9,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
 <h:head>
-	<link type="text/css" rel="stylesheet" href="./Style/Dash.css?version=5"></link>
+	<link type="text/css" rel="stylesheet" href="./Style/Dash.css?version=5.1"></link>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,800,600"></link>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css"></link>
   	
@@ -21,7 +21,7 @@
 	<nav id="nav-menu">
 		<h:panelGroup layout="block" id="menu" styleClass="nav-wrapper">
 			<ul id="nav-bar">
-				<li><h:link id="org" value="Pagina Principal">
+				<li><h:link id="org" value="Página Principal">
 					</h:link></li>
 				<li><h:link value="Ver Historial" outcome="VistaHistorial"></h:link></li>
 				<li><h:link value="Programa de la Carrera" outcome="VistaPrograma">
@@ -62,7 +62,7 @@
 				</h:column>
 				<h:column>
 					<f:facet name="header">
-						Creditos
+						Créditos
 					</f:facet>
 					#{list.credits}
 					<f:facet name="footer">
@@ -89,7 +89,7 @@
 				</h:column>
 				<h:column>
 					<f:facet name="header">
-						Creditos Requeridos
+						Créditos Requeridos
 					</f:facet>
 					<h:outputText rendered="#{list.creditsReq != '0'}" value="#{list.creditsReq}" />
 					<h:outputText rendered="#{list.creditsReq == '0'}" value="-" />
@@ -100,49 +100,81 @@
 	
 	<h:panelGroup layout="block" id="datosIzq">
 		<h:panelGroup layout="block" id="chart_div"></h:panelGroup>
-			<canvas id="myChart" width="400" height="400"></canvas>
+			<canvas id="myChart" width="400" height="450"></canvas>
 				<script>
 					var ctx = document.getElementById("myChart");
 					var myChart = new Chart(ctx, {
 					    type: 'polarArea',
 					    data: {
-					    datasets: [{
-					        data: [
-					            248/10,
-					            25,
-					            15,
-					            21
-					        ],
-					        backgroundColor: [
-					            "#72af47",
-					            "#343434",
-					            "#BD3630",
-					            "#797979"
-					        ],
-					        label: 'Datos Institucionales' // for legend
-					    }],
-					    labels: [
-					        "Asignaturas Aprobadas",
-					        "Indice",
-					        "Trimestres Cursados",
-					        "Creditos Aprobados"
-					    ]
-					},
-					options:{
-					    scale: {
-					        scaleShowLine:false,
-					        display:false,
-					    },
-// 					    tooltips: {
-// 					    	 callbacks: {
-// 						    	 label: function(tooltips, data){
-// 							    			var dataset = data.datasets[tooltips.datasetIndex];
-// 							    			var value = dataset.data.reduce(function(previousValue, currentValue))	 
-// 							     		}
-// 					    	 } 
-// 						}
-					
-					},
+						    datasets: [{
+						        data: [
+						            (36 * 20) / 56,
+						            (11 * 20) / 14,
+						            (187 * 20) / 248,
+						            (3.40 * 20) / 4.00
+						        ],
+						        backgroundColor: [
+						            "#72af47",
+						            "#343434",
+						            "#BD3630",
+						            "#797979"
+						        ],
+						        label: 'Datos Institucionales'
+						    }],
+						    labels: [
+						        "Asignaturas Aprobadas",
+						        "Trimestres Cursados",
+						        "Créditos Aprobados",
+						        "Índice General"      
+						    ]
+						},
+						options:{
+						    scale: {
+						        scaleShowLine:false,
+						        display:false,
+						    },
+						    legend: {
+					            display: true,
+					            labels: {
+					                padding: 20
+					            }
+					        },
+					        tooltips: {
+						        callbacks: {
+							        label: function(tooltipItem, data) {
+								        var dataset = data.datasets[tooltipItem.datasetIndex];
+								        
+								        var total = dataset.data.reduce(function() {
+									        var currentValue;
+									        
+									        switch(tooltipItem.index){
+	
+									        case 0:
+										        currentValue = dataset.data[tooltipItem.index];
+										        return (currentValue * 56) / 20;
+										        
+									        case 1:
+										        currentValue = dataset.data[tooltipItem.index];
+										        return (currentValue * 14) / 20;
+	
+									        case 2:
+										        currentValue = dataset.data[tooltipItem.index];
+										        return (currentValue * 248) / 20;
+	
+									         case 3:
+										         currentValue = dataset.data[tooltipItem.index];
+										         return (currentValue * 4) / 20;
+	
+									         default:
+										          return 0;
+								          	}
+							          	});
+	
+							          	return total;
+						          	}
+			          			}
+		          			}
+						}
 					});
 				</script>
 	</h:panelGroup>
