@@ -1,15 +1,20 @@
 @CHARSET "ISO-8859-1";
 body{
 	height: 100%;
+	display: flex;
+    min-height: 100vh;
+    flex-direction: column;
 }
-
+main {
+    flex: 1 0 auto;
+}
 /*barra de navegacion - start*/
-#nav-menu{
+#navigationMenuTag{
 	position: fixed;
 	height:53px;
     top:-11px;
 }
-#nav-bar{
+#navigationBar{
     list-style-type: none;
     margin: 0;
     padding: 0px;
@@ -17,7 +22,7 @@ body{
     overflow: hidden;
     height: 53px;
 }
-#dropdown-content, #dropdown-help{
+.dropdownClass{
     display: none;
     position: absolute;
     top:100%;
@@ -26,16 +31,13 @@ body{
     min-width: 180px;
     right: 0px;
 }
-#dropdown-help{
-	margin-top: 60px;
-}
-#dropdown-content a, #dropdown-help a {
+#dropdownContent a{
     color: white;
     text-align: left;
     text-decoration: none;
     display: block;
 }
-#dropdown-content a:hover,  #dropdown-help a:HOVER{
+#dropdownContent a:hover{
     background-color: #EC3E3F;
     z-index: 100;
 }
@@ -49,33 +51,32 @@ li a{
     padding:15px;
     text-decoration: none;
 }
-li a:hover:not(#org){
+li a:hover:not(#currentPageMarker){
     background-color: #EC3E3F;
     transition: all 0.3s;
-}
-#user:hover #dropdown-content {
-    display: block;
-    z-index: 100;
-}
-#user:hover #dropdown-help {
-    display: block;
-    z-index: 100;
 }
 #user{
     float: right;
 }
-#org{
+#currentPageMarker{
     background-color: #EC3E3F;
+}
+.show {
+    display: block;
+}
+.dropBtn{
+	outline: none;
+	cursor: pointer;
 }
 /*barra de navegacion - end*/
 
 
 
 /*Datos izquierda*/
-#datosIzq{
+#leftSideOfTheScreenData{
    display: inline;
    color: black;
-   position: absolute;
+   position: fixed;
    top: 90px;
    left: 20px;
    font-size: 20px;
@@ -83,24 +84,9 @@ li a:hover:not(#org){
 }
 
 /*titulo*/
-#title{
-	background: #EC3E3F;
-	position: fixed;
-	color: white;
-    left: 42%;
-    top: 9%
-}
-#title_1{
-	position: relative;
-	margin-left:40px;
-	right: 4%;
-}
-#title_2{
-	margin-top: 0px;
-}
 
 /*tabla*/
-#DashPensum{
+#containerOfPensumTable{
     background: white;
     height: 540px;
     overflow-y: scroll;
@@ -112,7 +98,7 @@ table{
     margin-bottom: -50px;
     width:100%;
 }
-#table_head{
+#tableHead{
 	color: white;
 	background: #EC3E3F;
 }
@@ -128,10 +114,6 @@ tfoot td p{
     left: 40%;
     margin-top: 0px;
 }
-#table_head{
-	color: white;
-	background: #EC3E3F;
-}
 
 /*footer*/
 #footer{
@@ -144,17 +126,18 @@ tfoot td p{
 }
 
 #intec{
-	width: 85%;
+	width: 85px;
+	margin-left: 1250px;
 }
-#intec-logo{
+#intecLogo{
 	position: fixed;
+    width: 180%;
     top: 94%;
-    left: 93%
 }
 #logo{
 	width: 198px;
 }
-#logo-div{
+#logoDiv{
 	position: fixed;
     left: 2%;
     top: 94%;
@@ -163,5 +146,7 @@ tfoot td p{
 	position: fixed;
     width: 180%;
     top: 93%;
-	
+}
+#copyrightContainer{
+	margin-left: 630px;
 }
