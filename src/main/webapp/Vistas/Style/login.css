@@ -103,6 +103,8 @@ input[type="submit"]: active {
 #copyright{
 	position: fixed;
     width: 180%;
+    color:white;
+    margin-top:1%;
     top: 93%;
 }
 #copyrightContainer{
