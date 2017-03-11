@@ -7,7 +7,7 @@
 
 <h:head>
 	<!-- GOOGLE FONTS -->
-	<link rel="stylesheet" type="text/css" href="./Style/login.css?version=2" />
+	<link rel="stylesheet" type="text/css" href="./Style/login.css?version=4" />
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,800,600" />
 <!-- href="https://fonts.googleapis.com/css?family=Nunito" -->
 
@@ -29,5 +29,21 @@
 		<h:commandButton action="VistaDashboard"  value="Iniciar Sesion" />
 	</h:form>
 
+	<footer id="footer" class="page-footer">
+       <h:panelGroup id="copyright" layout="block" class="footer-copyright">
+         <h:panelGroup layout="block" id="copyrightContainer">
+         © 2017 Copyright Text
+         </h:panelGroup>
+       </h:panelGroup>
+		
+		<h:panelGroup layout="block" id="logoDiv">
+			<h:graphicImage id="logo" value="/Vistas/Images/Logo.png" />
+		</h:panelGroup>
+
+		<h:panelGroup layout="block" id="intecLogo">
+			<h:graphicImage id="intec" value="/Vistas/Images/Logo-intec.png" />
+		</h:panelGroup>
+	</footer>
+	
 </h:body>
 </html>

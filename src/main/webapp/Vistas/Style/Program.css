@@ -1,10 +1,12 @@
-/*Background*/
+@CHARSET "ISO-8859-1";
 body{
 	height: 100%;
 	display: flex;
     min-height: 100vh;
-    background: white;
-    flex-direction: column; 
+    flex-direction: column;
+}
+main {
+    flex: 1 0 auto;
 }
 /*barra de navegacion - start*/
 #navigationMenuTag{
@@ -68,17 +70,27 @@ li a:hover:not(#currentPageMarker){
 }
 /*barra de navegacion - end*/
 
-#title{
-	text-align: center;
-    margin-top: 80px;
-    margin-bottom: 0px;
+
+
+/*Datos izquierda*/
+#leftSideOfTheScreenData{
+   display: inline;
+   color: black;
+   position: fixed;
+   top: 90px;
+   left: 20px;
+   font-size: 20px;
+   z-index: 0;
 }
-/*tabla con hisotrial organizado - start*/
-#cointainerOfHistoric{
+
+/*titulo*/
+
+/*tabla*/
+#containerOfPensumTable{
     background: white;
-    height: 470px;
+    height: 540px;
     overflow-y: scroll;
-    margin-top:10px;
+    margin-top:50px;
     margin-left:145px;
     margin-right: 105px;
 }
@@ -90,12 +102,6 @@ table{
 	color: white;
 	background: #EC3E3F;
 }
-
-#indiceTrimestratTitle{
-	text-align: right;
-	margin-top: 0px;
-    margin-bottom: 0px;
-}
 th,td{
     text-align: center;
     border-bottom: solid;
@@ -105,11 +111,10 @@ tfoot td p{
 	font-weight: bold;
 	width: 10px;
     position: relative;
+    bottom: 30px;
     left: 40%;
-    margin-top: 0px;
-    color: black;
+    margin-top: 25px;
 }
-/*tabla con pensum organizado - end*/
 
 /*footer*/
 #footer{

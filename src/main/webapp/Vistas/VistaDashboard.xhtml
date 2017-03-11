@@ -14,25 +14,26 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css"></link>
   	
   	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+  	<script type="text/javascript" src="Scripts/DropdownList.js"></script>
 
 </h:head>
 
 <h:body>
-	<nav id="nav-menu">
+	<nav id="navigationMenuTag">
 		<h:panelGroup layout="block" id="menu" styleClass="nav-wrapper">
-			<ul id="nav-bar">
-				<li><h:link id="org" value="Página Principal">
+			<ul id="navigationBar">
+				<li><h:link id="currentPageMarker" value="Página Principal">
 					</h:link></li>
 				<li><h:link value="Ver Historial" outcome="VistaHistorial"></h:link></li>
 				<li><h:link value="Programa de la Carrera" outcome="VistaPrograma">
 					</h:link></li>
 				<li><h:link value="Reorganizar Pensum" outcome="VistaPOAuto"></h:link></li>
 				<li id="user">
-					<h:link>#{studentBean.student.name} #{studentBean.student.last_name}</h:link>
-					<h:panelGroup layout="block" id="dropdown-content">
+					<a class="dropdownTrigger"  onclick="dropList()" href="#">
+						#{studentBean.student.name} #{studentBean.student.last_name}
+					</a>
+					<h:panelGroup layout="block" id="dropdownContent" class="dropdownClass">
 	    					<h:link value="Log Out" outcome="VistaLogin"></h:link>
-					</h:panelGroup>
-					<h:panelGroup layout="block" id="dropdown-help">
 	    					<h:link value="Help" outcome="EnConstruccion"></h:link>
 					</h:panelGroup>
 				</li>
@@ -40,13 +41,13 @@
 		</h:panelGroup>
 	</nav>
 	
-	<h:panelGroup layout="block" id="DashPensum" >
+	<h:panelGroup layout="block" id="containerOfPensumTable" >
 		<c:forEach items="#{autoPOBean.trimester}" var="entry">
-			<c:set var="tricuant" value="#{tricuant}"></c:set>
-			<h:dataTable id="Tabla-P-O" styleClass="highlight centered bordered" value="#{entry.value}" var="list">
-					<c:set var="tricuant" value="#{tricuant + 1}"></c:set>
+			<c:set var="trimesterCuantity" value="#{trimesterCuantity}"></c:set>
+			<h:dataTable styleClass="highlight centered bordered" value="#{entry.value}" var="list">
+					<c:set var="trimesterCuantity" value="#{trimesterCuantity + 1}"></c:set>
 					<f:facet name="header">
-						<p id="table_head">Trimestre #{tricuant}</p> 
+						<p id="tableHead">Trimestre #{trimesterCuantity}</p> 
 					</f:facet>
 				<h:column>
 					<f:facet name="header">
@@ -67,10 +68,10 @@
 					#{list.credits}
 					<f:facet name="footer">
 						<c:forEach items="#{entry.value}" var="ls">
-							<c:set var="crdtotal" value="#{crdtotal + ls.credits}"></c:set>	
+							<c:set var="crdTotal" value="#{crdTotal + ls.credits}"></c:set>	
 						</c:forEach>
-							<p>#{crdtotal}</p>
-						<c:set var="crdtotal" value="0"></c:set>
+							<p>#{crdTotal}</p>
+						<c:set var="crdTotal" value="0"></c:set>
 					</f:facet>
 				</h:column>
 				<h:column>
@@ -98,26 +99,26 @@
 		</c:forEach>
 	</h:panelGroup>
 	
-	<h:panelGroup layout="block" id="datosIzq">
-		<h:panelGroup layout="block" id="chart_div"></h:panelGroup>
-			<canvas id="myChart" width="400" height="450"></canvas>
+	<h:panelGroup layout="block" id="leftSideOfTheScreenData">
+		<h:panelGroup layout="block" id="chartContainer"></h:panelGroup>
+			<canvas id="dashboardChart" width="400" height="450"></canvas>
 				<script>
-					var ctx = document.getElementById("myChart");
+					var ctx = document.getElementById("dashboardChart");
 					var myChart = new Chart(ctx, {
 					    type: 'polarArea',
 					    data: {
 						    datasets: [{
 						        data: [
-						            (36 * 20) / 56,
-						            (11 * 20) / 14,
-						            (187 * 20) / 248,
-						            (3.40 * 20) / 4.00
+						            (5 * 20) / 56,
+						            (1 * 20) / 14,
+						            (20 * 20) / 248,
+// 						            (4.00 * 20) / 4.00
 						        ],
 						        backgroundColor: [
 						            "#72af47",
 						            "#343434",
 						            "#BD3630",
-						            "#797979"
+// 						            "#797979"
 						        ],
 						        label: 'Datos Institucionales'
 						    }],
@@ -125,7 +126,7 @@
 						        "Asignaturas Aprobadas",
 						        "Trimestres Cursados",
 						        "Créditos Aprobados",
-						        "Índice General"      
+// 						        "Índice General"      
 						    ]
 						},
 						options:{
@@ -181,17 +182,17 @@
 	
 	<footer id="footer" class="page-footer">
        <h:panelGroup id="copyright" layout="block" class="footer-copyright">
-         <h:panelGroup layout="block" class="container">
+         <h:panelGroup layout="block" id="copyrightContainer">
          © 2017 Copyright Text
          </h:panelGroup>
        </h:panelGroup>
 		
-		<h:panelGroup layout="block" id="logo-div">
+		<h:panelGroup layout="block" id="logoDiv">
 			<h:graphicImage id="logo" value="/Vistas/Images/Logo.png" />
 		</h:panelGroup>
 
-		<h:panelGroup layout="block" id="intec-logo">
-			<h:graphicImage id="intec" value="http://www.intec.edu.do/images/logos/logo-intec.svg" />
+		<h:panelGroup layout="block" id="intecLogo">
+			<h:graphicImage id="intec" value="/Vistas/Images/Logo-intec.png" />
 		</h:panelGroup>
 	</footer>
 		

@@ -72,3 +72,41 @@ input[type="submit"]: active {
 		width: 95%;
 	}
 }
+
+/*footer*/
+#footer{
+	padding-top: 50px;
+	margin-top:30px;
+	background:#343434;
+	position: fixed;
+   	width: 100%;
+   	top: 89%;
+}
+
+#intec{
+	width: 85px;
+	margin-left: 1250px;
+}
+#intecLogo{
+	position: fixed;
+    width: 180%;
+    top: 94%;
+}
+#logo{
+	width: 198px;
+}
+#logoDiv{
+	position: fixed;
+    left: 2%;
+    top: 94%;
+}
+#copyright{
+	position: fixed;
+    width: 180%;
+    color:white;
+    margin-top:1%;
+    top: 93%;
+}
+#copyrightContainer{
+	margin-left: 630px;
+}
