@@ -7,37 +7,44 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 	
   <h:head>
-  	<link rel="Stylesheet" type="text/css" href="./Style/main.css?version=4"/>
-  	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway"></link>
+  	<link rel="Stylesheet" type="text/css" href="./Style/Program.css?verison=1"/>
+  	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,800,600"></link>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css"></link>
+  	
+  	
+  	<script type="text/javascript" src="Scripts/DropdownList.js"></script>
   </h:head>
   
   <h:body>
-    <h:panelGroup layout="block" id="menu">
-		<ul id="nav-bar">
-			<li><h:link value="Pagina Principal">
-				</h:link></li>
-			<li><h:link value="Ver Historial" outcome="VistaHistorial"></h:link></li>
-			<li><h:link id="org" value="Programa de la Carrera" outcome="VistaPrograma">
-				</h:link></li>
-			<li><h:link value="Reorganizar Pensum" outcome="VistaPOAuto"></h:link></li>
-			<li id="user">
-				<h:link>#{studentBean.student.name} #{studentBean.student.last_name}</h:link>
-				<h:panelGroup layout="block" id="dropdown-content">
-    					<h:link value="Log Out" outcome="VistaLogin"></h:link>
-				</h:panelGroup>
-				<h:panelGroup layout="block" id="dropdown-help">
-    					<h:link value="Help" outcome="EnConstruccion"></h:link>
-				</h:panelGroup>
-			</li>
-		</ul>
-	</h:panelGroup>
-	<h:panelGroup layout="block" id="Pensum_Organizado_auto"  >
+    <nav id="navigationMenuTag">
+		<h:panelGroup layout="block" id="menu" styleClass="nav-wrapper">
+			<ul id="navigationBar">
+				<li><h:link value="Página Principal" outcome="VistaDashboard">
+					</h:link></li>
+				<li><h:link value="Ver Historial" outcome="VistaHistorial"></h:link></li>
+				<li><h:link id="currentPageMarker" value="Programa de la Carrera">
+					</h:link></li>
+				<li><h:link value="Reorganizar Pensum" outcome="VistaPOAuto"></h:link></li>
+				<li id="user">
+					<a class="dropdownTrigger"  onclick="dropList()" href="#">
+						#{studentBean.student.name} #{studentBean.student.last_name}
+					</a>
+					<h:panelGroup layout="block" id="dropdownContent" class="dropdownClass">
+	    					<h:link value="Log Out" outcome="VistaLogin"></h:link>
+	    					<h:link value="Help" outcome="EnConstruccion"></h:link>
+					</h:panelGroup>
+				</li>
+			</ul>
+		</h:panelGroup>
+	</nav>
+<!-- 	 -->
+		<h:panelGroup layout="block" id="containerOfPensumTable" >
 		<c:forEach items="#{dataBean.trimester}" var="entry">
-			<c:set var="tricuant" value="#{tricuant}"></c:set>
-			<h:dataTable id="Tabla-P-O" value="#{entry.value}" var="list">
-					<c:set var="tricuant" value="#{tricuant + 1}"></c:set>
+			<c:set var="trimesterCuantity" value="#{trimesterCuantity}"></c:set>
+			<h:dataTable styleClass="highlight centered bordered" value="#{entry.value}" var="list">
+					<c:set var="trimesterCuantity" value="#{trimesterCuantity + 1}"></c:set>
 					<f:facet name="header">
-						<p>Trimestre #{tricuant}</p> 
+						<p id="tableHead">Trimestre #{trimesterCuantity}</p> 
 					</f:facet>
 				<h:column>
 					<f:facet name="header">
@@ -53,9 +60,16 @@
 				</h:column>
 				<h:column>
 					<f:facet name="header">
-						Creditos
+						Créditos
 					</f:facet>
 					#{list.credits}
+					<f:facet name="footer">
+						<c:forEach items="#{entry.value}" var="ls">
+							<c:set var="crdTotal" value="#{crdTotal + ls.credits}"></c:set>	
+						</c:forEach>
+							<p>#{crdTotal}</p>
+						<c:set var="crdTotal" value="0"></c:set>
+					</f:facet>
 				</h:column>
 				<h:column>
 					<f:facet name="header">
@@ -73,23 +87,29 @@
 				</h:column>
 				<h:column>
 					<f:facet name="header">
-						Creditos Requeridos
+						Créditos Requeridos
 					</f:facet>
 					<h:outputText rendered="#{list.creditsReq != '0'}" value="#{list.creditsReq}" />
 					<h:outputText rendered="#{list.creditsReq == '0'}" value="-" />
 				</h:column>
-					<f:facet name="footer">
-						<p>
-							Total de creditos:
-							<c:forEach items="#{entry.value}" var="ls">
-								<c:set var="crdtotal" value="#{crdtotal + ls.credits}"></c:set>	
-							</c:forEach>
-							#{crdtotal}
-							<c:set var="crdtotal" value="0"></c:set>
-						</p>
-					</f:facet>
 			</h:dataTable>	
 		</c:forEach>
 	</h:panelGroup>
-  </h:body>
+	
+	<footer id="footer" class="page-footer">
+       <h:panelGroup id="copyright" layout="block" class="footer-copyright">
+         <h:panelGroup layout="block" id="copyrightContainer">
+         © 2017 Copyright Text
+         </h:panelGroup>
+       </h:panelGroup>
+		
+		<h:panelGroup layout="block" id="logoDiv">
+			<h:graphicImage id="logo" value="/Vistas/Images/Logo.png" />
+		</h:panelGroup>
+
+		<h:panelGroup layout="block" id="intecLogo">
+			<h:graphicImage id="intec" value="/Vistas/Images/Logo-intec.png" />
+		</h:panelGroup>
+	</footer>
+</h:body>
 </html>
