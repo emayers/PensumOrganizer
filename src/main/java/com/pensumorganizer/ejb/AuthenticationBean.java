@@ -1,5 +1,8 @@
 package com.pensumorganizer.ejb;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
@@ -7,12 +10,26 @@ import javax.faces.bean.RequestScoped;
 @RequestScoped
 public class AuthenticationBean {
 	private Integer userName;
-	private List<Integer> validUserNames = {1057100, 1057512, 1056025, 1045782};
+	private static Map<Integer, Integer> validUserNames = new HashMap<Integer, Integer>();
     private Integer password;
     private String outPut;
 
-    public void submit() {
-    	if(validUserNames.)
+    public String submit() {
+    	validUserNames.put(1057100, 111111);
+    	validUserNames.put(1057512, 222222);
+    	validUserNames.put(1056025, 333333);
+    	validUserNames.put(1045782, 444444);
+    	validUserNames.put(1058691, 555555);
+    	
+    	if(!(validUserNames.containsKey(userName) && 
+    			validUserNames.get(userName).equals(password))){
+    		outPut = "Error";
+    	}
+    	else{
+    		outPut = "VistaDashboard";
+    	}
+    	
+    	return outPut;
     }
 
 	public Integer getUserName() {
