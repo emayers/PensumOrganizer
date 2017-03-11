@@ -1,0 +1,153 @@
+@CHARSET "ISO-8859-1";
+body{
+	height: 100%;
+	display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+main {
+    flex: 1 0 auto;
+}
+/*barra de navegacion - start*/
+#navigationMenuTag{
+	position: fixed;
+	height:53px;
+    top:-11px;
+}
+#navigationBar{
+    list-style-type: none;
+    margin: 0;
+    padding: 0px;
+    background: #343434;
+    overflow: hidden;
+    height: 53px;
+}
+.dropdownClass{
+    display: none;
+    position: absolute;
+    top:100%;
+    background-color: #343434;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    min-width: 180px;
+    right: 0px;
+}
+#dropdownContent a{
+    color: white;
+    text-align: left;
+    text-decoration: none;
+    display: block;
+}
+#dropdownContent a:hover{
+    background-color: #EC3E3F;
+    z-index: 100;
+}
+#menu li:not(#user){
+    float: left;
+}
+li a{
+    display: block;
+    color: white;
+    text-align: center;
+    padding:15px;
+    text-decoration: none;
+}
+li a:hover:not(#currentPageMarker){
+    background-color: #EC3E3F;
+    transition: all 0.3s;
+}
+#user{
+    float: right;
+}
+#currentPageMarker{
+    background-color: #EC3E3F;
+}
+.show {
+    display: block;
+}
+.dropBtn{
+	outline: none;
+	cursor: pointer;
+}
+/*barra de navegacion - end*/
+
+
+
+/*Datos izquierda*/
+#leftSideOfTheScreenData{
+   display: inline;
+   color: black;
+   position: fixed;
+   top: 90px;
+   left: 20px;
+   font-size: 20px;
+   z-index: 0;
+}
+
+/*titulo*/
+
+/*tabla*/
+#containerOfPensumTable{
+    background: white;
+    height: 540px;
+    overflow-y: scroll;
+    margin-top:50px;
+    margin-left:145px;
+    margin-right: 105px;
+}
+table{
+    margin-bottom: -50px;
+    width:100%;
+}
+#tableHead{
+	color: white;
+	background: #EC3E3F;
+}
+th,td{
+    text-align: center;
+    border-bottom: solid;
+    margin: 10px;
+}
+tfoot td p{
+	font-weight: bold;
+	width: 10px;
+    position: relative;
+    bottom: 30px;
+    left: 40%;
+    margin-top: 25px;
+}
+
+/*footer*/
+#footer{
+	padding-top: 50px;
+	margin-top:30px;
+	background:#343434;
+	position: fixed;
+   	width: 100%;
+   	top: 89%;
+}
+
+#intec{
+	width: 85px;
+	margin-left: 1250px;
+}
+#intecLogo{
+	position: fixed;
+    width: 180%;
+    top: 94%;
+}
+#logo{
+	width: 198px;
+}
+#logoDiv{
+	position: fixed;
+    left: 2%;
+    top: 94%;
+}
+#copyright{
+	position: fixed;
+    width: 180%;
+    top: 93%;
+}
+#copyrightContainer{
+	margin-left: 630px;
+}
