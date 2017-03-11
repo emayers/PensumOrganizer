@@ -24,9 +24,9 @@
 	<h:form>
 		<h2>PENSUM ORGANIZER</h2>
 		
-		<h:inputText p:placeholder="ID Institucional" id="user"/>
-		<h:inputSecret id="passw" p:placeholder="Contraseña" />
-		<h:commandButton action="VistaDashboard"  value="Iniciar Sesion" />
+		<h:inputText p:placeholder="ID Institucional" id="userName" value="#{authenticationBean.userName}"/>
+		<h:inputSecret p:placeholder="Contraseña" id="password" value="#{authenticationBean.password}"/>
+		<h:commandButton action="#{authenticationBean.submit()}"  value="Iniciar Sesión" />
 	</h:form>
 
 	<footer id="footer" class="page-footer">
