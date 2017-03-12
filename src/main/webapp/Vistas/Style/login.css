@@ -10,20 +10,26 @@ body {
 	display: flex;
 	min-height: 100vh;
 	background: #cdcdcd;
-	background-image: url('../Images/Foto_Intec.jpg');
+	background-image: url('../Images/backgroundLogin2.jpg');
 	background-size: 100%;
 	width: 100%;
 }
 
 form {
 	margin: auto;
+	margin-top: 70px;
 	width: 50%;
 	max-width: 500px;
 	background: #F3F3F3;
-	opacity: 0.8;
-	filter: alpha(opacity=90);
+	opacity: 0.95;
 	padding: 30px;
 	border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.logoTitle{
+	height: 70px;
+    width: 375px;
+    padding-left: 50px;
 }
 
 h2 {
@@ -45,7 +51,7 @@ input:HOVER{
 }
 
 input[type="submit"] {
-	background-color: rgba(236, 62, 63, 0.8);
+	background-color: rgba(236, 62, 63, 0.9);
 	border: 0;
 	color: rgba(0, 0, 0, 1.0);
 	cursor: pointer;
