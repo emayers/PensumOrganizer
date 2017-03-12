@@ -71,36 +71,49 @@ li a:hover:not(#currentPageMarker){
 /*barra de navegacion - end*/
 
 
-
-/*Datos izquierda*/
-#leftSideOfTheScreenData{
-   display: inline;
-   color: black;
-   position: fixed;
-   top: 90px;
-   left: 20px;
-   font-size: 20px;
-   z-index: 0;
-}
-
 /*titulo*/
+#titleBar{
+	color: white;
+	background:#343434;
+	margin-top: 67px;
+    padding-top: 0px;
+    margin-left: 145px;
+    margin-right: 105px; 
+}
+#titleBar p{
+	font-weight: bold;
+	margin-bottom: 5px;
+    margin-top: 5px;
+    padding-left: 10px;
+}
+#titleBarImage{
+	width: 50px;
+    position: relative;
+    top: 3px;
+}
 
 /*tabla*/
 #containerOfPensumTable{
     background: white;
     height: 540px;
     overflow-y: scroll;
-    margin-top:50px;
+    margin-top:10px;
     margin-left:145px;
     margin-right: 105px;
+    margin-bottom: 50px;
 }
 table{
     margin-bottom: -50px;
     width:100%;
 }
-#tableHead{
-	color: white;
+#tableBar{
+	height: 10px;
 	background: #EC3E3F;
+}
+#tableHead{
+	height: 0px;
+    text-align: left;
+    margin-bottom: 23px;
 }
 th,td{
     text-align: center;

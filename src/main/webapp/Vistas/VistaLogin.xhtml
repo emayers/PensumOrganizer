@@ -7,7 +7,7 @@
 
 <h:head>
 	<!-- GOOGLE FONTS -->
-	<link rel="stylesheet" type="text/css" href="./Style/login.css?version=4" />
+	<link rel="stylesheet" type="text/css" href="./Style/login.css?version=5" />
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,800,600" />
 <!-- href="https://fonts.googleapis.com/css?family=Nunito" -->
 
@@ -22,9 +22,11 @@
 <h:body>
 
 	<h:form>
-		<h2>PENSUM ORGANIZER</h2>
+		<h:panelGroup layout="block" id="logoTitleDiv">
+			<h:graphicImage class="logoTitle" value="/Vistas/Images/LogoBlackTrans1.png" />
+		</h:panelGroup>
 		
-		<h:inputText p:placeholder="ID Institucional" id="userName" value="#{authenticationBean.userName}"/>
+		<h:inputText p:placeholder="ID Institucional" id="studentId" value="#{authenticationBean.userName}"/>
 		<h:inputSecret p:placeholder="Contraseña" id="password" value="#{authenticationBean.password}"/>
 		<h:commandButton action="#{authenticationBean.submit()}"  value="Iniciar Sesión" />
 	</h:form>
@@ -35,14 +37,6 @@
          © 2017 Copyright Text
          </h:panelGroup>
        </h:panelGroup>
-		
-		<h:panelGroup layout="block" id="logoDiv">
-			<h:graphicImage id="logo" value="/Vistas/Images/Logo.png" />
-		</h:panelGroup>
-
-		<h:panelGroup layout="block" id="intecLogo">
-			<h:graphicImage id="intec" value="/Vistas/Images/Logo-intec.png" />
-		</h:panelGroup>
 	</footer>
 	
 </h:body>

@@ -37,13 +37,22 @@
 			</ul>
 		</h:panelGroup>
 	</nav>
-<!-- 	 -->
+		
+		<h:panelGroup layout="block" id="titleBar">
+			
+			<p>
+				<h:graphicImage id="titleBarImage" value="/Vistas/Images/Target-White.png" />
+				Programa de la Carrera
+			</p>
+		</h:panelGroup>
+		
 		<h:panelGroup layout="block" id="containerOfPensumTable" >
 		<c:forEach items="#{dataBean.trimester}" var="entry">
 			<c:set var="trimesterCuantity" value="#{trimesterCuantity}"></c:set>
 			<h:dataTable styleClass="highlight centered bordered" value="#{entry.value}" var="list">
 					<c:set var="trimesterCuantity" value="#{trimesterCuantity + 1}"></c:set>
 					<f:facet name="header">
+						<p id="tableBar"></p>
 						<p id="tableHead">Trimestre #{trimesterCuantity}</p> 
 					</f:facet>
 				<h:column>
