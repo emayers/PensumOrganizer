@@ -9,7 +9,7 @@
 	
   <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
 <h:head>
-  	<link rel="Stylesheet" type="text/css" href="./Style/main.css?version=3"></link>
+  	<link rel="Stylesheet" type="text/css" href="./Style/Historial.css"></link>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,800,600"></link>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css"></link>
   	
@@ -40,7 +40,12 @@
 		</h:panelGroup>
 	</nav>
 	
-	<h3 id="title">Historial Académico</h3>
+		<h:panelGroup layout="block" id="titleBar">
+			<p>
+				<h:graphicImage id="titleBarImage" value="/Vistas/Images/Target-White.png" />
+				Historial Academico - Ingenieria de Software
+			</p>
+		</h:panelGroup>
 	
 	<h:panelGroup layout="block" id="cointainerOfHistoric" >
 		<c:forEach items="#{historyBean.trimester}" var="entry">
