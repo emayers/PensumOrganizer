@@ -77,10 +77,22 @@ li a:hover:not(#currentPageMarker){
    display: inline;
    color: black;
    position: fixed;
-   top: 90px;
+   top: 60px;
    left: 20px;
    font-size: 20px;
    z-index: 0;
+}
+
+#cardArenge{
+	padding-right: 0px;
+    padding-left: 10px;
+    padding-top: 0px;
+    height: 65px;
+}
+#cardPosition{
+	background-color: #EC3E3F;
+    left: 105px;
+    bottom: 20px;
 }
 
 /*titulo*/

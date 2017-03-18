@@ -9,7 +9,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
 <h:head>
-	<link type="text/css" rel="stylesheet" href="./Style/Dash.css?version=5.2"></link>
+	<link type="text/css" rel="stylesheet" href="./Style/Dash.css?version=5.3"></link>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,800,600"></link>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css"></link>
   	
@@ -29,7 +29,7 @@
 					</h:link></li>
 				<li><h:link value="Reorganizar Pensum" outcome="VistaPOAuto"></h:link></li>
 				<li id="user">
-					<a class="dropdownTrigger"  onclick="dropList()" href="#">
+					<a class="dropdownTrigger"  onclick="dropList()" href="">
 						#{studentBean.student.name} #{studentBean.student.last_name}
 					</a>
 					<h:panelGroup layout="block" id="dropdownContent" class="dropdownClass">
@@ -157,15 +157,15 @@
 	
 									        case 0:
 										        currentValue = dataset.data[tooltipItem.index];
-										        return (currentValue * 56) / 20;
+										        return ((currentValue * 56) / 20)+"/56";
 										        
 									        case 1:
 										        currentValue = dataset.data[tooltipItem.index];
-										        return (currentValue * 14) / 20;
+										        return (currentValue * 14) / 20+"/14";
 	
 									        case 2:
 										        currentValue = dataset.data[tooltipItem.index];
-										        return (currentValue * 248) / 20;
+										        return (currentValue * 248) / 20+"/248";
 	
 									         case 3:
 										         currentValue = dataset.data[tooltipItem.index];
@@ -183,6 +183,16 @@
 						}
 					});
 				</script>
+		<h:panelGroup layout="block" class="row">
+			<h:panelGroup layout="block" class="col s12 m6">
+				<h:panelGroup layout="block" class="card" id="cardPosition">
+					<h:panelGroup layout="block" class="card-content white-text" id="cardArenge">
+						<p>Inidice General: 3.14</p>
+					</h:panelGroup>
+				</h:panelGroup>
+			</h:panelGroup>
+		</h:panelGroup>
+		
 	</h:panelGroup>
 	
 	<footer id="footer" class="page-footer">
