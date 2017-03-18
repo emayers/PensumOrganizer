@@ -29,7 +29,7 @@
 					</h:link></li>
 				<li><h:link value="Reorganizar Pensum" outcome="VistaPOAuto"></h:link></li>
 				<li id="user">
-					<a class="dropdownTrigger"  onclick="dropList()" href="#">
+					<a class="dropdownTrigger"  onclick="dropList()" href="">
 						#{studentBean.student.name} #{studentBean.student.last_name}
 					</a>
 					<h:panelGroup layout="block" id="dropdownContent" class="dropdownClass">
@@ -157,15 +157,15 @@
 	
 									        case 0:
 										        currentValue = dataset.data[tooltipItem.index];
-										        return (currentValue * 56) / 20;
+										        return ((currentValue * 56) / 20)+"/56";
 										        
 									        case 1:
 										        currentValue = dataset.data[tooltipItem.index];
-										        return (currentValue * 14) / 20;
+										        return (currentValue * 14) / 20+"/14";
 	
 									        case 2:
 										        currentValue = dataset.data[tooltipItem.index];
-										        return (currentValue * 248) / 20;
+										        return (currentValue * 248) / 20+"/248";
 	
 									         case 3:
 										         currentValue = dataset.data[tooltipItem.index];

@@ -1,10 +1,12 @@
-/*Background*/
+@CHARSET "ISO-8859-1";
 body{
 	height: 100%;
 	display: flex;
     min-height: 100vh;
-    background: white;
-    flex-direction: column; 
+    flex-direction: column;
+}
+main {
+    flex: 1 0 auto;
 }
 /*barra de navegacion - start*/
 #navigationMenuTag{
@@ -68,19 +70,106 @@ li a:hover:not(#currentPageMarker){
 }
 /*barra de navegacion - end*/
 
-#title{
-	text-align: center;
-    margin-top: 80px;
-    margin-bottom: 0px;
+
+
+/*Datos izquierda*/
+#InformationAndBotons{
+   display: inline;
+   position: fixed;
+   top: 250px;
+   left: 50px;
+   font-size: 20px;
+   z-index: 0;
 }
-/*tabla con hisotrial organizado - start*/
-#cointainerOfHistoric{
+
+#Botons a{
+	background-color: #343434;
+}
+#Botons div{
+	font-size: smaller;
+}
+#Botons a:HOVER{
+	background-color: #EC3E3F;
+	transition: all 0.3s;
+}
+
+#Guardar, #Cancelar{
+	position: relative;
+    bottom: 36px;
+    left: 190px;
+}
+
+#cardDurArenge{
+	padding-right: 0px;
+    padding-left: 10px;
+    padding-top: 0px;
+    height: 50px;
+}
+#cardDurPosition{
+	background-color: #f6f1f1;
+    left: 55px;
+    bottom: 115px;
+    width: 215px;
+    font-size: 15px;
+}
+
+#cardTimeArenge{
+	padding-right: 0px;
+    padding-left: 10px;
+    padding-top: 0px;
+    height: 50px;
+}
+#cardTimePositionRed{
+	background-color: #EC3E3F;
+    left: 55px;
+    bottom: 90px;
+    width: 215px;
+    font-size: 15px;
+}
+
+#cardTimePositionYellow{
+	background-color: #ffff00;
+    left: 55px;
+    bottom: 90px;
+    width: 215px;
+    font-size: 15px;
+}
+#cardTimePositionGreen{
+	background-color: #3fec3e;
+    left: 55px;
+    bottom: 90px;
+    width: 215px;
+    font-size: 15px;
+}
+
+/*titulo*/
+#titleBar{
+	color: white;
+	background:#343434;
+	margin-top: 67px;
+    padding-top: 0px;
+    margin-left: 445px;
+    margin-right: 13px; 
+}
+#titleBar p{
+	font-weight: bold;
+	margin-bottom: 5px;
+    margin-top: 5px;
+    padding-left: 10px;
+}
+#titleBarImage{
+	width: 50px;
+    position: relative;
+    top: 3px;
+}
+/*tabla*/
+#containerOfPensumTable{
     background: white;
-    height: 470px;
+    height: 480px;
     overflow-y: scroll;
     margin-top:10px;
-    margin-left:145px;
-    margin-right: 105px;
+    margin-left:445px;
+    margin-right: 13px;
 }
 table{
     margin-bottom: -50px;
@@ -89,12 +178,6 @@ table{
 #tableHead{
 	color: white;
 	background: #EC3E3F;
-}
-
-#indiceTrimestratTitle{
-	text-align: right;
-	margin-top: 0px;
-    margin-bottom: 0px;
 }
 th,td{
     text-align: center;
@@ -107,9 +190,7 @@ tfoot td p{
     position: relative;
     left: 40%;
     margin-top: 0px;
-    color: black;
 }
-/*tabla con pensum organizado - end*/
 
 /*footer*/
 #footer{
