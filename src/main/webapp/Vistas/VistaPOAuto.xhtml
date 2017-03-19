@@ -8,26 +8,26 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 	
   <h:head>
-  	<link rel="Stylesheet" type="text/css" href="./Style/Auto.css?version=1"/>
+  	<link rel="Stylesheet" type="text/css" href="./Style/Auto.css?version=1.2"/>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,800,600"></link>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css"></link>
   	
   	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
-  	<script type="text/javascript" src="Scripts/DropdownList.js"></script>
+  	<script type="text/javascript" src="Scripts/DropdownList.js?version=1"></script>
   </h:head>
   
   <h:body>
     <nav id="navigationMenuTag">
 		<h:panelGroup layout="block" id="menu" styleClass="nav-wrapper">
 			<ul id="navigationBar">
-				<li><h:link value="Página Principal">
+				<li><h:link value="Página Principal" outcome="VistaDashboard">
 					</h:link></li>
 				<li><h:link value="Ver Historial" outcome="VistaHistorial"></h:link></li>
 				<li><h:link value="Programa de la Carrera" outcome="VistaPrograma">
 					</h:link></li>
 				<li><h:link id="currentPageMarker" value="Reorganizar Pensum" outcome="VistaPOAuto"></h:link></li>
 				<li id="user">
-					<a class="dropdownTrigger"  onclick="dropList()" href="">
+					<a class="dropdownTrigger"  onclick="dropList()" href="#">
 						#{studentBean.student.name} #{studentBean.student.last_name}
 					</a>
 					<h:panelGroup layout="block" id="dropdownContent" class="dropdownClass">
@@ -40,9 +40,12 @@
 	</nav>
 	
 	<h:panelGroup layout="block" id="titleBar">
-		<p>
+		<p id="PensumRecomendado">
 			<h:graphicImage id="titleBarImage" value="/Vistas/Images/Target-White.png" />
 			Pensum Recomendado - Ingenieria de Software
+		</p>
+		<p id="Duration"> 
+			Duracion del Pensum: #{autoPOBean.trimester.size()} Trimestres
 		</p>
 	</h:panelGroup>
 	
@@ -107,17 +110,6 @@
 	
 	<h:panelGroup layout="block" id="InformationAndBotons">
 		<h:panelGroup layout="block" id="Information">
-				
-				<h:panelGroup layout="block" class="row">
-					<h:panelGroup layout="block" class="col s12 m6">
-						<h:panelGroup layout="block" class="card" id="cardDurPosition">
-							<h:panelGroup layout="block" class="card-content" id="cardDurArenge">
-								<p>Duracion del Pensum:</p>
-								<p>#{trimesterCuantity} Trimestre</p>
-							</h:panelGroup>
-						</h:panelGroup>
-					</h:panelGroup>
-				</h:panelGroup>
 				
 				<c:set var="colorChangedivTrimes" value="13"></c:set>
 				<c:set var="colorChangedivMonth" value="#{colorChangedivTrimes*3}"></c:set>

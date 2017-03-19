@@ -5,6 +5,14 @@
 	box-sizing: border-box;
 }
 
+/*..sigh..*/
+div,span {
+    -webkit-user-select: none; /* webkit (safari, chrome) browsers */
+    -moz-user-select: none; /* mozilla browsers */
+    -khtml-user-select: none; /* webkit (konqueror) browsers */
+    -ms-user-select: none; /* IE10+ */
+}
+
 body {
 	/*background: #DEDEDE;*/
 	display: flex;
@@ -13,6 +21,7 @@ body {
 	background-image: url('../Images/EduardoLatorre.jpg');
 	background-size: 100%;
 	width: 100%;
+	overflow: hidden;
 }
 
 form {
@@ -81,12 +90,12 @@ input[type="submit"]: active {
 
 /*footer*/
 #footer{
-	padding-top: 50px;
 	margin-top:30px;
 	background:#343434;
 	position: fixed;
    	width: 100%;
    	top: 89%;
+   	height: 115px;
 }
 
 #intec{
@@ -94,25 +103,26 @@ input[type="submit"]: active {
 	margin-left: 1250px;
 }
 #intecLogo{
-	position: fixed;
+	position: relative;
     width: 180%;
-    top: 94%;
+    bottom: 35px;
 }
 #logo{
 	width: 198px;
 }
 #logoDiv{
-	position: fixed;
+	position: relative;
     left: 2%;
-    top: 94%;
-}
-#copyright{
-	position: fixed;
-    width: 180%;
-    color:white;
-    margin-top:1%;
-    top: 93%;
+    bottom: 65px;
 }
 #copyrightContainer{
 	margin-left: 630px;
+}
+#copyright{
+	position: relative;
+    width: 180%;
+    color:white;
+    margin-top:1%;
+    bottom: 5px;
+    right: 45px
 }
