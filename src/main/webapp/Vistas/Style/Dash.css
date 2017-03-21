@@ -144,7 +144,37 @@ tfoot td p{
     left: 40%;
     margin-top: 0px;
 }
+/*Mensaje de no reorganizaciones generadas*/
 
+#noOrganizationText h4, h5{
+    text-align: center;
+    margin-top: 50px;
+    padding-left: 445px;
+    width: 1335px;
+}
+
+#noOrganizationText{
+    position: relative;
+}
+/*Botón reoganizar pensum*/
+#Boton a{
+	background-color: #343434;
+}
+#Boton div{
+	font-size: smaller;
+}
+#Boton a:HOVER{
+	background-color: #EC3E3F;
+	transition: all 0.3s;
+}
+
+#Reorganizar{
+	position: relative;
+    bottom: 36px;
+    padding-left: 30px;
+    top: 30px;
+    left: 750px;
+}
 /*footer*/
 #footer{
 	padding-top: 50px;
