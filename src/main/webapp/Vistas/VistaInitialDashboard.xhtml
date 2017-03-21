@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+<h:head>
+	<link type="text/css" rel="stylesheet" href="./Style/Dash.css?version=5.4"></link>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,800,600"></link>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css"></link>
+  	
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+  	<script type="text/javascript" src="Scripts/DropdownList.js"></script>
+
+</h:head>
+
+<h:body>
+	<nav id="navigationMenuTag">
+		<h:panelGroup layout="block" id="menu" styleClass="nav-wrapper">
+			<ul id="navigationBar">
+				<li><h:link id="currentPageMarker" value="Página Principal">
+					</h:link></li>
+				<li><h:link value="Ver Historial" outcome="VistaHistorial"></h:link></li>
+				<li><h:link value="Programa de la Carrera" outcome="VistaPrograma">
+					</h:link></li>
+				<li><h:link value="Reorganizar Pensum" outcome="VistaPOAuto"></h:link></li>
+				<li id="user">
+					<a class="dropdownTrigger"  onclick="dropList()" href="">
+						#{studentBean.student.name} #{studentBean.student.last_name}
+					</a>
+					<h:panelGroup layout="block" id="dropdownContent" class="dropdownClass">
+	    					<h:link value="Log Out" outcome="VistaLogin"></h:link>
+	    					<h:link value="Help" outcome="EnConstruccion"></h:link>
+					</h:panelGroup>
+				</li>
+			</ul>
+		</h:panelGroup>
+	</nav>
+	<h:panelGroup layout="block" id="titleBar">
+		<p>
+			<h:graphicImage id="titleBarImage" value="/Vistas/Images/Target-White.png" />
+			Ingeniería de Software
+		</p>
+	</h:panelGroup>
+	
+	<h:panelGroup layout="block" id="noOrganizationText">
+		<h4> ¡TE DAMOS LA BIENVENIDA A PENSUM ORGANIZER! </h4>
+		<h5>Aún no tienes reorganizaciones generadas</h5>
+	</h:panelGroup>
+	
+		<h:panelGroup layout="block" id="Boton">
+			<h:panelGroup layout="block" id="Reorganizar">
+				<h:link class="waves-effect waves-light btn" value="Reorganizar Mi Pensum" outcome="EnConstruccion"></h:link>
+			</h:panelGroup>
+		</h:panelGroup>
+	
+	<h:panelGroup layout="block" id="leftSideOfTheScreenData">
+		<h:panelGroup layout="block" id="chartContainer"></h:panelGroup>
+			<canvas id="dashboardChart" width="400" height="450"></canvas>
+				<script>
+					var ctx = document.getElementById("dashboardChart");
+					var myChart = new Chart(ctx, {
+					    type: 'polarArea',
+					    data: {
+						    datasets: [{
+						        data: [
+						            (5 * 20) / 56,
+						            (1 * 20) / 14,
+						            (20 * 20) / 248,
+// 						            (4.00 * 20) / 4.00
+						        ],
+						        backgroundColor: [
+						            "#72af47",
+						            "#343434",
+						            "#BD3630",
+// 						            "#797979"
+						        ],
+						        label: 'Datos Institucionales'
+						    }],
+						    labels: [
+						        "Asignaturas Aprobadas",
+						        "Trimestres Cursados",
+						        "Créditos Aprobados",
+// 						        "Índice General"      
+						    ]
+						},
+						options:{
+						    scale: {
+						        scaleShowLine:false,
+						        display:false,
+						    },
+						    legend: {
+					            display: true,
+					            labels: {
+					                padding: 20
+					            }
+					        },
+					        tooltips: {
+						        callbacks: {
+							        label: function(tooltipItem, data) {
+								        var dataset = data.datasets[tooltipItem.datasetIndex];
+								        
+								        var total = dataset.data.reduce(function() {
+									        var currentValue;
+									        
+									        switch(tooltipItem.index){
+	
+									        case 0:
+										        currentValue = dataset.data[tooltipItem.index];
+										        return ((currentValue * 56) / 20)+"/56";
+										        
+									        case 1:
+										        currentValue = dataset.data[tooltipItem.index];
+										        return (currentValue * 14) / 20+"/14";
+	
+									        case 2:
+										        currentValue = dataset.data[tooltipItem.index];
+										        return (currentValue * 248) / 20+"/248";
+	
+									         case 3:
+										         currentValue = dataset.data[tooltipItem.index];
+										         return (currentValue * 4) / 20;
+	
+									         default:
+										          return 0;
+								          	}
+							          	});
+	
+							          	return total;
+						          	}
+			          			}
+		          			}
+						}
+					});
+				</script>
+		<h:panelGroup layout="block" class="row">
+			<h:panelGroup layout="block" class="col s12 m6">
+				<h:panelGroup layout="block" class="card" id="cardPosition">
+					<h:panelGroup layout="block" class="card-content white-text" id="cardArenge">
+						<p>Inidice General: 3.14</p>
+					</h:panelGroup>
+				</h:panelGroup>
+			</h:panelGroup>
+		</h:panelGroup>
+		
+	</h:panelGroup>
+	
+	<footer id="footer" class="page-footer">
+       <h:panelGroup id="copyright" layout="block" class="footer-copyright">
+         <h:panelGroup layout="block" id="copyrightContainer">
+         © 2017 Copyright Text
+         </h:panelGroup>
+       </h:panelGroup>
+		
+		<h:panelGroup layout="block" id="logoDiv">
+			<h:graphicImage id="logo" value="/Vistas/Images/Logo.png" />
+		</h:panelGroup>
+
+		<h:panelGroup layout="block" id="intecLogo">
+			<h:graphicImage id="intec" value="/Vistas/Images/Logo-intec.png" />
+		</h:panelGroup>
+	</footer>
+		
+</h:body>
+</html>
