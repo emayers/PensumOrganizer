@@ -9,12 +9,12 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
 <h:head>
-	<link type="text/css" rel="stylesheet" href="./Style/Dash.css?version=5.3"></link>
+	<link type="text/css" rel="stylesheet" href="./Style/Dash.css?version=5.4"></link>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,800,600"></link>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css"></link>
   	
   	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
-  	<script type="text/javascript" src="Scripts/DropdownList.js"></script>
+  	<script type="text/javascript" src="Scripts/DropdownList.js?version=1"></script>
 
 </h:head>
 
@@ -29,7 +29,7 @@
 					</h:link></li>
 				<li><h:link value="Reorganizar Pensum" outcome="VistaPOAuto"></h:link></li>
 				<li id="user">
-					<a class="dropdownTrigger"  onclick="dropList()" href="">
+					<a class="dropdownTrigger"  onclick="dropList()" href="#">
 						#{studentBean.student.name} #{studentBean.student.last_name}
 					</a>
 					<h:panelGroup layout="block" id="dropdownContent" class="dropdownClass">
@@ -183,15 +183,18 @@
 						}
 					});
 				</script>
-		<h:panelGroup layout="block" class="row">
-			<h:panelGroup layout="block" class="col s12 m6">
-				<h:panelGroup layout="block" class="card" id="cardPosition">
-					<h:panelGroup layout="block" class="card-content white-text" id="cardArenge">
-						<p>Inidice General: 3.14</p>
+		<h:panelGroup layout="block" id="ContainerOfIndice">
+			<h:panelGroup layout="block" class="row">
+				<h:panelGroup layout="block" class="col s12 m6">
+					<h:panelGroup layout="block" class="card" id="cardPosition">
+						<h:panelGroup layout="block" class="card-content white-text" id="cardArenge">
+							<p>Indice General: 3.14/4.00</p>
+						</h:panelGroup>
 					</h:panelGroup>
 				</h:panelGroup>
 			</h:panelGroup>
-		</h:panelGroup>
+		</h:panelGroup>		
+		
 		
 	</h:panelGroup>
 	

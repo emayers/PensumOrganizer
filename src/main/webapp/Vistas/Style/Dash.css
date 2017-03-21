@@ -4,10 +4,20 @@ body{
 	display: flex;
     min-height: 100vh;
     flex-direction: column;
+    overflow: hidden;
 }
 main {
     flex: 1 0 auto;
 }
+
+/*..sigh..*/
+div,span {
+    -webkit-user-select: none; /* webkit (safari, chrome) browsers */
+    -moz-user-select: none; /* mozilla browsers */
+    -khtml-user-select: none; /* webkit (konqueror) browsers */
+    -ms-user-select: none; /* IE10+ */
+}
+
 /*barra de navegacion - start*/
 #navigationMenuTag{
 	position: fixed;
@@ -92,7 +102,9 @@ li a:hover:not(#currentPageMarker){
 #cardPosition{
 	background-color: #EC3E3F;
     left: 105px;
-    bottom: 20px;
+}
+#ContainerOfIndice{
+	z-index: 1;
 }
 
 /*titulo*/
@@ -120,7 +132,6 @@ li a:hover:not(#currentPageMarker){
     background: white;
     height: 480px;
     overflow-y: scroll;
-    margin-top:10px;
     margin-left:445px;
     margin-right: 13px;
 }
@@ -177,12 +188,12 @@ tfoot td p{
 }
 /*footer*/
 #footer{
-	padding-top: 50px;
 	margin-top:30px;
 	background:#343434;
 	position: fixed;
    	width: 100%;
    	top: 89%;
+   	height: 115px;
 }
 
 #intec{
@@ -190,22 +201,22 @@ tfoot td p{
 	margin-left: 1250px;
 }
 #intecLogo{
-	position: fixed;
+	position: relative;
     width: 180%;
-    top: 94%;
+    bottom: 110px;
 }
 #logo{
 	width: 198px;
 }
 #logoDiv{
-	position: fixed;
+	position: relative;
     left: 2%;
-    top: 94%;
+    bottom: 65px;
 }
 #copyright{
-	position: fixed;
+	position: relative;
     width: 180%;
-    top: 93%;
+    bottom: 20px;
 }
 #copyrightContainer{
 	margin-left: 630px;
