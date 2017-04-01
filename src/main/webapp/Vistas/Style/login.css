@@ -62,7 +62,7 @@ input:HOVER{
 input[type="submit"] {
 	background-color: rgba(236, 62, 63, 0.9);
 	border: 0;
-	color: rgba(0, 0, 0, 1.0);
+	color: white;
 	cursor: pointer;
 	border-radius: 0px;
 	margin-bottom: 0;

@@ -8,7 +8,7 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 	
   <h:head>
-  	<link rel="Stylesheet" type="text/css" href="./Style/Auto.css?version=1.2"/>
+  	<link rel="Stylesheet" type="text/css" href="./Style/Auto.css?version=1.3"/>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,800,600"></link>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css"></link>
   	
@@ -114,39 +114,34 @@
 				<c:set var="colorChangedivTrimes" value="13"></c:set>
 				<c:set var="colorChangedivMonth" value="#{colorChangedivTrimes*3}"></c:set>
 				
-				<h:panelGroup layout="block" class="row">
+				<h:panelGroup layout="block" class="row" >
 					<h:panelGroup layout="block" class="col s12 m6">
 					
-						<h:panelGroup layout="block" class="card" id="cardTimePositionRed"
-							rendered="#{colorChangedivTrimes gt 21 or colorChangedivTrimes == 21}">
-							<h:panelGroup layout="block" class="card-content white-text" id="cardTimeArenge">
+						<h:panelGroup layout="block" class="card" id="cardTimePosition">
+							<h:panelGroup layout="block" class="card-content white-text" id="cardTimeArenge" >
 								<p>Permanencia:</p>
 								<p>#{colorChangedivMonth} Meses / #{colorChangedivTrimes} Trimestres</p>
+								<script type="text/javascript">
+									function colorChange(){
+										if(#{colorChangedivTrimes} >= 21){
+											document.getElementById("cardTimePosition").style.backgroundColor = "#EC3E3F";
+										}
+										else {
+											document.getElementById("cardTimePosition").style.backgroundColor = "#72af47";
+										}
+									}
+									window.onload = colorChange;
+								</script>
 							</h:panelGroup>
 						</h:panelGroup>
-						
-						<h:panelGroup layout="block" class="card" id="cardTimePositionYellow"
-							rendered="#{colorChangedivTrimes lt 21 and colorChangedivTrimes gt 16}">
-							<h:panelGroup layout="block" class="card-content" id="cardTimeArenge">
-								<p>Permanencia:</p>
-								<p>#{colorChangedivMonth} Meses / #{colorChangedivTrimes} Trimestres</p>
-							</h:panelGroup>
-						</h:panelGroup>
-						
-						<h:panelGroup layout="block" class="card" id="cardTimePositionGreen"
-							rendered="#{colorChangedivTrimes lt 16}">
-							<h:panelGroup layout="block" class="card-content" id="cardTimeArenge">
-								<p>Permanencia:</p>
-								<p>#{colorChangedivMonth} Meses / #{colorChangedivTrimes} Trimestres</p>
-							</h:panelGroup>
-						</h:panelGroup>
-						
-						
 					</h:panelGroup>
 				</h:panelGroup>
 				
          </h:panelGroup>
 		<h:panelGroup layout="block" id="Botons">
+			<h:panelGroup layout="block" id="Reorganizar">
+         		<h:link class="waves-effect waves-light btn" value="Reoganizar" outcome="VistaDashboard"></h:link>
+         	</h:panelGroup>
 			<h:panelGroup layout="block" id="Editar">
 				<h:link class="waves-effect waves-light btn" value="Editar" outcome="VistaPOManual"></h:link>
 			</h:panelGroup>
