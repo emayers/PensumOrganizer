@@ -86,7 +86,8 @@ li a:hover:not(#currentPageMarker){
 	margin-top: 67px;
     padding-top: 0px;
     margin-left: 145px;
-    margin-right: 105px; 
+    margin-right: 105px;
+    height: 35px; 
 }
 #titleBar p{
 	font-weight: bold;
@@ -99,7 +100,11 @@ li a:hover:not(#currentPageMarker){
     position: relative;
     top: 3px;
 }
-
+#indice{
+	position: relative;
+    bottom: 27px;
+    left: 955px;
+}
 /*tabla con hisotrial organizado - start*/
 #cointainerOfHistoric{
     background: white;

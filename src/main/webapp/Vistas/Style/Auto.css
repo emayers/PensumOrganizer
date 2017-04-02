@@ -107,7 +107,11 @@ li a:hover:not(#currentPageMarker){
     bottom: 35px;
     left: 190px;
 }
-
+#Reorganizar{
+	position: relative;
+    bottom: 30px;
+    left: 90px;
+}
 #Editar a{
 	padding-left: 50px;
 	padding-right: 50px;
@@ -120,19 +124,6 @@ li a:hover:not(#currentPageMarker){
 	padding-left: 35px;
 	padding-right: 35px;
 }
-#cardDurArenge{
-	padding-right: 0px;
-    padding-left: 10px;
-    padding-top: 0px;
-    height: 50px;
-}
-#cardDurPosition{
-	background-color: #f6f1f1;
-    left: 55px;
-    bottom: 115px;
-    width: 215px;
-    font-size: 15px;
-}
 
 #cardTimeArenge{
 	padding-right: 0px;
@@ -140,23 +131,8 @@ li a:hover:not(#currentPageMarker){
     padding-top: 0px;
     height: 50px;
 }
-#cardTimePositionRed{
+#cardTimePosition{
 	background-color: #EC3E3F;
-    left: 55px;
-    bottom: 90px;
-    width: 215px;
-    font-size: 15px;
-}
-
-#cardTimePositionYellow{
-	background-color: #ffff00;
-    left: 55px;
-    bottom: 90px;
-    width: 215px;
-    font-size: 15px;
-}
-#cardTimePositionGreen{
-	background-color: #72af47;
     left: 55px;
     bottom: 90px;
     width: 215px;

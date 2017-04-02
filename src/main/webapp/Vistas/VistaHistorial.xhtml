@@ -9,7 +9,7 @@
 	
   <meta name="viewport" content="width=device-width, initial-scale=1.1"></meta>
 <h:head>
-  	<link rel="Stylesheet" type="text/css" href="./Style/Historial.css"></link>
+  	<link rel="Stylesheet" type="text/css" href="./Style/Historial.css?version=1"></link>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,800,600"></link>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css"></link>
   	
@@ -45,6 +45,7 @@
 				<h:graphicImage id="titleBarImage" value="/Vistas/Images/Target-White.png" />
 				Historial Academico - Ingenieria de Software
 			</p>
+			<p id="indice">Índice General 3.14</p>
 		</h:panelGroup>
 	
 	<h:panelGroup layout="block" id="cointainerOfHistoric" >
@@ -54,9 +55,6 @@
 					<c:set var="trimesterCuantity" value="#{trimesterCuantity + 1}"></c:set>
 					<f:facet name="header">
 						<p id="tableHead">Trimestre #{trimesterCuantity}</p> 
-					</f:facet>
-						<f:facet name="header">
-						<p id="indiceTrimestratTitle">Indice trimestral: 4.00</p>
 					</f:facet>
 				<h:column>
 					<f:facet name="header">
@@ -110,6 +108,7 @@
 					</f:facet>
 						A
 				</h:column>
+				
 			</h:dataTable>	
 		</c:forEach>
 	</h:panelGroup>
