@@ -18,7 +18,6 @@ public class AutoPOBean {
 	public Map<Integer, List<Course>> getTrimester() {
 		Map<Integer, List<Course>> newInstance = 
 				new LinkedHashMap<Integer, List<Course>>(trimester);
-		
 		return newInstance;
 	}
 }

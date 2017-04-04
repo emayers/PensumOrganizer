@@ -58,9 +58,10 @@
 	</h:panelGroup>
 	
 	<h:panelGroup layout="block" id="containerOfPensumTable" >
+	<h:form>
 		<c:forEach items="#{autoPOBean.trimester}" var="entry">
 			<c:set var="trimesterCuantity" value="#{trimesterCuantity}"></c:set>
-			<h:dataTable styleClass="highlight centered bordered" value="#{entry.value}" var="list">
+			<h:dataTable styleClass="highlight centered bordered" value="#{entry.value}" var="list" >
 					<c:set var="trimesterCuantity" value="#{trimesterCuantity + 1}"></c:set>
 					<f:facet name="header">
 						<p id="tableHead">Trimestre #{trimesterCuantity}</p> 
@@ -112,38 +113,48 @@
 					<h:outputText rendered="#{list.creditsReq == '0'}" value="-" />
 				</h:column>
 				<h:column>
-					<a href="#" onclick="moveToBox(this)">
+					<h:commandLink action="#{listChangingBean.delete(entry.value,list)}">
 						<h:graphicImage value="/Vistas/Images/remove-circle-1.svg" />
-					</a>
+					</h:commandLink>
 				</h:column>
 			</h:dataTable>	
 		</c:forEach>
+	</h:form>
 	</h:panelGroup>
 	
 	<h:panelGroup layout="block" id="InformationBotonsSubbox">
 		<h:panelGroup layout="block" id="subjectsBlock">
-			<h:dataTable id="boxElements" styleClass="highlight centered bordered">
+			<h:form>
+			<h:dataTable id="boxElements" styleClass="highlight centered bordered" value="#{listChangingBean.newTableData}"
+				var="subject">
 				<h:column>
 					<f:facet name="header">
 						Asignatura
 					</f:facet>
+					#{subject.name}
 				</h:column>
 				<h:column>
 					<f:facet name="header">
 						Pre-Requisito
 					</f:facet>
+						<h:outputText rendered="${fn:length(subject.preqID) == '0'}" value="-" />
+						<h:outputText rendered="${fn:length(subject.preqID) != '0'}" value="#{subject.preqID}"/>
 				</h:column>
 				<h:column>
 					<f:facet name="header">
 						Creditos
 					</f:facet>
+					#{subject.credits}
 				</h:column>
 				<h:column>
 					<f:facet name="header">
-						
 					</f:facet>
+					<h:commandLink action="#{listChangingBean.delete(entry.value,list)}">
+							<h:graphicImage value="/Vistas/Images/add-circle-1.svg" />
+					</h:commandLink>
 				</h:column>
 			</h:dataTable>
+			</h:form>
 		</h:panelGroup>
 		<h:panelGroup layout="block" id="Information">
 				
