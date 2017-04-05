@@ -8,6 +8,7 @@ div,span {
 }
 form{
 	padding: 0px;
+	margin: 0px;
 }
 /*Background*/
 body{
@@ -114,6 +115,11 @@ li a:hover:not(#currentPageMarker){
     padding-left: 10px;
 }
 #titleBarImage{
+	width: 50px;
+    position: relative;
+    top: 3px;
+}
+#titleBarImageMini{
 	width: 50px;
     position: relative;
     top: 3px;
