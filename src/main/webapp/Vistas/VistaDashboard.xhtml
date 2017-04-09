@@ -9,7 +9,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
 <h:head>
-	<link type="text/css" rel="stylesheet" href="./Style/Dash.css?version=5.4"></link>
+	<link type="text/css" rel="stylesheet" href="./Style/Dash.css?version=5.7"></link>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,800,600"></link>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css"></link>
   	
@@ -34,7 +34,7 @@
 					</a>
 					<h:panelGroup layout="block" id="dropdownContent" class="dropdownClass">
 	    					<h:link value="Log Out" outcome="VistaLogin"></h:link>
-	    					<h:link value="Help" outcome="EnConstruccion"></h:link>
+	    					<h:link value="Help" outcome="VistaHelp"></h:link>
 					</h:panelGroup>
 				</li>
 			</ul>
@@ -45,6 +45,7 @@
 			<h:graphicImage id="titleBarImage" value="/Vistas/Images/Target-White.png" />
 			Pensum Reorganizado - Ingeniería de Software 
 		</p>
+		<p id="indice">Índice General 3.14</p>
 	</h:panelGroup>
 	<h:panelGroup layout="block" id="containerOfPensumTable" >
 		<c:forEach items="#{autoPOBean.trimester}" var="entry">
@@ -189,7 +190,7 @@
 	<footer id="footer" class="page-footer">
        <h:panelGroup id="copyright" layout="block" class="footer-copyright">
          <h:panelGroup layout="block" id="copyrightContainer">
-         © 2017 Copyright Text
+         HANDS © 2017
          </h:panelGroup>
        </h:panelGroup>
 		

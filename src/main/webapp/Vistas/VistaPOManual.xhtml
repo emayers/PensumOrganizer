@@ -8,7 +8,7 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 	
   <h:head>
-  	<link rel="Stylesheet" type="text/css" href="./Style/manual.css?verison=1.3"/>
+  	<link rel="Stylesheet" type="text/css" href="./Style/manual.css?verison=1.4"/>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,800,600"></link>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css"></link>
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"></link>
@@ -24,7 +24,7 @@
     <nav id="navigationMenuTag">
 		<h:panelGroup layout="block" id="menu" styleClass="nav-wrapper">
 			<ul id="navigationBar">
-				<li><h:link value="Página Principal">
+				<li><h:link value="Página Principal" outcome="VistaDashboard">
 					</h:link></li>
 				<li><h:link value="Ver Historial" outcome="VistaHistorial"></h:link></li>
 				<li><h:link value="Programa de la Carrera" outcome="VistaPrograma">
@@ -36,7 +36,7 @@
 					</a>
 					<h:panelGroup layout="block" id="dropdownContent" class="dropdownClass">
 	    					<h:link value="Log Out" outcome="VistaLogin"></h:link>
-	    					<h:link value="Help" outcome="EnConstruccion"></h:link>
+	    					<h:link value="Help" outcome="VistaHelp"></h:link>
 					</h:panelGroup>
 				</li>
 			</ul>
@@ -52,7 +52,7 @@
 	<h:panelGroup layout="block" id="titleBar">
 		<p id="PensumRecomendado">
 			<h:graphicImage id="titleBarImage" value="/Vistas/Images/Target-White.png" />
-			Pensum Actual - Ingenieria de Software
+			Pensum Actual – Ingeniería de Software 
 		</p>
 		<p id="Duration"> 
 			Duracion del Pensum: #{autoPOBean.trimester.size()} Trimestres
@@ -129,10 +129,11 @@
 			<h:form>
 			<h:dataTable id="boxElements" styleClass="highlight centered bordered" value="#{listChangingBean.newTableData}"
 				var="subject">
+				<c:set var="materia" value="#{subject}"></c:set>
 				<h:column>
 					<f:facet name="header">
 						Asignatura
-					</f:facet>
+					</f:facet>		
 					#{subject.name}
 				</h:column>
 				<h:column>
@@ -144,23 +145,29 @@
 				</h:column>
 				<h:column>
 					<f:facet name="header">
-						Creditos
+						Créditos
 					</f:facet>
 					#{subject.credits}
 				</h:column>
 				<h:column>
 					<f:facet name="header">
 					</f:facet>
-					<h:commandLink onclick="PF('dialogToAdd').show(); return false;">
+					<h:commandLink  onclick="PF('dialogToAdd').show(); return false;">
 							<h:graphicImage value="/Vistas/Images/add-circle-1.svg" />
 					</h:commandLink>
 					<p:dialog widgetVar="dialogToAdd" closeOnEscape="true" 
-							  header="Añadir a Trimestre">
-							  
-						<form>
-							<p>En que trimestre desea agregar esta materia?</p>
-							<p:inputText  autocomplete="false" value="#{dialogBean.trimesterPosition}" />
-							<h:commandButton action="#{dialogBean.add(autoPOBean.trimester,listChangingBean.newTableData,subject)}"  value="Aceptar" />
+				  			  header="Añadir a Trimestre">
+				  
+						<form id="dialogMove">
+							<c:set value="1" var="num"></c:set>
+							<p>¿En qué trimestre desea agregar esta materia?</p>
+							<p>#{materia.name}</p>
+							<p:selectOneMenu value="#{dialogBean.trimesterPosition}">
+								<f:selectItems value="#{autoPOBean.trimester}" var="trimesters"
+								itemValue="#{trimesters.key}" itemLabel="Trimestre #{num}"/>
+								<c:set value="#{num}+1" var="num"></c:set>
+							</p:selectOneMenu>
+							<h:commandButton action="#{dialogBean.add(autoPOBean.trimester,listChangingBean.newTableData,materia)}"  value="Aceptar" />
 						</form>
 						
 					</p:dialog>
@@ -170,7 +177,7 @@
 		</h:panelGroup>
 		<h:panelGroup layout="block" id="Information">
 				
-				<c:set var="colorChangedivTrimes" value="13"></c:set>
+				<c:set var="colorChangedivTrimes" value="#{autoPOBean.trimester.size()}"></c:set>
 				<c:set var="colorChangedivMonth" value="#{colorChangedivTrimes*3}"></c:set>
 				
 				<h:panelGroup layout="block" class="row" >
@@ -202,15 +209,27 @@
 				<h:link class="waves-effect waves-light btn" value="Guardar" outcome="EnConstruccion"></h:link>
 			</h:panelGroup>
          	<h:panelGroup layout="block" id="Cancelar">
-         		<h:link class="waves-effect waves-light btn" value="Cancelar" outcome="VistaDashboard"></h:link>
+         		<h:link onclick="PF('dialogToExit').show(); return false;" class="waves-effect waves-light btn" outcome="VistaPOAuto" value="Cancelar">
+         		</h:link>
          	</h:panelGroup>
 		</h:panelGroup>
 	</h:panelGroup>
 	
+     <p:dialog widgetVar="dialogToExit" closeOnEscape="true" 
+			  header="Cancelar cambios" closable="false">
+			  
+		<form>
+			<p>Desea Salir?</p>
+			<h:button value="Si" type="submit" outcome="VistaPOAuto"></h:button>
+			<h:button value="No" type="submit" ></h:button>
+		</form>
+		
+	</p:dialog>
+	
 	<footer id="footer" class="page-footer">
        <h:panelGroup id="copyright" layout="block" class="footer-copyright">
          <h:panelGroup layout="block" id="copyrightContainer">
-         © 2017 Copyright Text
+          HANDS © 2017
          </h:panelGroup>
        </h:panelGroup>
 		

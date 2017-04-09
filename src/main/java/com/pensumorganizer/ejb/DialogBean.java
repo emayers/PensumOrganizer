@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 
 import com.pensumorganizer.dao.Course;
@@ -13,26 +14,39 @@ import com.pensumorganizer.dao.Course;
 
 
 @ManagedBean
-@SessionScoped
+@RequestScoped
 public class DialogBean implements Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private Integer trimesterPosition;
+	private String subjectName;
 	
-	@PostConstruct
     public void add(LinkedHashMap<Integer,List<Course>> pensumMap,List<Course> noSelectData,Course subject){
     	System.out.println(getTrimesterPosition());
+    	System.out.println(subject.getName());
     	List<Course> desiredTrimester = pensumMap.get(getTrimesterPosition()-1); 
     	desiredTrimester.add(subject);
     	noSelectData.remove(subject);
     }
+	
+	
+	
 	public Integer getTrimesterPosition() {
 		return trimesterPosition;
 	}
 	public void setTrimesterPosition(Integer trimesterPosition) {
 		this.trimesterPosition = trimesterPosition;
+	}
+
+
+
+	public String getSubjectName() {
+		return subjectName;
+	}
+	public void setSubjectName(String subjectName) {
+		this.subjectName = subjectName;
 	}
 	
 
