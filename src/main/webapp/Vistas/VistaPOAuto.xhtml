@@ -8,7 +8,7 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 	
   <h:head>
-  	<link rel="Stylesheet" type="text/css" href="./Style/Auto.css?version=1.3"/>
+  	<link rel="Stylesheet" type="text/css" href="./Style/Auto.css?version=1.4"/>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,800,600"></link>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css"></link>
   	
@@ -119,8 +119,9 @@
 					
 						<h:panelGroup layout="block" class="card" id="cardTimePosition">
 							<h:panelGroup layout="block" class="card-content white-text" id="cardTimeArenge" >
-								<p>Permanencia:</p>
-								<p>#{colorChangedivMonth} Meses / #{colorChangedivTrimes} Trimestres</p>
+								<p id="perm">Permanencia</p>
+								<p id="trimNum">#{colorChangedivTrimes}</p>
+								<p id="trimLimit">de 21 Trimestres</p>
 								<script type="text/javascript">
 									function colorChange(){
 										if(#{colorChangedivTrimes} >= 21){
