@@ -237,7 +237,11 @@ tfoot td p{
 /*botones e info - end*/
 
 /*Dialog*/
-#dialogMove{
+#dialog{
+	width: 150px;
+}
+
+#formMove p{
 	text-align: center;
 }
 

@@ -8,7 +8,7 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 	
   <h:head>
-  	<link rel="Stylesheet" type="text/css" href="./Style/manual.css?verison=1.4"/>
+  	<link rel="Stylesheet" type="text/css" href="./Style/manual.css?verison=1.5"/>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,800,600"></link>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css"></link>
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"></link>
@@ -155,19 +155,22 @@
 					<h:commandLink  onclick="PF('dialogToAdd').show(); return false;">
 							<h:graphicImage value="/Vistas/Images/add-circle-1.svg" />
 					</h:commandLink>
-					<p:dialog widgetVar="dialogToAdd" closeOnEscape="true" 
-				  			  header="Añadir a Trimestre">
+					<p:dialog id="dialog" widgetVar="dialogToAdd" closeOnEscape="true" 
+				  			  header="Añadir a Trimestre" closable="false" resizable="false">
 				  
-						<form id="dialogMove">
-							<c:set value="1" var="num"></c:set>
-							<p>¿En qué trimestre desea agregar esta materia?</p>
-							<p>#{materia.name}</p>
-							<p:selectOneMenu value="#{dialogBean.trimesterPosition}">
-								<f:selectItems value="#{autoPOBean.trimester}" var="trimesters"
-								itemValue="#{trimesters.key}" itemLabel="Trimestre #{num}"/>
-								<c:set value="#{num}+1" var="num"></c:set>
-							</p:selectOneMenu>
+						<form id="formMove">
+							<p>#{materia.name} al Trimestre :</p>
+					   		<p:selectOneMenu 
+					   		
+					   				style="width: 35px;"
+					   				
+					   				 
+					   				value="#{autoPOBean.trimester}" >
+					   			<f:selectItems value="#{autoPOBean.trimester}"/> 
+					   			<f:ajax execute="#{dialogBean.trimesterPosition}"></f:ajax>
+					   		</p:selectOneMenu>
 							<h:commandButton action="#{dialogBean.add(autoPOBean.trimester,listChangingBean.newTableData,materia)}"  value="Aceptar" />
+							<h:commandButton value="Cancelar" />
 						</form>
 						
 					</p:dialog>
@@ -216,7 +219,7 @@
 	</h:panelGroup>
 	
      <p:dialog widgetVar="dialogToExit" closeOnEscape="true" 
-			  header="Cancelar cambios" closable="false">
+			  header="Cancelar cambios" closable="false" resizable="false">
 			  
 		<form>
 			<p>Desea Salir?</p>
