@@ -87,7 +87,7 @@ li a:hover:not(#currentPageMarker){
    display: inline;
    color: black;
    position: fixed;
-   top: 60px;
+   top: 110px;
    left: 20px;
    font-size: 20px;
    z-index: 0;
@@ -110,11 +110,13 @@ li a:hover:not(#currentPageMarker){
 /*titulo*/
 #titleBar{
 	color: white;
+	height: 35px;
 	background:#343434;
 	margin-top: 67px;
     padding-top: 0px;
     margin-left: 445px;
-    margin-right: 13px; 
+    margin-right: 13px;
+    z-index: -1; 
 }
 #titleBar p{
 	font-weight: bold;
@@ -126,6 +128,11 @@ li a:hover:not(#currentPageMarker){
 	width: 50px;
     position: relative;
     top: 3px;
+}
+#indice{
+	position: relative;
+    bottom: 27px;
+    left: 760px;
 }
 /*tabla*/
 #containerOfPensumTable{

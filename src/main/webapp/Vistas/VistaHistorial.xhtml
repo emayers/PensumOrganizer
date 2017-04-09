@@ -9,7 +9,7 @@
 	
   <meta name="viewport" content="width=device-width, initial-scale=1.1"></meta>
 <h:head>
-  	<link rel="Stylesheet" type="text/css" href="./Style/Historial.css?version=1"></link>
+  	<link rel="Stylesheet" type="text/css" href="./Style/Historial.css?version=1.1"></link>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,800,600"></link>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css"></link>
   	
@@ -21,7 +21,7 @@
 	<nav id="navigationMenuTag">
 		<h:panelGroup layout="block" id="menu" styleClass="nav-wrapper">
 			<ul id="navigationBar">
-				<li><h:link value="Pagina Principal" outcome="VistaDashboard">
+				<li><h:link value="Página Principal" outcome="VistaDashboard">
 					</h:link></li>
 				<li><h:link id="currentPageMarker" value="Ver Historial" outcome="VistaHistorial"></h:link></li>
 				<li><h:link value="Programa de la Carrera" outcome="VistaPrograma">
@@ -33,7 +33,7 @@
 					</a>
 					<h:panelGroup layout="block" id="dropdownContent" class="dropdownClass">
 	    					<h:link value="Log Out" outcome="VistaLogin"></h:link>
-	    					<h:link value="Help" outcome="EnConstruccion"></h:link>
+	    					<h:link value="Help" outcome="VistaHelp"></h:link>
 					</h:panelGroup>
 				</li>
 			</ul>
@@ -43,7 +43,7 @@
 		<h:panelGroup layout="block" id="titleBar">
 			<p>
 				<h:graphicImage id="titleBarImage" value="/Vistas/Images/Target-White.png" />
-				Historial Academico - Ingenieria de Software
+				Historial Académico  -  Ingeniería de Software 
 			</p>
 			<p id="indice">Índice General 3.14</p>
 		</h:panelGroup>
@@ -70,7 +70,7 @@
 				</h:column>
 				<h:column>
 					<f:facet name="header">
-						Creditos
+						Créditos
 					</f:facet>
 					#{list.credits}
 					<f:facet name="footer">
@@ -97,7 +97,7 @@
 				</h:column>
 				<h:column>
 					<f:facet name="header">
-						Creditos Requeridos
+						Créditos Requeridos
 					</f:facet>
 					<h:outputText rendered="#{list.creditsReq != '0'}" value="#{list.creditsReq}" />
 					<h:outputText rendered="#{list.creditsReq == '0'}" value="-" />
@@ -115,7 +115,7 @@
 	<footer id="footer" class="page-footer">
        <h:panelGroup id="copyright" layout="block" class="footer-copyright">
          <h:panelGroup layout="block" id="copyrightContainer">
-         © 2017 Copyright Text
+         HANDS © 2017
          </h:panelGroup>
        </h:panelGroup>
 		

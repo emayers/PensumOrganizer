@@ -32,7 +32,7 @@
 					</a>
 					<h:panelGroup layout="block" id="dropdownContent" class="dropdownClass">
 	    					<h:link value="Log Out" outcome="VistaLogin"></h:link>
-	    					<h:link value="Help" outcome="EnConstruccion"></h:link>
+	    					<h:link value="Help" outcome="VistaHelp"></h:link>
 					</h:panelGroup>
 				</li>
 			</ul>
@@ -42,10 +42,10 @@
 	<h:panelGroup layout="block" id="titleBar">
 		<p id="PensumRecomendado">
 			<h:graphicImage id="titleBarImage" value="/Vistas/Images/Target-White.png" />
-			Pensum Recomendado - Ingenieria de Software
+			Pensum Recomendado - Ingeniería de Software
 		</p>
 		<p id="Duration"> 
-			Duracion del Pensum: #{autoPOBean.trimester.size()} Trimestres
+			Duración del Pensum: #{autoPOBean.trimester.size()} Trimestres
 		</p>
 	</h:panelGroup>
 	
@@ -111,7 +111,7 @@
 	<h:panelGroup layout="block" id="InformationAndBotons">
 		<h:panelGroup layout="block" id="Information">
 				
-				<c:set var="colorChangedivTrimes" value="13"></c:set>
+				<c:set var="colorChangedivTrimes" value="#{autoPOBean.trimester.size()}"></c:set>
 				<c:set var="colorChangedivMonth" value="#{colorChangedivTrimes*3}"></c:set>
 				
 				<h:panelGroup layout="block" class="row" >
@@ -140,7 +140,7 @@
          </h:panelGroup>
 		<h:panelGroup layout="block" id="Botons">
 			<h:panelGroup layout="block" id="Reorganizar">
-         		<h:link class="waves-effect waves-light btn" value="Reoganizar" outcome="VistaDashboard"></h:link>
+         		<h:link class="waves-effect waves-light btn" value="Reoganizar" outcome="VistaPOAuto"></h:link>
          	</h:panelGroup>
 			<h:panelGroup layout="block" id="Editar">
 				<h:link class="waves-effect waves-light btn" value="Editar" outcome="VistaPOManual"></h:link>
@@ -160,7 +160,7 @@
 	<footer id="footer" class="page-footer">
        <h:panelGroup id="copyright" layout="block" class="footer-copyright">
          <h:panelGroup layout="block" id="copyrightContainer">
-         © 2017 Copyright Text
+         HANDS © 2017
          </h:panelGroup>
        </h:panelGroup>
 		
