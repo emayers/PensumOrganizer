@@ -215,6 +215,7 @@ tfoot td p{
 #intec{
 	width: 85px;
 	margin-left: 1250px;
+	margin-top: 5px;
 }
 #intecLogo{
 	position: relative;
@@ -222,7 +223,7 @@ tfoot td p{
     bottom: 110px;
 }
 #logo{
-	width: 198px;
+	width: 175px;
 }
 #logoDiv{
 	position: relative;
@@ -233,6 +234,7 @@ tfoot td p{
 	position: relative;
     width: 180%;
     bottom: 20px;
+    font-weight: bold;
 }
 #copyrightContainer{
 	margin-left: 630px;
