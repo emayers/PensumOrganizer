@@ -16,27 +16,27 @@
   	
   	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
   	<script src="https://cdn.jsdelivr.net/sweetalert2/6.5.5/sweetalert2.min.js"></script>
-  	<script type="text/javascript" src="Scripts/DropdownList.js?version=1"></script>
-  	<script type="text/javascript" src="Scripts/MoveElements.js?version=1.0"></script>
+  	<script type="text/javascript" src="Scripts/DropdownList.js?version=1.0"></script>
+  	<script type="text/javascript" src="Scripts/OutcomeLink.js?version=1"></script>
   </h:head>
   
   <h:body>
     <nav id="navigationMenuTag">
 		<h:panelGroup layout="block" id="menu" styleClass="nav-wrapper">
-			<ul id="navigationBar">
-				<li><h:link value="Página Principal" outcome="VistaDashboard">
+			<ul id="navigationBar"> 
+				<li><h:link onclick="getLinkValue(this); PF('dialogToExit').show(); return false;" value="Página Principal" outcome="VistaDashboard">
 					</h:link></li>
-				<li><h:link value="Ver Historial" outcome="VistaHistorial"></h:link></li>
-				<li><h:link value="Programa de la Carrera" outcome="VistaPrograma">
+				<li><h:link onclick="getLinkValue(this); PF('dialogToExit').show(); return false;" value="Ver Historial" outcome="VistaHistorial"></h:link></li>
+				<li><h:link onclick="getLinkValue(this); PF('dialogToExit').show(); return false;" value="Programa de la Carrera" outcome="VistaPrograma">
 					</h:link></li>
-				<li><h:link id="currentPageMarker" value="Reorganizar Pensum" outcome="VistaPOAuto"></h:link></li>
+				<li><h:link onclick="getLinkValue(this); PF('dialogToExit').show(); return false;" id="currentPageMarker" value="Reorganizar Pensum" outcome="VistaPOAuto"></h:link></li>
+				<li><h:link onclick="getLinkValue(this); PF('dialogToExit').show(); return false;" value="Ayuda" outcome="VistaHelp"></h:link></li>
 				<li id="user">
 					<a class="dropdownTrigger"  onclick="dropList()" href="#">
 						#{studentBean.student.name} #{studentBean.student.last_name}
 					</a>
 					<h:panelGroup layout="block" id="dropdownContent" class="dropdownClass">
-	    					<h:link value="Log Out" outcome="VistaLogin"></h:link>
-	    					<h:link value="Help" outcome="VistaHelp"></h:link>
+	    					<h:link onclick="getLinkValue(this); PF('dialogToExit').show(); return false;" value="Log Out" outcome="VistaLogin"></h:link>
 					</h:panelGroup>
 				</li>
 			</ul>
@@ -158,11 +158,14 @@
 					<p:dialog id="dialog" widgetVar="dialogToAdd" closeOnEscape="true" 
 				  			  header="Añadir a Trimestre" closable="false" resizable="false">
 				  
-						<form id="formMove">
-							<p>#{materia.name} al Trimestre :</p>
+						<form>
+							<p id="formText">#{materia.name} al Trimestre :</p>
 					   		<p:selectOneMenu 
 					   		
-					   				style="width: 35px;"
+					   				style="width: 35px;
+				   					       position: relative;
+				   					       bottom: 35px;
+				   					       left: 136px;"
 					   				
 					   				 
 					   				value="#{autoPOBean.trimester}" >
@@ -222,8 +225,9 @@
 			  header="Cancelar cambios" closable="false" resizable="false">
 			  
 		<form>
-			<p>Desea Salir?</p>
-			<h:button value="Si" type="submit" outcome="VistaPOAuto"></h:button>
+			<p id="formText" >Pueden existir cambios no guardados</p>
+			<p id="formText">¿Desea salir?</p>
+			<h:button value="Si" type="submit" onclick="return outcomeSwich();"></h:button>
 			<h:button value="No" type="submit" ></h:button>
 		</form>
 		
