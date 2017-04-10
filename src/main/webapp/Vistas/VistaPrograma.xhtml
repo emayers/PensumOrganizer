@@ -7,7 +7,7 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 	
   <h:head>
-  	<link rel="Stylesheet" type="text/css" href="./Style/Program.css?verison=1.0"/>
+  	<link rel="Stylesheet" type="text/css" href="./Style/Program.css?verison=6.0"/>
   	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,800,600"></link>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css"></link>
   	
@@ -25,7 +25,7 @@
 				<li><h:link id="currentPageMarker" value="Programa de la Carrera">
 					</h:link></li>
 				<li><h:link value="Reorganizar Pensum" outcome="VistaPOAuto"></h:link></li>
-				<li><h:link id="currentPageMarker" value="Ayuda" outcome="VistaHelp"></h:link></li>
+				<li><h:link value="Ayuda" outcome="VistaHelp"></h:link></li>
 				<li id="user">
 					<a class="dropdownTrigger"  onclick="dropList()" href="#">
 						#{studentBean.student.name} #{studentBean.student.last_name}
