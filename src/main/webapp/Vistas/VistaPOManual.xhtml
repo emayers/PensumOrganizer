@@ -162,16 +162,21 @@
 							<p id="formText">#{materia.name} al Trimestre :</p>
 					   		<p:selectOneMenu 
 					   		
-					   				style="width: 35px;
+					   				style="width: 125px;
 				   					       position: relative;
 				   					       bottom: 35px;
 				   					       left: 136px;"
 					   				
 					   				 
 					   				value="#{autoPOBean.trimester}" >
-					   			<f:selectItems value="#{autoPOBean.trimester}"/> 
-					   			<f:ajax execute="#{dialogBean.trimesterPosition}"></f:ajax>
+					   			<c:forEach items="#{autoPOBean.trimester}">
+					   				<c:set var="trimesterPos" value="#{trimesterPos+1}"></c:set>
+					   				<f:selectItem itemValue="#{trimesterPos}" itemLabel="Trimester #{trimesterPos}"/>
+					   				<c:set var="trimesterPos" value="#{trimesterPos}"></c:set>
+					   			</c:forEach>
 					   		</p:selectOneMenu>
+					   		<script type="text/javascript">
+					   		</script>
 							<h:commandButton action="#{dialogBean.add(autoPOBean.trimester,listChangingBean.newTableData,materia)}"  value="Aceptar" />
 							<h:commandButton value="Cancelar" />
 						</form>
