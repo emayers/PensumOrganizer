@@ -48,7 +48,7 @@
 		<p id="indice">Índice General 3.14</p>
 	</h:panelGroup>
 	<h:panelGroup layout="block" id="containerOfPensumTable" >
-		<c:forEach items="#{autoPOBean.trimester}" var="entry">
+		<c:forEach items="#{autoPOBean.pensum}" var="entry">
 			<c:set var="trimesterCuantity" value="#{trimesterCuantity}"></c:set>
 			<h:dataTable styleClass="highlight centered bordered" value="#{entry.value}" var="list">
 					<c:set var="trimesterCuantity" value="#{trimesterCuantity + 1}"></c:set>

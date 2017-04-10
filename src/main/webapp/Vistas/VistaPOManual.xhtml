@@ -55,13 +55,13 @@
 			Pensum Actual – Ingeniería de Software 
 		</p>
 		<p id="Duration"> 
-			Duracion del Pensum: #{autoPOBean.trimester.size()} Trimestres
+			Duracion del Pensum: #{autoPOBean.pensum.size()} Trimestres
 		</p>
 	</h:panelGroup>
 	
 	<h:panelGroup layout="block" id="containerOfPensumTable" >
 	<h:form>
-		<c:forEach items="#{autoPOBean.trimester}" var="entry">
+		<c:forEach items="#{autoPOBean.pensum}" var="entry">
 			<c:set var="trimesterCuantity" value="#{trimesterCuantity}"></c:set>
 			<h:dataTable styleClass="highlight centered bordered" value="#{entry.value}" var="list" >
 					<c:set var="trimesterCuantity" value="#{trimesterCuantity + 1}"></c:set>
@@ -115,7 +115,7 @@
 					<h:outputText rendered="#{list.creditsReq == '0'}" value="-" />
 				</h:column>
 				<h:column>
-					<h:commandLink action="#{listChangingBean.delete(entry.value,list)}">
+					<h:commandLink action="#{listChangingBean.delete(autoPOBean.pensum, entry.key, list)}">
 						<h:graphicImage value="/Vistas/Images/remove-circle-1.svg" />
 					</h:commandLink>
 				</h:column>
@@ -165,11 +165,11 @@
 					   				style="width: 35px;"
 					   				
 					   				 
-					   				value="#{autoPOBean.trimester}" >
-					   			<f:selectItems value="#{autoPOBean.trimester}"/> 
-					   			<f:ajax execute="#{dialogBean.trimesterPosition}"></f:ajax>
+					   				value="#{autoPOBean.pensum}" >
+					   			<f:selectItems value="#{autoPOBean.pensum}"/> 
+					   			<f:ajax execute="#{manualOrganizationBean.trimesterPosition}"></f:ajax>
 					   		</p:selectOneMenu>
-							<h:commandButton action="#{dialogBean.add(autoPOBean.trimester,listChangingBean.newTableData,materia)}"  value="Aceptar" />
+							<h:commandButton action="#{manualOrganizationBean.add(autoPOBean.pensum, materia)}"  value="Aceptar" />
 							<h:commandButton value="Cancelar" />
 						</form>
 						
@@ -180,7 +180,7 @@
 		</h:panelGroup>
 		<h:panelGroup layout="block" id="Information">
 				
-				<c:set var="colorChangedivTrimes" value="#{autoPOBean.trimester.size()}"></c:set>
+				<c:set var="colorChangedivTrimes" value="#{autoPOBean.pensum.size()}"></c:set>
 				<c:set var="colorChangedivMonth" value="#{colorChangedivTrimes*3}"></c:set>
 				
 				<h:panelGroup layout="block" class="row" >
