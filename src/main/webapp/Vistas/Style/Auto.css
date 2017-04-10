@@ -85,7 +85,7 @@ li a:hover:not(#currentPageMarker){
 #InformationAndBotons{
    display: inline;
    position: fixed;
-   top: 250px;
+   top: 229px;
    left: 50px;
    font-size: 20px;
    z-index: 0;
@@ -126,10 +126,9 @@ li a:hover:not(#currentPageMarker){
 }
 
 #cardTimeArenge{
-	padding-right: 0px;
-    padding-left: 10px;
-    padding-top: 0px;
-    height: 50px;
+    padding-top: 5px;
+    height: 170px;
+    text-align: center;
 }
 #cardTimePosition{
 	background-color: #EC3E3F;
@@ -137,6 +136,14 @@ li a:hover:not(#currentPageMarker){
     bottom: 90px;
     width: 215px;
     font-size: 15px;
+    margin-top: -28px;
+}
+#perm{
+	font-size: 20px;
+}
+
+#trimNum{
+	font-size: 70px;
 }
 
 /*titulo*/
