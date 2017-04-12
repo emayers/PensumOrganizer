@@ -189,14 +189,19 @@ tfoot td p{
 #subjectsBlock{
 	width: 470px;
 	height: 315px;
-    position: inherit;
-    bottom: 210px;
-    left: 15px;
+    position: relative;
+    bottom: 150px;
+    right: 30px;
     overflow-y:auto;
     font-size: 16px;
 }
 #Botons a{
 	background-color: #343434;
+}
+#Botons{
+    position: relative;
+    bottom: 310px;
+    left: 20px;
 }
 #Botons div{
 	font-size: smaller;
@@ -221,6 +226,11 @@ tfoot td p{
 	padding-left: 35px;
 	padding-right: 35px;
 }
+#Information{
+	position: relative;
+    bottom: 140px;
+    left: 70px;
+}
 #cardTimeArenge{
 	padding-right: 0px;
     padding-left: 10px;
@@ -229,8 +239,7 @@ tfoot td p{
 }
 #cardTimePosition{
 	background-color: #EC3E3F;
-    left: 55px;
-    top: 175px;
+	position: inherit;
     width: 215px;
     font-size: 15px;
 }
@@ -256,7 +265,7 @@ input[type="submit"]{
 input[type="button"]{
 	position: relative;
     margin-top: 23px;
-    margin-left: 30px;
+    margin-left: 60px;
     margin-right: 30px;
 }
 
