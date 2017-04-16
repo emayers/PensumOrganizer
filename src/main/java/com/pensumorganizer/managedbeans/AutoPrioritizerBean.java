@@ -22,7 +22,7 @@ public class AutoPrioritizerBean implements Serializable {
 	AutoPrioritizerEJBImpl apEJB = new AutoPrioritizerEJBImpl();
 	
 	@PostConstruct
-	public void prepare(){
+	private void prepare(){
 		apEJB.organizePensum();
 	}
 	
