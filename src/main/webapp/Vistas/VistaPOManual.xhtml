@@ -8,7 +8,7 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 	
   <h:head>
-  	<link rel="Stylesheet" type="text/css" href="./Style/manual.css?verison=6.0.1"/>
+  	<link rel="Stylesheet" type="text/css" href="./Style/manual.css?verison=6.0.2"/>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,800,600"></link>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css"></link>
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"></link>
@@ -17,7 +17,7 @@
   	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
   	<script src="https://cdn.jsdelivr.net/sweetalert2/6.5.5/sweetalert2.min.js"></script>
   	<script type="text/javascript" src="Scripts/DropdownList.js?version=1.0"></script>
-  	<script type="text/javascript" src="Scripts/OutcomeLink.js?version=1"></script>
+  	<script type="text/javascript" src="Scripts/OutcomeLink.js?version=1.2"></script>
   </h:head>
   
   <h:body>
@@ -157,10 +157,14 @@
 					</h:commandLink>
 					<p:dialog id="dialog" widgetVar="dialogToAdd" closeOnEscape="true" 
 				  			  header="Añadir a Trimestre" closable="false" resizable="false">
-				  
-						<form>
+				  		<h:inputHidden id="data"/>
+						<form id="popUpForm">
 							<p id="formText">#{materia.name} al Trimestre :</p>
-					   		<p:selectOneMenu 
+					   		<p:selectOneMenu
+					   				
+					   				onchange="selectGrab(this)"
+					   				
+					   				class="DropdownTri" 
 					   		
 					   				style="width: 125px;
 				   					       position: relative;
@@ -168,16 +172,16 @@
 				   					       left: 136px;"
 					   				
 					   				 
-					   				value="#{autoPOBean.trimester}" >
+					   				>
 					   			<c:forEach items="#{autoPOBean.trimester}">
 					   				<c:set var="trimesterPos" value="#{trimesterPos+1}"></c:set>
 					   				<f:selectItem itemValue="#{trimesterPos}" itemLabel="Trimester #{trimesterPos}"/>
 					   				<c:set var="trimesterPos" value="#{trimesterPos}"></c:set>
 					   			</c:forEach>
+					   			
 					   		</p:selectOneMenu>
-					   		<script type="text/javascript">
-					   		</script>
-							<h:commandButton action="#{dialogBean.add(autoPOBean.trimester,listChangingBean.newTableData,materia)}"  value="Aceptar" />
+					   		<c:set var="Position" value="toRet"/>
+							<h:commandButton action="#{dialogBean.add(autoPOBean.trimester,Position,materia)}"  value="Aceptar" />
 							<h:commandButton value="Cancelar" />
 						</form>
 						
@@ -190,29 +194,6 @@
 				
 				<c:set var="colorChangedivTrimes" value="#{autoPOBean.trimester.size()}"></c:set>
 				<c:set var="colorChangedivMonth" value="#{colorChangedivTrimes*3}"></c:set>
-				
-				<h:panelGroup layout="block" class="row" >
-					<h:panelGroup layout="block" class="col s12 m6">
-					
-						<h:panelGroup layout="block" class="card" id="cardTimePosition">
-							<h:panelGroup layout="block" class="card-content white-text" id="cardTimeArenge" >
-								<p>Permanencia:</p>
-								<p>#{colorChangedivMonth} Meses / #{colorChangedivTrimes} Trimestres</p>
-								<script type="text/javascript">
-									function colorChange(){
-										if(#{colorChangedivTrimes} >= 21){
-											document.getElementById("cardTimePosition").style.backgroundColor = "#EC3E3F";
-										}
-										else {
-											document.getElementById("cardTimePosition").style.backgroundColor = "#72af47";
-										}
-									}
-									window.onload = colorChange;
-								</script>
-							</h:panelGroup>
-						</h:panelGroup>
-					</h:panelGroup>
-				</h:panelGroup>
 				
          </h:panelGroup>
 		<h:panelGroup layout="block" id="Botons">

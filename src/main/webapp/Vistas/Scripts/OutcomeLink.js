@@ -1,7 +1,8 @@
 /**
  * 
  */
-var link
+var link;
+var toRet;
 function getLinkValue(links){
 	link = links.innerHTML;
 }
@@ -19,6 +20,7 @@ function outcomeSwich(){
 		page = window.location.href='/Vistas/VistaPrograma.xhtml';
 		break;
 	case 'Reorganizar Pensum':
+		page = window.location.href='/Vistas/VistaPOAuto.xhtml';
 		break;
 	case 'Ayuda':
 		page = window.location.href='/Vistas/VistaHelp.xhtml';
@@ -31,4 +33,18 @@ function outcomeSwich(){
 	
 	return page;
 }
+
+function selectGrab(event){
+	
+	console.log(event);
+	var selectedVal = event.options[event.selectedIndex];
+	toRet = selectedVal.value; 
+	
+	console.log(toRet);
+	
+}
+
+
+
+
 

@@ -22,9 +22,8 @@
 
 	<h:form>
 		<h:panelGroup layout="block" id="logoTitleDiv">
-			<h:graphicImage class="logoTitle" value="/Vistas/Images/Logo.png" />
+			<h:graphicImage class="logoTitle" value="/Vistas/Images/Logo-red.png" />
 		</h:panelGroup>
-		
 		<h:inputText p:placeholder="ID Institucional" id="studentId" value="#{authenticationBean.userName}"/>
 		<h:inputSecret p:placeholder="Contraseña" id="password" value="#{authenticationBean.password}"/>
 		<h:commandButton action="#{authenticationBean.submit()}"  value="Iniciar Sesión" />

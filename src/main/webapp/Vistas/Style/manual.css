@@ -200,7 +200,7 @@ tfoot td p{
 }
 #Botons{
     position: relative;
-    bottom: 310px;
+    bottom: 260px;
     left: 20px;
 }
 #Botons div{
@@ -226,23 +226,6 @@ tfoot td p{
 	padding-left: 35px;
 	padding-right: 35px;
 }
-#Information{
-	position: relative;
-    bottom: 140px;
-    left: 70px;
-}
-#cardTimeArenge{
-	padding-right: 0px;
-    padding-left: 10px;
-    padding-top: 0px;
-    height: 50px;
-}
-#cardTimePosition{
-	background-color: #EC3E3F;
-	position: inherit;
-    width: 215px;
-    font-size: 15px;
-}
 /*botones e info - end*/
 
 /*Dialog*/
@@ -252,12 +235,12 @@ tfoot td p{
 
 #formText{
 	text-align: center;
-	margin-bottom: 45px;
+	margin-bottom: 30px;
 }
 
 input[type="submit"]{
 	position: relative;
-    right: 18px;
+    right: 70px;
     margin-top: 23px;
     margin-left: 30px;
     margin-right: 30px;
