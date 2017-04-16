@@ -52,10 +52,10 @@
 	<h:panelGroup layout="block" id="titleBar">
 		<p id="PensumRecomendado">
 			<h:graphicImage id="titleBarImage" value="/Vistas/Images/Target-White.png" />
-			Pensum Actual â€“ IngenierÃ­a de Software 
+			Pensum Actual - Ingeniería de Software 
 		</p>
 		<p id="Duration"> 
-			Duracion del Pensum: #{autoPrioritizerBean.pensum.size()} Trimestres
+			Duración del Pensum: #{autoPrioritizerBean.pensum.size()} Trimestres
 		</p>
 	</h:panelGroup>
 	
@@ -82,7 +82,7 @@
 				</h:column>
 				<h:column>
 					<f:facet name="header">
-						CrÃ©ditos
+						Créditos
 					</f:facet>
 					#{list.credits}
 					<f:facet name="footer">
@@ -109,7 +109,7 @@
 				</h:column>
 				<h:column>
 					<f:facet name="header">
-						CrÃ©ditos Requeridos
+						Créditos Requeridos
 					</f:facet>
 					<h:outputText rendered="#{list.creditsReq != '0'}" value="#{list.creditsReq}" />
 					<h:outputText rendered="#{list.creditsReq == '0'}" value="-" />
@@ -145,7 +145,7 @@
 				</h:column>
 				<h:column>
 					<f:facet name="header">
-						CrÃ©ditos
+						Créditos
 					</f:facet>
 					#{subject.credits}
 				</h:column>
@@ -221,7 +221,7 @@
 			  header="Cancelar cambios" closable="false" resizable="false">
 			  
 		<form>
-			<p>Desea Salir?</p>
+			<p>¿Desea Salir?</p>
 			<h:button value="Si" type="submit" outcome="VistaPOAuto"></h:button>
 			<h:button value="No" type="submit" ></h:button>
 		</form>
@@ -231,7 +231,7 @@
 	<footer id="footer" class="page-footer">
        <h:panelGroup id="copyright" layout="block" class="footer-copyright">
          <h:panelGroup layout="block" id="copyrightContainer">
-          HANDS Â© 2017
+          HANDS © 2017
          </h:panelGroup>
        </h:panelGroup>
 		
