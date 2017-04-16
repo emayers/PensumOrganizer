@@ -8,7 +8,7 @@ import com.pensumorganizer.dao.Course;
 public class Main {
 
 	public static void main(String[] args) {
-		Map<Integer, List<Course>> trimesters = PensumReorganizer.getOrganizedPensum();
+		Map<Integer, List<Course>> trimesters = AutoPrioritizer.getOrganizedPensum();
 		
 		for (int index = 0; index < trimesters.size(); index++) {
 			List<Course> current = trimesters.get(index);

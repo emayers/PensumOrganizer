@@ -32,6 +32,16 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
+		    <groupId>javax.ejb</groupId>
+		    <artifactId>javax.ejb-api</artifactId>
+		    <version>3.2</version>
+		</dependency>
+		<dependency>
+		    <groupId>javax.inject</groupId>
+		    <artifactId>javax.inject</artifactId>
+		    <version>1</version>
+		</dependency>
+		<dependency>
 			<groupId>org.webjars</groupId>
 			<artifactId>font-awesome</artifactId>
 		</dependency>	

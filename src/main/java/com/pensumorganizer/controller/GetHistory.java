@@ -8,8 +8,8 @@ import java.util.Map;
 import com.pensumorganizer.dao.Course;
 import com.pensumorganizer.util.TrialDataSetter;
 
-public class History {
-
+public class GetHistory {
+	//TODO CHECK
 	private static List<Course> coursesProgram;
 	private static List<Course> takenCourses = new ArrayList<Course>();
 	
@@ -33,13 +33,10 @@ public class History {
 	private static Map<Integer, List<Course>> createHistory() {
 		takenCoursesList();
 		Integer currentTrimester = 1;
-//		int lastTrimester = (int)takenCourses.get(takenCourses.size() - 2).getTrimesterTaken();
-//		int trimesterTaken = 0;
 
 		Map<Integer, List<Course>> trimester = new LinkedHashMap<Integer, List<Course>>();
 		List<Course> history = new ArrayList<Course>();
 		
-		//FIXME It's better if I use ListIterator
 		Course element;
 		
 		for(int i = 0; i < takenCourses.size(); i++){

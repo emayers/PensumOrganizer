@@ -12,7 +12,7 @@ import com.pensumorganizer.dao.Course;
 
 @ManagedBean
 @SessionScoped
-public class DataBean {
+public class ProgramBean {
 	Map<Integer, List<Course>> trimester = GetProgram.getData();
 	
 	public Map<Integer, List<Course>> getTrimester() {

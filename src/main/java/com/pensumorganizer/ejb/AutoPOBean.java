@@ -3,25 +3,30 @@ package com.pensumorganizer.ejb;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
+import javax.inject.Named;
+import javax.inject.Singleton;
 
-import com.pensumorganizer.controller.PensumReorganizer;
+import com.pensumorganizer.controller.AutoPrioritizer;
 import com.pensumorganizer.dao.Course;
 
 @ManagedBean
-@RequestScoped
+@SessionScoped
+@Singleton
+@Named(value = "autoPOBean")
 public class AutoPOBean {
-	static private Map<Integer, List<Course>> pensum = PensumReorganizer.getOrganizedPensum();
+
+	static private Map<Integer, List<Course>> pensum;
+	
+	@PostConstruct
+	public void prepare(){
+		AutoPrioritizer.organizePensum();
+		pensum = AutoPrioritizer.getOrganizedPensum();
+	}
 	
 	public Map<Integer, List<Course>> getPensum() {
-//		Map<Integer, List<Course>> newInstance = 
-//				new LinkedHashMap<Integer, List<Course>>(trimester);
-		
 		return pensum;
-	}
-
-	public static void setPensum(Map<Integer, List<Course>> trimester) {
-		AutoPOBean.pensum = trimester;
 	}
 }
