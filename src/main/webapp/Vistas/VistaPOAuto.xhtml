@@ -46,12 +46,12 @@
 			Pensum Recomendado - Ingeniería de Software
 		</p>
 		<p id="Duration"> 
-			Duración del Pensum: #{autoPOBean.trimester.size()} Trimestres
+			Duración del Pensum: #{autoPrioritizerBean.pensum.size()} Trimestres
 		</p>
 	</h:panelGroup>
 	
 	<h:panelGroup layout="block" id="containerOfPensumTable" >
-		<c:forEach items="#{autoPOBean.trimester}" var="entry">
+		<c:forEach items="#{autoPrioritizerBean.pensum}" var="entry">
 			<c:set var="trimesterCuantity" value="#{trimesterCuantity}"></c:set>
 			<h:dataTable styleClass="highlight centered bordered" value="#{entry.value}" var="list">
 					<c:set var="trimesterCuantity" value="#{trimesterCuantity + 1}"></c:set>
@@ -112,7 +112,7 @@
 	<h:panelGroup layout="block" id="InformationAndBotons">
 		<h:panelGroup layout="block" id="Information">
 				
-				<c:set var="colorChangedivTrimes" value="#{autoPOBean.trimester.size()}"></c:set>
+				<c:set var="colorChangedivTrimes" value="#{autoPrioritizerBean.pensum.size()}"></c:set>
 				<c:set var="colorChangedivMonth" value="#{colorChangedivTrimes*3}"></c:set>
 				
 				<h:panelGroup layout="block" class="row" >
