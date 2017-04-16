@@ -6,7 +6,6 @@ function dropList(){
 window.onclick = function(event){
 	if(!event.target.matches('.dropdownTrigger')) {
 		var dropDown = document.getElementsByClassName("dropdownClass");
-		console.log(dropDown.length);
 		var i;
 		for (i=0;i<dropDown.length;i++){
 			var openDropdown = dropDown[i];
