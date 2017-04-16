@@ -1,4 +1,4 @@
-package com.pensumorganizer.ejb;
+package com.pensumorganizer.managedbeans;
 
 import java.util.HashMap;
 import java.util.Map;

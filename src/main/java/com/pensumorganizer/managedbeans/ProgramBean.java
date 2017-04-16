@@ -1,4 +1,4 @@
-package com.pensumorganizer.ejb;
+package com.pensumorganizer.managedbeans;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -7,8 +7,8 @@ import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
-import com.pensumorganizer.controller.GetProgram;
 import com.pensumorganizer.dao.Course;
+import com.pensumorganizer.ejb.GetProgram;
 
 @ManagedBean
 @SessionScoped

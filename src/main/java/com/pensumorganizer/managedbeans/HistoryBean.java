@@ -1,4 +1,4 @@
-package com.pensumorganizer.ejb;
+package com.pensumorganizer.managedbeans;
 
 import java.util.List;
 import java.util.Map;
@@ -7,8 +7,8 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
-import com.pensumorganizer.controller.GetHistory;
 import com.pensumorganizer.dao.Course;
+import com.pensumorganizer.ejb.GetHistory;
 
 @ManagedBean
 @SessionScoped

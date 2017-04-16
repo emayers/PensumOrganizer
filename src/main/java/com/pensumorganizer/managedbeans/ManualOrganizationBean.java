@@ -1,4 +1,4 @@
-package com.pensumorganizer.ejb;
+package com.pensumorganizer.managedbeans;
 
 import java.io.Serializable;
 import java.util.List;
@@ -10,8 +10,8 @@ import javax.faces.bean.SessionScoped;
 
 import org.primefaces.push.annotation.Singleton;
 
-import com.pensumorganizer.controller.ManualOrganizer;
 import com.pensumorganizer.dao.Course;
+import com.pensumorganizer.ejb.ManualOrganizer;
 
 @ManagedBean
 @SessionScoped

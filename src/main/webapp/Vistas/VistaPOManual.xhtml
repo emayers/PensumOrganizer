@@ -55,13 +55,13 @@
 			Pensum Actual – Ingeniería de Software 
 		</p>
 		<p id="Duration"> 
-			Duracion del Pensum: #{autoPOBean.pensum.size()} Trimestres
+			Duracion del Pensum: #{autoPrioritizerBean.pensum.size()} Trimestres
 		</p>
 	</h:panelGroup>
 	
 	<h:panelGroup layout="block" id="containerOfPensumTable" >
 	<h:form>
-		<c:forEach items="#{autoPOBean.pensum}" var="entry">
+		<c:forEach items="#{autoPrioritizerBean.pensum}" var="entry">
 			<c:set var="trimesterCuantity" value="#{trimesterCuantity}"></c:set>
 			<h:dataTable styleClass="highlight centered bordered" value="#{entry.value}" var="list" >
 					<c:set var="trimesterCuantity" value="#{trimesterCuantity + 1}"></c:set>
@@ -166,10 +166,10 @@
 <!-- 					   				style="width: 35px;" -->
 					   				
 					   				 
-<!-- 					   				value="#{autoPOBean.pensum}" > -->
-<!-- 					   			<f:selectItems value="#{autoPOBean.pensum}"/>  -->
+<!-- 					   				value="#{autoPrioritizerBean.pensum}" > -->
+<!-- 					   			<f:selectItems value="#{autoPrioritizerBean.pensum}"/>  -->
 <!-- 					   		</p:selectOneMenu> -->
-<!-- 							<h:commandButton action="#{manualOrganizationBean.add(autoPOBean.pensum, 1, materia)}"  value="Aceptar" /> -->
+<!-- 							<h:commandButton action="#{manualOrganizationBean.add(autoPrioritizerBean.pensum, 1, materia)}"  value="Aceptar" /> -->
 <!-- 							<h:commandButton value="Cancelar" /> -->
 <!-- 						</form> -->
 =======
@@ -183,8 +183,8 @@
 				   					       left: 136px;"
 					   				
 					   				 
-					   				value="#{autoPOBean.trimester}" >
-					   			<c:forEach items="#{autoPOBean.trimester}">
+					   				value="#{autoPrioritizerBean.trimester}" >
+					   			<c:forEach items="#{autoPrioritizerBean.trimester}">
 					   				<c:set var="trimesterPos" value="#{trimesterPos+1}"></c:set>
 					   				<f:selectItem itemValue="#{trimesterPos}" itemLabel="Trimester #{trimesterPos}"/>
 					   				<c:set var="trimesterPos" value="#{trimesterPos}"></c:set>
@@ -192,7 +192,7 @@
 					   		</p:selectOneMenu>
 					   		<script type="text/javascript">
 					   		</script>
-							<h:commandButton action="#{dialogBean.add(autoPOBean.trimester,listChangingBean.newTableData,materia)}"  value="Aceptar" />
+							<h:commandButton action="#{dialogBean.add(autoPrioritizerBean.trimester,listChangingBean.newTableData,materia)}"  value="Aceptar" />
 							<h:commandButton value="Cancelar" />
 						</form>
 >>>>>>> 795e739b77f8aeb226880b3d1406431bc83cf2f8
@@ -204,7 +204,7 @@
 		</h:panelGroup>
 		<h:panelGroup layout="block" id="Information">
 				
-				<c:set var="colorChangedivTrimes" value="#{autoPOBean.pensum.size()}"></c:set>
+				<c:set var="colorChangedivTrimes" value="#{autoPrioritizerBean.pensum.size()}"></c:set>
 				<c:set var="colorChangedivMonth" value="#{colorChangedivTrimes*3}"></c:set>
 				
 				<h:panelGroup layout="block" class="row" >

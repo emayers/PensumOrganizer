@@ -1,4 +1,4 @@
-package com.pensumorganizer.controller;
+package com.pensumorganizer.ejb;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;

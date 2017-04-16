@@ -8,11 +8,9 @@ import javax.ejb.Remote;
 import com.pensumorganizer.dao.Course;
 
 @Remote
-public interface EJBGenericInterface {
+public interface AutoPrioritizerEJBInterface {
 	
 	public Map<Integer, List<Course>> getOrganizedPensum();
-	
-	public void setOrganizedPensum(Map<Integer, List<Course>> pensum);
 	
 	public void organizePensum();
 }

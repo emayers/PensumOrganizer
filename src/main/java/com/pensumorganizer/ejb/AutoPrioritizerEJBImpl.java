@@ -1,4 +1,4 @@
-package com.pensumorganizer.controller;
+package com.pensumorganizer.ejb;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,11 +7,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 
+import javax.ejb.Stateless;
+
 import com.pensumorganizer.dao.Course;
+import com.pensumorganizer.ejb.interfaces.AutoPrioritizerEJBInterface;
 import com.pensumorganizer.util.CourseComparator;
 import com.pensumorganizer.util.TrialDataSetter;
 
-public class AutoPrioritizer {
+@Stateless
+public class AutoPrioritizerEJBImpl implements AutoPrioritizerEJBInterface {
 	final private static int IDEAL_TOTAL_TRIMESTERS = 14,
 							 MAX_CREDITS_PER_TRIMESTER = 19,
 							 HIGH_PRIORITY_WEIGHT = 10,
@@ -20,22 +24,22 @@ public class AutoPrioritizer {
 
 	private static Map<Integer, List<Course>> actualPensum = new HashMap<Integer, List<Course>>();
 	
-	public static Map<Integer, List<Course>> getOrganizedPensum(){
+	public Map<Integer, List<Course>> getOrganizedPensum(){
 		Map<Integer, List<Course>> pensum = new HashMap<Integer, List<Course>>(actualPensum);
 
 		return pensum;
 	}
 	
-	public static void setOrganizedPensum(Map<Integer, List<Course>> pensum){
-		actualPensum = pensum;
-	}
-	
-	public static void organizePensum(){
+	public void organizePensum(){
 		TrialDataSetter dataSetter = new TrialDataSetter();
 		dataSetter.setData();
 		
 		PriorityQueue<Course> orderedCourses = prioritizeCourses();
 		actualPensum = reorganizePensum(orderedCourses);
+	}
+	
+	public void setOrganizedPensum(Map<Integer, List<Course>> pensum){
+		actualPensum = pensum;
 	}
 	
 	private static PriorityQueue<Course> prioritizeCourses(){
