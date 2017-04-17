@@ -23,20 +23,20 @@
   <h:body>
     <nav id="navigationMenuTag">
 		<h:panelGroup layout="block" id="menu" styleClass="nav-wrapper">
-			<ul id="navigationBar">
-				<li><h:link value="PÃ¡gina Principal" outcome="VistaDashboard">
+			<ul id="navigationBar"> 
+				<li><h:link onclick="getLinkValue(this); PF('dialogToExit').show(); return false;" value="Página Principal" outcome="VistaDashboard">
 					</h:link></li>
-				<li><h:link value="Ver Historial" outcome="VistaHistorial"></h:link></li>
-				<li><h:link value="Programa de la Carrera" outcome="VistaPrograma">
+				<li><h:link onclick="getLinkValue(this); PF('dialogToExit').show(); return false;" value="Ver Historial" outcome="VistaHistorial"></h:link></li>
+				<li><h:link onclick="getLinkValue(this); PF('dialogToExit').show(); return false;" value="Programa de la Carrera" outcome="VistaPrograma">
 					</h:link></li>
-				<li><h:link id="currentPageMarker" value="Reorganizar Pensum" outcome="VistaPOAuto"></h:link></li>
+				<li><h:link onclick="getLinkValue(this); PF('dialogToExit').show(); return false;" id="currentPageMarker" value="Reorganizar Pensum" outcome="VistaPOAuto"></h:link></li>
+				<li><h:link onclick="getLinkValue(this); PF('dialogToExit').show(); return false;" value="Ayuda" outcome="VistaHelp"></h:link></li>
 				<li id="user">
 					<a class="dropdownTrigger"  onclick="dropList()" href="#">
 						#{studentBean.student.name} #{studentBean.student.last_name}
 					</a>
 					<h:panelGroup layout="block" id="dropdownContent" class="dropdownClass">
-	    					<h:link value="Log Out" outcome="VistaLogin"></h:link>
-	    					<h:link value="Help" outcome="VistaHelp"></h:link>
+	    					<h:link onclick="getLinkValue(this); PF('dialogToExit').show(); return false;" value="Log Out" outcome="VistaLogin"></h:link>
 					</h:panelGroup>
 				</li>
 			</ul>
@@ -127,7 +127,7 @@
 	<h:panelGroup layout="block" id="InformationBotonsSubbox">
 		<h:panelGroup layout="block" id="subjectsBlock">
 			<h:form>
-			<h:dataTable id="boxElements" styleClass="highlight centered bordered" value="#{manualOrganizationBean.notSelectedCourses}"
+			<h:dataTable id="boxElements" styleClass="highlight centered bordered" value="#{manualOrganizationBean}"
 				var="subject">
 				<c:set var="materia" value="#{subject}"></c:set>
 				<h:column>
@@ -155,57 +155,39 @@
 					<h:commandLink  action="#{manualOrganizationBean.add(3, materia)}">
 							<h:graphicImage value="/Vistas/Images/add-circle-1.svg" />
 					</h:commandLink>
-<!-- 					<p:dialog id="dialog" widgetVar="dialogToAdd" closeOnEscape="true"  -->
-<!-- 				  			  header="AÃ±adir a Trimestre" closable="false" resizable="false"> -->
-				  
-<!-- 						<form id="formMove"> -->
-<!-- 							<p>#{materia.name} al Trimestre :</p> -->
-<!-- 					   		<p:selectOneMenu  -->
+ 					<p:dialog id="dialog" widgetVar="dialogToAdd" closeOnEscape="true" 
+				  			  header="Añadir a Trimestre" closable="false" resizable="false">
+				  		<h:inputHidden id="data"/>
+						<form id="popUpForm">
+							<p id="formText">#{materia.name} al Trimestre :</p>
+					   		<p:selectOneMenu
+					   				
+					   				onchange="selectGrab(this)"
+					   				
+					   				class="DropdownTri" 
 					   		
-<!-- 					   				style="width: 35px;" -->
+					   				style="width: 125px;
+				   					       position: relative;
+				   					       bottom: 35px;
+				   					       left: 136px;"
 					   				
 					   				 
-<!-- 					   				value="#{autoPrioritizerBean.pensum}" > -->
-<!-- 					   			<f:selectItems value="#{autoPrioritizerBean.pensum}"/>  -->
-<!-- 					   		</p:selectOneMenu> -->
-<!-- 							<h:commandButton action="#{manualOrganizationBean.add(autoPrioritizerBean.pensum, 1, materia)}"  value="Aceptar" /> -->
-<!-- 							<h:commandButton value="Cancelar" /> -->
-<!-- 						</form> -->
+					   				>
+ 					   		<c:forEach items="#{autoPOBean.trimester}">
+					   				<c:set var="trimesterPos" value="#{trimesterPos+1}"></c:set>
+					   				<f:selectItem itemValue="#{trimesterPos}" itemLabel="Trimester #{trimesterPos}"/>
+					   				<c:set var="trimesterPos" value="#{trimesterPos}"></c:set>
+					   			</c:forEach>
+ 					   		</p:selectOneMenu>
+ 							<h:commandButton action="#{manualOrganizationBean.add(autoPrioritizerBean.pensum, 1, materia)}"  value="Aceptar" />
+ 							<h:commandButton value="Cancelar" />
+ 						</form>
 						
-<!-- 					</p:dialog> -->
+					</p:dialog>
 				</h:column>
 			</h:dataTable>
 			</h:form>
 		</h:panelGroup>
-		<h:panelGroup layout="block" id="Information">
-				
-				<c:set var="colorChangedivTrimes" value="#{autoPrioritizerBean.pensum.size()}"></c:set>
-				<c:set var="colorChangedivMonth" value="#{colorChangedivTrimes*3}"></c:set>
-				
-				<h:panelGroup layout="block" class="row" >
-					<h:panelGroup layout="block" class="col s12 m6">
-					
-						<h:panelGroup layout="block" class="card" id="cardTimePosition">
-							<h:panelGroup layout="block" class="card-content white-text" id="cardTimeArenge" >
-								<p>Permanencia:</p>
-								<p>#{colorChangedivMonth} Meses / #{colorChangedivTrimes} Trimestres</p>
-								<script type="text/javascript">
-									function colorChange(){
-										if(#{colorChangedivTrimes} >= 21){
-											document.getElementById("cardTimePosition").style.backgroundColor = "#EC3E3F";
-										}
-										else {
-											document.getElementById("cardTimePosition").style.backgroundColor = "#72af47";
-										}
-									}
-									window.onload = colorChange;
-								</script>
-							</h:panelGroup>
-						</h:panelGroup>
-					</h:panelGroup>
-				</h:panelGroup>
-				
-         </h:panelGroup>
 		<h:panelGroup layout="block" id="Botons">
 			<h:panelGroup layout="block" id="Guardar">
 				<h:link class="waves-effect waves-light btn" value="Guardar" outcome="EnConstruccion"></h:link>
@@ -221,8 +203,9 @@
 			  header="Cancelar cambios" closable="false" resizable="false">
 			  
 		<form>
-			<p>¿Desea Salir?</p>
-			<h:button value="Si" type="submit" outcome="VistaPOAuto"></h:button>
+			<p id="formText" >Pueden existir cambios no guardados</p>
+			<p id="formText">¿Desea salir?</p>
+			<h:button value="Si" type="submit" onclick="return outcomeSwich();"></h:button>
 			<h:button value="No" type="submit" ></h:button>
 		</form>
 		
