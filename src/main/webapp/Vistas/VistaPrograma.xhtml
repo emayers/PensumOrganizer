@@ -46,7 +46,7 @@
 		</h:panelGroup>
 		
 		<h:panelGroup layout="block" id="containerOfPensumTable" >
-		<c:forEach items="#{dataBean.trimester}" var="entry">
+		<c:forEach items="#{programBean.program}" var="entry">
 			<c:set var="trimesterCuantity" value="#{trimesterCuantity}"></c:set>
 			<h:dataTable styleClass="highlight centered bordered" value="#{entry.value}" var="list">
 					<c:set var="trimesterCuantity" value="#{trimesterCuantity + 1}"></c:set>

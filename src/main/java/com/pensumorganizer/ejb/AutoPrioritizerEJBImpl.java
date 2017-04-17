@@ -7,14 +7,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 
-import javax.ejb.Stateless;
+import javax.ejb.Singleton;
 
 import com.pensumorganizer.dao.Course;
 import com.pensumorganizer.ejb.interfaces.AutoPrioritizerEJBInterface;
 import com.pensumorganizer.util.CourseComparator;
 import com.pensumorganizer.util.TrialDataSetter;
 
-@Stateless
+@Singleton
 public class AutoPrioritizerEJBImpl implements AutoPrioritizerEJBInterface {
 	final private static int IDEAL_TOTAL_TRIMESTERS = 14,
 							 MAX_CREDITS_PER_TRIMESTER = 19,
