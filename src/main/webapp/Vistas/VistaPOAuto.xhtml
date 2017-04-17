@@ -11,10 +11,27 @@
   	<link rel="Stylesheet" type="text/css" href="./Style/Auto.css?version=6.0"/>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,800,600"></link>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css"></link>
-  	
+  	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-2.2.4/pdfmake-0.1.18/dt-1.10.13/b-1.2.4/b-html5-1.2.4/datatables.min.css"/>
   	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
   	<script type="text/javascript" src="Scripts/DropdownList.js?version=1"></script>
   	<script type="text/javascript" src="Scripts/OutcomeLink.js?version=1"></script>
+	<script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-2.2.4/pdfmake-0.1.18/dt-1.10.13/b-1.2.4/b-html5-1.2.4/datatables.min.js"></script>
+  	<script type="text/javascript">
+    $(document).ready(function() {
+        $('.dossiers').DataTable( {
+             dom: 'frtipB',
+             "bFilter": false,
+             "bPaginate": false,
+             "info":     false,
+             "paging":   false,
+             "ordering": false,
+             buttons: [
+                 'csv', 'excel', 'pdf'
+             ]     
+        } );
+    } );
+	</script>
+	<title>Pensum Recomendado</title>
   </h:head>
   
   <h:body>
@@ -53,7 +70,7 @@
 	<h:panelGroup layout="block" id="containerOfPensumTable" >
 		<c:forEach items="#{autoPrioritizerBean.pensum}" var="entry">
 			<c:set var="trimesterCuantity" value="#{trimesterCuantity}"></c:set>
-			<h:dataTable styleClass="highlight centered bordered" value="#{entry.value}" var="list">
+			<h:dataTable styleClass="highlight centered bordered dossiers" value="#{entry.value}" var="list">
 					<c:set var="trimesterCuantity" value="#{trimesterCuantity + 1}"></c:set>
 					<f:facet name="header">
 						<p id="tableHead">Trimestre #{trimesterCuantity}</p> 
