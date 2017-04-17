@@ -5,15 +5,19 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.ejb.Stateless;
+
 import com.pensumorganizer.dao.Course;
+import com.pensumorganizer.ejb.interfaces.HistoryEJBInterface;
 import com.pensumorganizer.util.TrialDataSetter;
 
-public class GetHistory {
+@Stateless
+public class HistoryEJBImpl implements HistoryEJBInterface{
 	//TODO CHECK
 	private static List<Course> coursesProgram;
 	private static List<Course> takenCourses = new ArrayList<Course>();
 	
-	public static Map<Integer, List<Course>> getHistory() {
+	public Map<Integer, List<Course>> getHistory() {
 		TrialDataSetter dataSetter = new TrialDataSetter();
 		dataSetter.setData();
 		coursesProgram = TrialDataSetter.getCoursesProgram();
