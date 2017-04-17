@@ -12,4 +12,6 @@ public interface HistoryEJBInterface {
 
 	public Map<Integer, List<Course>> getHistory();
 	
+	public void recreateHistory();
+	
 }

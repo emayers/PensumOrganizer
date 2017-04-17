@@ -31,9 +31,6 @@ public class AutoPrioritizerEJBImpl implements AutoPrioritizerEJBInterface {
 	}
 	
 	public void organizePensum(){
-		TrialDataSetter dataSetter = new TrialDataSetter();
-		dataSetter.setData();
-		
 		PriorityQueue<Course> orderedCourses = prioritizeCourses();
 		actualPensum = reorganizePensum(orderedCourses);
 	}

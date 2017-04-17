@@ -7,9 +7,11 @@ import java.util.List;
 import com.pensumorganizer.dao.Course;
 
 public class TrialDataSetter {
-	private static List<Course> coursesProgram = new ArrayList<Course>();
+	private static List<Course> coursesProgram;
 	
 	public static List<Course> getCoursesProgram() {
+		coursesProgram = new ArrayList<Course>();
+		setData();
 		return coursesProgram;
 	}
 
@@ -34,7 +36,7 @@ public class TrialDataSetter {
 		coursesProgram.add(course);
 	}
 		
-	public void setData(){
+	private static void setData(){
 		addCourse("MAT1", new String[] {}, true, true, 5, 1, "Algebra y Geometria Analitica", 1);
 		addCourse("LEN1", new String[] {}, true, true, 4, 1, "Comunicacion en Lengua Española I", 1);
 		addCourse("ORI", new String[] {}, true, true, 2, 1, "Orientacion Academica e Institucional", 1);

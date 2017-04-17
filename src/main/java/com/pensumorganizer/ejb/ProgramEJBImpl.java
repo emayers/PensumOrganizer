@@ -1,6 +1,7 @@
 package com.pensumorganizer.ejb;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,31 +15,30 @@ import com.pensumorganizer.util.TrialDataSetter;
 @Stateless
 public class ProgramEJBImpl implements ProgramEJBInterface {
 
+	private static Map<Integer, List<Course>> actualProgram = new LinkedHashMap<Integer, List<Course>>();
+
 	public Map<Integer, List<Course>> getProgram(){
-		TrialDataSetter dataSetter = new TrialDataSetter();
-		dataSetter.setData();
-		
+		Map<Integer, List<Course>> program = new HashMap<Integer, List<Course>>(actualProgram);
+
+		return program;
+	}
+	
+	public void recreateProgram(){
 		List<Course> coursesProgram = TrialDataSetter.getCoursesProgram();
-		Map<Integer, List<Course>> program = new LinkedHashMap<Integer, List<Course>>();
-		
-		int trimesterCount = 0;
-		int creditCount = 0;
-		List<Course> currentTrimester = new ArrayList<Course>();
 		
 		for (Course course : coursesProgram) {
-			currentTrimester.add(course);
+			int courseTrimester = course.getIdealTrimestrer() - 1;
+			List<Course> currentTrimester = actualProgram.get(courseTrimester);
 			
-			creditCount += course.getCredits();
-			
-			if(creditCount >= 19){
-				program.put(Integer.valueOf(trimesterCount), currentTrimester);
-				trimesterCount++;
-				creditCount = 0;
+			if(currentTrimester == null){
 				currentTrimester = new ArrayList<Course>();
 			}
+			
+			if(!currentTrimester.contains(course)){
+				currentTrimester.add(course);	
+				actualProgram.put(courseTrimester, currentTrimester);
+			}
 		}
-		
-		return program;
 	}
 	
 }

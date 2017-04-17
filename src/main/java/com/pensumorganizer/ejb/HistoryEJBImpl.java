@@ -1,7 +1,7 @@
 package com.pensumorganizer.ejb;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,52 +13,45 @@ import com.pensumorganizer.util.TrialDataSetter;
 
 @Stateless
 public class HistoryEJBImpl implements HistoryEJBInterface{
-	//TODO CHECK
-	private static List<Course> coursesProgram;
-	private static List<Course> takenCourses = new ArrayList<Course>();
 	
+	private static Map<Integer, List<Course>> actualHistory = new HashMap<Integer, List<Course>>();
+
 	public Map<Integer, List<Course>> getHistory() {
-		TrialDataSetter dataSetter = new TrialDataSetter();
-		dataSetter.setData();
-		coursesProgram = TrialDataSetter.getCoursesProgram();
-		return createHistory();
+		Map<Integer, List<Course>> history = new HashMap<Integer, List<Course>>(actualHistory);
+
+		return history;
+	}
+	
+	public void recreateHistory(){
+		List<Course> takenCourses = getTakenCoursesList();
+		
+		for (Course course : takenCourses) {
+			int courseTrimester = course.getTrimesterTaken() - 1;
+			List<Course> currentTrimester = actualHistory.get(courseTrimester);
+			
+			if(currentTrimester == null){
+				currentTrimester = new ArrayList<Course>();
+			}
+			
+			if(!currentTrimester.contains(course)){
+				currentTrimester.add(course);	
+				actualHistory.put(courseTrimester, currentTrimester);
+			}
+		}
 	}
 
-	private static void takenCoursesList() {
 
+	private static List<Course> getTakenCoursesList() {
+		List<Course> coursesProgram = TrialDataSetter.getCoursesProgram(),
+					 takenCourses = new ArrayList<Course>();
+		
 		for (Course courses : coursesProgram) {
 			if (courses.isTaken()) {
 				takenCourses.add(courses);
 			}
 		}
-
-	}
-
-	private static Map<Integer, List<Course>> createHistory() {
-		takenCoursesList();
-		Integer currentTrimester = 1;
-
-		Map<Integer, List<Course>> trimester = new LinkedHashMap<Integer, List<Course>>();
-		List<Course> history = new ArrayList<Course>();
 		
-		Course element;
-		
-		for(int i = 0; i < takenCourses.size(); i++){
-			element = takenCourses.get(i);
-			
-			if(element.getTrimesterTaken() == currentTrimester){
-				history.add(element);
-			}
-			else{
-				trimester.put(currentTrimester, history);
-				history = new ArrayList<Course>();
-				currentTrimester = element.getTrimesterTaken();
-				history.add(element);
-			}
-			
-		}
-		
-		return trimester;
+		return takenCourses;
 	}
 
 }

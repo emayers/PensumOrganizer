@@ -12,4 +12,6 @@ public interface ProgramEJBInterface {
 	
 	public Map<Integer, List<Course>> getProgram();
 	
+	public void recreateProgram();
+	
 }
