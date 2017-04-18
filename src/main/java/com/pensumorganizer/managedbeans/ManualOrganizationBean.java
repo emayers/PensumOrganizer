@@ -42,10 +42,6 @@ public class ManualOrganizationBean implements Serializable {
 	
 	public Integer getSelectedTrimester(){
 		return moEJB.getSelectedTrimester();
-	}
-	
-	public void setSelectedTrimester(Integer selectedTrimester){
-		moEJB.setSelectedTrimester(selectedTrimester);;
-	}
-	
+	}	
 }
+
