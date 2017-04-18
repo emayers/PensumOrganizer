@@ -21,6 +21,4 @@ public interface ManualOrganizationEJBInterface {
 	public Map<Integer, List<Course>> getReorganizedPensum();
 	
 	public Integer getSelectedTrimester();
-	
-	public void setSelectedTrimester(Integer selectedTrimester);
 }
