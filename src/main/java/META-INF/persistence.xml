@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 	<persistence-unit name="PensumOrganizer">
+		<class>com.pensumorganizer.entities.EstudianteProgramaEntity</class>
+		<class>com.pensumorganizer.entities.HistoricoCursadasEntity</class>
+		<class>com.pensumorganizer.entities.PrerrequisitosEntity</class>
+		<class>com.pensumorganizer.entities.TrimestresEntity</class>
+		<class>com.pensumorganizer.entities.AreasEntity</class>
+		<class>com.pensumorganizer.entities.AsignaturasEntity</class>
+		<class>com.pensumorganizer.entities.AsignaturasPorDarEntity</class>
+		<class>com.pensumorganizer.entities.CalificacionesEntity</class>
+		<class>com.pensumorganizer.entities.ElectivasEntity</class>
+		<class>com.pensumorganizer.entities.EstudianteReorganizacionEntity</class>
+		<class>com.pensumorganizer.entities.NivelesEntity</class>
+		<class>com.pensumorganizer.entities.PensumEntity</class>
+		<class>com.pensumorganizer.entities.ProgramasEntity</class>
 	</persistence-unit>
 </persistence>

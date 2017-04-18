@@ -3,10 +3,10 @@ package com.pensumorganizer.dao;
 import java.util.List;
 
 public class Course {
-	private String name, id;
+	private String name, id, trimesterDescription;
 	private List<String> preqID, coReqID;
 	private boolean preqTaken, taken, coReqTaken, creditsReqReached;
-	private int creditsReq, credits, idealTrimestrer, weight;
+	private int creditsReq, credits, idealTrimestrer, weight, term, trimNum;
 	private Integer trimesterTaken;
 	
 	public Course(){
@@ -116,4 +116,30 @@ public class Course {
 	public void setTrimesterTaken(Integer trimesterTaken) {
 		this.trimesterTaken = trimesterTaken;
 	}
+	
+	//Termino (1-4) y descripción de los trimestres, numero de trimestre
+	public void setTerm(int term){
+		this.term=term;
+	}
+	
+	public int getTerm(){
+		return this.term;
+	}
+	
+	public void setTrimesterDescription(String desc){
+		this.trimesterDescription=desc;
+	}
+	
+	public String getTrimesterDescription(){
+		return this.trimesterDescription;
+	}
+
+	public int getTrimNum() {
+		return trimNum;
+	}
+
+	public void setTrimNum(int trimNum) {
+		this.trimNum = trimNum;
+	}
+	
 }
