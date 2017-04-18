@@ -2,6 +2,7 @@ package com.pensumorganizer.managedbeans;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -21,6 +22,14 @@ public class ManualOrganizationBean implements Serializable {
 	
 	public List<Course> getNotSelectedCourses() {
 		return moEJB.getNotSelectedCourses();
+	}
+	
+	public Map<Integer, List<Course>> getReorganizedPensum(){
+		return moEJB.getReorganizedPensum();
+	}
+	
+	public String saveReorganization(){
+		return moEJB.saveReorganization();
 	}
 	
 	public void add(Integer trimester, Course subject){

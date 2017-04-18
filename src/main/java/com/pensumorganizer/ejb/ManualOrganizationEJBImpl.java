@@ -1,51 +1,52 @@
 package com.pensumorganizer.ejb;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.ejb.EJB;
 import javax.ejb.Singleton;
 
 import com.pensumorganizer.dao.Course;
 import com.pensumorganizer.ejb.interfaces.ManualOrganizationEJBInterface;
+import com.pensumorganizer.managedbeans.AutoPrioritizerBean;
 
 @Singleton
 public class ManualOrganizationEJBImpl implements ManualOrganizationEJBInterface {
-
-	@EJB
-	private AutoPrioritizerEJBImpl apEJB = new AutoPrioritizerEJBImpl();
 	
 	private static List<Course> notSelectedCourses;
+	private static Map<Integer, List<Course>> reorganizedPensum 
+					= new HashMap<Integer, List<Course>>(AutoPrioritizerBean.apEJB.getOrganizedPensum());
 
-	public void addCourse(Integer trimester, Course subject){
-		Map<Integer, List<Course>> reorganizedPensum = apEJB.getOrganizedPensum();
-		List<Course> selectedTrimester = new ArrayList<Course>(reorganizedPensum.get(trimester-1));
-
-    	selectedTrimester.add(subject);
-    	notSelectedCourses.remove(subject);
-    	
-    	reorganizedPensum.put(trimester-1, selectedTrimester);
-    	apEJB.setOrganizedPensum(reorganizedPensum);
-    }
-    
-    public void deleteCourse(Integer trimester, Course subject) {
-		Map<Integer, List<Course>> reorganizedPensum = apEJB.getOrganizedPensum();
-    	List<Course> selectedTrimester = new ArrayList<Course>(reorganizedPensum.get(trimester));
-    	
+    public void deleteCourse(Integer trimester, Course subject) {    	
     	if(notSelectedCourses == null){
     		notSelectedCourses = new ArrayList<Course>();
     	}
     	
-    	selectedTrimester.remove(subject);
+    	reorganizedPensum.get(trimester).remove(subject);
     	notSelectedCourses.add(subject);
-
-    	reorganizedPensum.put(trimester-1, selectedTrimester);
-    	apEJB.setOrganizedPensum(reorganizedPensum);
+    	return;
     }
+	
+	public void addCourse(Integer trimester, Course subject){
+		System.out.println("Hey! adding!");
+		reorganizedPensum.get(trimester-1).add(subject);
+    	notSelectedCourses.remove(subject);
+    	return;
+    }
+	
+	public String saveReorganization(){
+		System.out.println("Hey! Saving!");
+    	AutoPrioritizerBean.apEJB.setOrganizedPensum(reorganizedPensum);
+    	return "VistaPOAuto";
+	}
     
 	public List<Course> getNotSelectedCourses() {
 		return notSelectedCourses;
+	}
+	
+	public Map<Integer, List<Course>> getReorganizedPensum() {
+		return reorganizedPensum;
 	}
 	
 }
