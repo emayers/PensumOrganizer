@@ -28,10 +28,10 @@ public class ManualOrganizationBean implements Serializable {
 		return moEJB.getReorganizedPensum();
 	}
 	
-	public String saveReorganization(){
-		return moEJB.saveReorganization();
-	}
-	
+//	public String saveReorganization(){
+//		return moEJB.saveReorganization();
+//	}
+//	
 	public void add(Integer trimester, Course subject){
 		moEJB.addCourse(trimester, subject);
 	}

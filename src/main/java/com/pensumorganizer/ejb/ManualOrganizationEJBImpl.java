@@ -1,7 +1,6 @@
 package com.pensumorganizer.ejb;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,7 +15,7 @@ public class ManualOrganizationEJBImpl implements ManualOrganizationEJBInterface
 	
 	private static List<Course> notSelectedCourses;
 	private static Map<Integer, List<Course>> reorganizedPensum 
-					= new HashMap<Integer, List<Course>>(AutoPrioritizerBean.apEJB.getOrganizedPensum());
+					= AutoPrioritizerBean.apEJB.getOrganizedPensum();
 
     public void deleteCourse(Integer trimester, Course subject) {    	
     	if(notSelectedCourses == null){
@@ -25,21 +24,13 @@ public class ManualOrganizationEJBImpl implements ManualOrganizationEJBInterface
     	
     	reorganizedPensum.get(trimester).remove(subject);
     	notSelectedCourses.add(subject);
-    	return;
     }
 	
 	public void addCourse(Integer trimester, Course subject){
-		System.out.println("Hey! adding!");
+		System.out.println("Hey! Adding!");
 		reorganizedPensum.get(trimester-1).add(subject);
     	notSelectedCourses.remove(subject);
-    	return;
     }
-	
-	public String saveReorganization(){
-		System.out.println("Hey! Saving!");
-    	AutoPrioritizerBean.apEJB.setOrganizedPensum(reorganizedPensum);
-    	return "VistaPOAuto";
-	}
     
 	public List<Course> getNotSelectedCourses() {
 		return notSelectedCourses;

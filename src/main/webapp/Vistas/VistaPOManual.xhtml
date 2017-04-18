@@ -163,13 +163,14 @@
 			</h:form>
 		</h:panelGroup>
 		<h:panelGroup layout="block" id="Botons">
-			<h:panelGroup layout="block" id="Guardar">
-				<h:link class="waves-effect waves-light btn" value="Guardar" outcome="#{manualOrganizationBean.saveReorganization()}"></h:link>
-			</h:panelGroup>
-         	<h:panelGroup layout="block" id="Cancelar">
-         		<h:link onclick="PF('dialogToExit').show(); return false;" class="waves-effect waves-light btn" outcome="VistaPOAuto" value="Cancelar">
-         		</h:link>
-         	</h:panelGroup>
+			<h:form>
+				<h:panelGroup layout="block" id="Guardar">
+					<h:commandLink class="waves-effect waves-light btn" value="Guardar" action="#{manualOrganizationSaveBean.saveReorganization()}"></h:commandLink>
+				</h:panelGroup>
+	         	<h:panelGroup layout="block" id="Cancelar">
+	         		<h:commandLink onclick="PF('dialogToExit').show(); return false;" class="waves-effect waves-light btn" action="VistaPOAuto" value="Cancelar"></h:commandLink>
+	         	</h:panelGroup>
+         	</h:form>
 		</h:panelGroup>
 	</h:panelGroup>
 	
