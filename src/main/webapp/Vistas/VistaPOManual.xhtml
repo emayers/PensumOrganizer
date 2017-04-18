@@ -184,16 +184,18 @@
 			</h:dataTable>
 			</h:form>
 		</h:panelGroup>
+		
 		<h:panelGroup layout="block" id="Botons">
 			<h:form>
 				<h:panelGroup layout="block" id="Guardar">
-					<h:commandLink class="waves-effect waves-light btn" value="Guardar" action="#{manualOrganizationSaveBean.saveReorganization()}"></h:commandLink>
+					<h:commandLink class="waves-effect waves-light btn" value="Guardar" action="#{manualOrganizationBean.saveReorganization()}"></h:commandLink>
 				</h:panelGroup>
 	         	<h:panelGroup layout="block" id="Cancelar">
-	         		<h:commandLink onclick="PF('dialogToExit').show(); return false;" class="waves-effect waves-light btn" action="VistaPOAuto" value="Cancelar"></h:commandLink>
+	         		<h:commandLink onclick="PF('dialogToExit').show(); return false;" class="waves-effect waves-light btn" style="position: relative; bottom: 35px; left: 190px;" action="VistaPOAuto" value="Cancelar"></h:commandLink>
 	         	</h:panelGroup>
          	</h:form>
 		</h:panelGroup>
+	</h:panelGroup>
 	
      <p:dialog widgetVar="dialogToExit" closeOnEscape="true" 
 			  header="Cancelar cambios" closable="false" resizable="false">

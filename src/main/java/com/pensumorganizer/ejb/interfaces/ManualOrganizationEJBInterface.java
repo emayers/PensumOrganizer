@@ -14,7 +14,7 @@ public interface ManualOrganizationEJBInterface {
     
     public void deleteCourse(Integer trimester, Course subject);
     
-//    public String saveReorganization();
+    public String saveReorganization();
     
 	public List<Course> getNotSelectedCourses();
 	

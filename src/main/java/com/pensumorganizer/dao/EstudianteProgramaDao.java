@@ -1,16 +1,12 @@
 package com.pensumorganizer.dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
-
-import com.pensumorganizer.entities.*;
-
-import com.pensumorganizer.connectionfactory.*;
+import com.pensumorganizer.connectionfactory.ConnectionFactory;
+import com.pensumorganizer.entities.EstudianteProgramaEntity;
 
 
 public class EstudianteProgramaDao {
@@ -21,7 +17,7 @@ public class EstudianteProgramaDao {
 	
 
 	public EstudianteProgramaDao() {
-
+		super();
 	}
 
 	private Connection getConnection() throws SQLException {
@@ -30,7 +26,7 @@ public class EstudianteProgramaDao {
 		return conn;
 	}
 	
-	public String getName(int id){
+	public String getName(Integer id){
 		String res=null;
 		 try {				    
 				String queryString = "SELECT Nombre FROM EstudiantePrograma WHERE IdEstudiante=?;";
@@ -65,8 +61,8 @@ public class EstudianteProgramaDao {
 		 
 	}
 	
-	public int getStudentId(int id){//check
-		int res=0;
+	public Integer getStudentId(Integer id){//check
+		Integer res=0;
 		 try {				    
 				String queryString = "SELECT IdEstudiante FROM EstudiantePrograma WHERE IdEstudiante=?;";
 				connection = getConnection();
@@ -98,7 +94,7 @@ public class EstudianteProgramaDao {
 		return res;
 	}
 	
-	public String getProgramCode(int id){
+	public String getProgramCode(Integer id){
 		String res=null;
 		 try {				    
 				String queryString = "SELECT ProgramaCodigo FROM EstudiantePrograma WHERE IdEstudiante=?;";
@@ -130,8 +126,9 @@ public class EstudianteProgramaDao {
 			}
 		return res;
 	}
-	public int getVersion(int id){
-		int res=0;
+	
+	public Integer getVersion(Integer id){
+		Integer res=0;
 		 try {				    
 				String queryString = "SELECT Version FROM EstudiantePrograma WHERE IdEstudiante=?;";
 				connection = getConnection();
@@ -162,8 +159,9 @@ public class EstudianteProgramaDao {
 			}
 		return res;
 	}
-	public int getAdmissionYear(int id){
-		int res=0;
+	
+	public Integer getAdmissionYear(Integer id){
+		Integer res=0;
 		 try {				    
 				String queryString = "SELECT AñoIngreso FROM EstudiantePrograma WHERE IdEstudiante=?;";
 				connection = getConnection();
@@ -195,8 +193,8 @@ public class EstudianteProgramaDao {
 		return res;
 	}
 	
-	public int getAdmissionTerm(int id){
-		int res=0;
+	public Integer getAdmissionTerm(Integer id){
+		Integer res=0;
 		 try {				    
 				String queryString = "SELECT TerminoIngreso FROM EstudiantePrograma WHERE IdEstudiante=?;";
 				connection = getConnection();
@@ -228,8 +226,8 @@ public class EstudianteProgramaDao {
 		return res;
 	}
 	
-	public int getLimitPermanenceYear(int id){
-		int res=0;
+	public Integer getLimitPermanenceYear(Integer id){
+		Integer res=0;
 		 try {				    
 				String queryString = "SELECT AñoLimitePermanencia FROM EstudiantePrograma WHERE IdEstudiante=?;";
 				connection = getConnection();
@@ -261,8 +259,8 @@ public class EstudianteProgramaDao {
 		return res;
 	}
 	
-	public int getLimitPermanenceTerm(int id){
-		int res=0;
+	public Integer getLimitPermanenceTerm(Integer id){
+		Integer res=0;
 		 try {				    
 				String queryString = "SELECT TerminoLimitePermanencia FROM EstudiantePrograma WHERE IdEstudiante=?;";
 				connection = getConnection();
@@ -293,8 +291,9 @@ public class EstudianteProgramaDao {
 			}
 		return res;
 	}
-	public int getStudiedTrimesters(int id){
-		int res=0;
+	
+	public Integer getStudiedTrimesters(Integer id){
+		Integer res=0;
 		 try {				    
 				String queryString = "SELECT TrimestresCursados FROM EstudiantePrograma WHERE IdEstudiante=?;";
 				connection = getConnection();
@@ -326,7 +325,7 @@ public class EstudianteProgramaDao {
 		return res;
 	}
 	
-	public double getIndex(int id){
+	public double getIndex(Integer id){
 		double res=0;
 		 try {				    
 				String queryString = "SELECT IndiceAcumulado FROM EstudiantePrograma WHERE IdEstudiante=?;";
@@ -358,8 +357,9 @@ public class EstudianteProgramaDao {
 			}
 		return res;
 	}
-	public int getPassword(int id){
-		int res=0;
+	
+	public Integer getPassword(Integer id){
+		Integer res=0;
 		 try {				    
 				String queryString = "SELECT Password FROM EstudiantePrograma WHERE IdEstudiante=?;";
 				connection = getConnection();
@@ -390,7 +390,8 @@ public class EstudianteProgramaDao {
 			}
 		return res;
 	}
-	public void setPassword(int id, int psswd){
+	
+	public void setPassword(Integer id, Integer psswd){
 		try {				    
 			String queryString = "UPDATE EstudiantePrograma SET Password=? WHERE IdEstudiante=?;";
 			connection = getConnection();
@@ -416,7 +417,8 @@ public class EstudianteProgramaDao {
 
 		}
 	}
-	public void add (){
+	
+	public void add(){
 		try {	
 			String queryString = "INSERT INTO estudiantePrograma(IdEstudiante, Nombre, ProgramaCodigo, Version, AñoIngreso, TerminoIngreso, AñoLimitePermanencia, TerminoLimitePermanencia, TrimestresCursados, IndiceAcumulado)VALUES(1057512, 'NEY EMANUEL CASILLA VEGA', 'IDS', 2010, 2013, 3, 2018, 3, 15, 3.50);";
 			connection = getConnection();
