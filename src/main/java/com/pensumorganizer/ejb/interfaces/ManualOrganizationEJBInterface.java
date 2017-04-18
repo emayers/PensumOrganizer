@@ -10,7 +10,7 @@ import com.pensumorganizer.dao.Course;
 @Remote
 public interface ManualOrganizationEJBInterface {
 	
-	public void addCourse(Integer trimester, Course subject);
+	public void addCourse(Course subject);
     
     public void deleteCourse(Integer trimester, Course subject);
     
@@ -19,4 +19,6 @@ public interface ManualOrganizationEJBInterface {
 	public List<Course> getNotSelectedCourses();
 	
 	public Map<Integer, List<Course>> getReorganizedPensum();
+	
+	public Integer getSelectedTrimester();
 }

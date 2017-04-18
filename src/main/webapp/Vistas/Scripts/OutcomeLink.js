@@ -39,7 +39,7 @@ function selectGrab(event){
 	console.log(event);
 	var selectedVal = event.options[event.selectedIndex];
 	toRet = selectedVal.value; 
-	
+	document.getElementById("hdd").value=toRet;
 	console.log(toRet);
 	
 }
