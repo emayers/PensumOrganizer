@@ -14,7 +14,7 @@
     <url>http://pensumorganizer.com</url>
     
     <dependencies>
-    	<!-- JSF AND PRIMEFACES -->
+    		<!-- JSF AND PRIMEFACES -->
 		<dependency>
 		    <groupId>com.sun.faces</groupId>
 		    <artifactId>jsf-impl</artifactId>
