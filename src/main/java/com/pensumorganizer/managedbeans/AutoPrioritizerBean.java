@@ -19,7 +19,7 @@ public class AutoPrioritizerBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@EJB
-	AutoPrioritizerEJBImpl apEJB = new AutoPrioritizerEJBImpl();
+	public static AutoPrioritizerEJBImpl apEJB = new AutoPrioritizerEJBImpl();
 	
 	@PostConstruct
 	private void prepare(){

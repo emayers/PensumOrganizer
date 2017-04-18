@@ -17,19 +17,14 @@
   	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
   	<script src="https://cdn.jsdelivr.net/sweetalert2/6.5.5/sweetalert2.min.js"></script>
   	<script type="text/javascript" src="Scripts/DropdownList.js?version=1"></script>
-  	<script type="text/javascript" src="Scripts/MoveElements.js?version=1.0"></script>
+  	<script type="text/javascript" src="Scripts/OutcomeLink.js"></script>
   </h:head>
   
   <h:body>
     <nav id="navigationMenuTag">
 		<h:panelGroup layout="block" id="menu" styleClass="nav-wrapper">
-<<<<<<< HEAD
-			<ul id="navigationBar">
-				<li><h:link value="Página Principal" outcome="VistaDashboard">
-=======
 			<ul id="navigationBar"> 
 				<li><h:link onclick="getLinkValue(this); PF('dialogToExit').show(); return false;" value="Página Principal" outcome="VistaDashboard">
->>>>>>> 8f7359e428e90fd9c9550e1ab8b157703a85729d
 					</h:link></li>
 				<li><h:link onclick="getLinkValue(this); PF('dialogToExit').show(); return false;" value="Ver Historial" outcome="VistaHistorial"></h:link></li>
 				<li><h:link onclick="getLinkValue(this); PF('dialogToExit').show(); return false;" value="Programa de la Carrera" outcome="VistaPrograma">
@@ -66,9 +61,10 @@
 	
 	<h:panelGroup layout="block" id="containerOfPensumTable" >
 	<h:form>
-		<c:forEach items="#{autoPrioritizerBean.pensum}" var="entry">
+		<c:forEach items="#{manualOrganizationBean.reorganizedPensum}" var="entry">
 			<c:set var="trimesterCuantity" value="#{trimesterCuantity}"></c:set>
 			<h:dataTable styleClass="highlight centered bordered" value="#{entry.value}" var="list" >
+					<c:set var="materia" value="#{list}"></c:set>
 					<c:set var="trimesterCuantity" value="#{trimesterCuantity + 1}"></c:set>
 					<f:facet name="header">
 						<p id="tableHead">Trimestre #{trimesterCuantity}</p> 
@@ -120,7 +116,7 @@
 					<h:outputText rendered="#{list.creditsReq == '0'}" value="-" />
 				</h:column>
 				<h:column>
-					<h:commandLink action="#{manualOrganizationBean.delete(entry.key, list)}">
+					<h:commandLink action="#{manualOrganizationBean.delete(entry.key, materia)}">
 						<h:graphicImage value="/Vistas/Images/remove-circle-1.svg" />
 					</h:commandLink>
 				</h:column>
@@ -132,7 +128,7 @@
 	<h:panelGroup layout="block" id="InformationBotonsSubbox">
 		<h:panelGroup layout="block" id="subjectsBlock">
 			<h:form>
-			<h:dataTable id="boxElements" styleClass="highlight centered bordered" value="#{manualOrganizationBean}"
+			<h:dataTable id="boxElements" styleClass="highlight centered bordered" value="#{manualOrganizationBean.notSelectedCourses}"
 				var="subject">
 				<c:set var="materia" value="#{subject}"></c:set>
 				<h:column>
@@ -157,45 +153,18 @@
 				<h:column>
 					<f:facet name="header">
 					</f:facet>
-					<h:commandLink  action="#{manualOrganizationBean.add(3, materia)}">
+					
+					<h:commandLink  action="#{manualOrganizationBean.add(2, materia)}">
 							<h:graphicImage value="/Vistas/Images/add-circle-1.svg" />
 					</h:commandLink>
- 					<p:dialog id="dialog" widgetVar="dialogToAdd" closeOnEscape="true" 
-				  			  header="Añadir a Trimestre" closable="false" resizable="false">
-				  		<h:inputHidden id="data"/>
-						<form id="popUpForm">
-							<p id="formText">#{materia.name} al Trimestre :</p>
-					   		<p:selectOneMenu
-					   				
-					   				onchange="selectGrab(this)"
-					   				
-					   				class="DropdownTri" 
-					   		
-					   				style="width: 125px;
-				   					       position: relative;
-				   					       bottom: 35px;
-				   					       left: 136px;"
-					   				
-					   				 
-					   				>
- 					   		<c:forEach items="#{autoPOBean.trimester}">
-					   				<c:set var="trimesterPos" value="#{trimesterPos+1}"></c:set>
-					   				<f:selectItem itemValue="#{trimesterPos}" itemLabel="Trimester #{trimesterPos}"/>
-					   				<c:set var="trimesterPos" value="#{trimesterPos}"></c:set>
-					   			</c:forEach>
- 					   		</p:selectOneMenu>
- 							<h:commandButton action="#{manualOrganizationBean.add(autoPrioritizerBean.pensum, 1, materia)}"  value="Aceptar" />
- 							<h:commandButton value="Cancelar" />
- 						</form>
-						
-					</p:dialog>
+					
 				</h:column>
 			</h:dataTable>
 			</h:form>
 		</h:panelGroup>
 		<h:panelGroup layout="block" id="Botons">
 			<h:panelGroup layout="block" id="Guardar">
-				<h:link class="waves-effect waves-light btn" value="Guardar" outcome="EnConstruccion"></h:link>
+				<h:link class="waves-effect waves-light btn" value="Guardar" outcome="#{manualOrganizationBean.saveReorganization()}"></h:link>
 			</h:panelGroup>
          	<h:panelGroup layout="block" id="Cancelar">
          		<h:link onclick="PF('dialogToExit').show(); return false;" class="waves-effect waves-light btn" outcome="VistaPOAuto" value="Cancelar">

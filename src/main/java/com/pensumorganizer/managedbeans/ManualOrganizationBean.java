@@ -24,7 +24,15 @@ public class ManualOrganizationBean implements Serializable {
 		return moEJB.getNotSelectedCourses();
 	}
 	
-	public void add(Map<Integer, List<Course>> pensum, Integer trimester, Course subject){
+	public Map<Integer, List<Course>> getReorganizedPensum(){
+		return moEJB.getReorganizedPensum();
+	}
+	
+	public String saveReorganization(){
+		return moEJB.saveReorganization();
+	}
+	
+	public void add(Integer trimester, Course subject){
 		moEJB.addCourse(trimester, subject);
 	}
 	
