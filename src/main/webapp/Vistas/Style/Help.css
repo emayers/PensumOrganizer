@@ -110,6 +110,11 @@ li a:hover:not(#currentPageMarker){
     margin-bottom: 40px
 }
 
+#icon{
+	width: 90px;
+    height: 90px;
+}
+
 #soporteText{
     position: relative;
 }
@@ -121,6 +126,25 @@ li a:hover:not(#currentPageMarker){
     width: 1335px;
 }
 
+/*Botón renviar mensaje*/
+#Boton a{
+	background-color: #343434;
+}
+#Boton div{
+	font-size: smaller;
+}
+#Boton a:HOVER{
+	background-color: #EC3E3F;
+	transition: all 0.3s;
+}
+
+#Enviar{
+	position: relative;
+    bottom: 36px;
+    padding-left: 30px;
+    top: 30px;
+    left: 750px;
+}
 /*footer*/
 #footer{
 	margin-top:30px;

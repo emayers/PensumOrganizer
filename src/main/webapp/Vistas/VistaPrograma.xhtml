@@ -7,7 +7,7 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 	
   <h:head>
-  	<link rel="Stylesheet" type="text/css" href="./Style/Program.css?verison=1.0"/>
+  	<link rel="Stylesheet" type="text/css" href="./Style/Program.css?verison=6.0"/>
   	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,800,600"></link>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css"></link>
   	
@@ -25,13 +25,13 @@
 				<li><h:link id="currentPageMarker" value="Programa de la Carrera">
 					</h:link></li>
 				<li><h:link value="Reorganizar Pensum" outcome="VistaPOAuto"></h:link></li>
+				<li><h:link value="Ayuda" outcome="VistaHelp"></h:link></li>
 				<li id="user">
 					<a class="dropdownTrigger"  onclick="dropList()" href="#">
 						#{studentBean.student.name} #{studentBean.student.last_name}
 					</a>
 					<h:panelGroup layout="block" id="dropdownContent" class="dropdownClass">
 	    					<h:link value="Log Out" outcome="VistaLogin"></h:link>
-	    					<h:link value="Help" outcome="VistaHelp"></h:link>
 					</h:panelGroup>
 				</li>
 			</ul>
@@ -46,7 +46,7 @@
 		</h:panelGroup>
 		
 		<h:panelGroup layout="block" id="containerOfPensumTable" >
-		<c:forEach items="#{dataBean.trimester}" var="entry">
+		<c:forEach items="#{programBean.program}" var="entry">
 			<c:set var="trimesterCuantity" value="#{trimesterCuantity}"></c:set>
 			<h:dataTable styleClass="highlight centered bordered" value="#{entry.value}" var="list">
 					<c:set var="trimesterCuantity" value="#{trimesterCuantity + 1}"></c:set>

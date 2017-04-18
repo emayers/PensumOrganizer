@@ -1,4 +1,4 @@
-package com.pensumorganizer.ejb;
+package com.pensumorganizer.managedbeans;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;

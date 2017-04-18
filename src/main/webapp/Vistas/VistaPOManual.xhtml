@@ -17,26 +17,26 @@
   	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
   	<script src="https://cdn.jsdelivr.net/sweetalert2/6.5.5/sweetalert2.min.js"></script>
   	<script type="text/javascript" src="Scripts/DropdownList.js?version=1"></script>
-  	<script type="text/javascript" src="Scripts/MoveElements.js?version=1.0"></script>
+  	<script type="text/javascript" src="Scripts/OutcomeLink.js"></script>
   </h:head>
   
   <h:body>
     <nav id="navigationMenuTag">
 		<h:panelGroup layout="block" id="menu" styleClass="nav-wrapper">
-			<ul id="navigationBar">
-				<li><h:link value="Página Principal" outcome="VistaDashboard">
+			<ul id="navigationBar"> 
+				<li><h:link onclick="getLinkValue(this); PF('dialogToExit').show(); return false;" value="Página Principal" outcome="VistaDashboard">
 					</h:link></li>
-				<li><h:link value="Ver Historial" outcome="VistaHistorial"></h:link></li>
-				<li><h:link value="Programa de la Carrera" outcome="VistaPrograma">
+				<li><h:link onclick="getLinkValue(this); PF('dialogToExit').show(); return false;" value="Ver Historial" outcome="VistaHistorial"></h:link></li>
+				<li><h:link onclick="getLinkValue(this); PF('dialogToExit').show(); return false;" value="Programa de la Carrera" outcome="VistaPrograma">
 					</h:link></li>
-				<li><h:link id="currentPageMarker" value="Reorganizar Pensum" outcome="VistaPOAuto"></h:link></li>
+				<li><h:link onclick="getLinkValue(this); PF('dialogToExit').show(); return false;" id="currentPageMarker" value="Reorganizar Pensum" outcome="VistaPOAuto"></h:link></li>
+				<li><h:link onclick="getLinkValue(this); PF('dialogToExit').show(); return false;" value="Ayuda" outcome="VistaHelp"></h:link></li>
 				<li id="user">
 					<a class="dropdownTrigger"  onclick="dropList()" href="#">
 						#{studentBean.student.name} #{studentBean.student.last_name}
 					</a>
 					<h:panelGroup layout="block" id="dropdownContent" class="dropdownClass">
-	    					<h:link value="Log Out" outcome="VistaLogin"></h:link>
-	    					<h:link value="Help" outcome="VistaHelp"></h:link>
+	    					<h:link onclick="getLinkValue(this); PF('dialogToExit').show(); return false;" value="Log Out" outcome="VistaLogin"></h:link>
 					</h:panelGroup>
 				</li>
 			</ul>
@@ -52,18 +52,19 @@
 	<h:panelGroup layout="block" id="titleBar">
 		<p id="PensumRecomendado">
 			<h:graphicImage id="titleBarImage" value="/Vistas/Images/Target-White.png" />
-			Pensum Actual – Ingeniería de Software 
+			Pensum Actual - Ingeniería de Software 
 		</p>
 		<p id="Duration"> 
-			Duracion del Pensum: #{autoPOBean.trimester.size()} Trimestres
+			Duración del Pensum: #{autoPrioritizerBean.pensum.size()} Trimestres
 		</p>
 	</h:panelGroup>
 	
 	<h:panelGroup layout="block" id="containerOfPensumTable" >
 	<h:form>
-		<c:forEach items="#{autoPOBean.trimester}" var="entry">
+		<c:forEach items="#{manualOrganizationBean.reorganizedPensum}" var="entry">
 			<c:set var="trimesterCuantity" value="#{trimesterCuantity}"></c:set>
 			<h:dataTable styleClass="highlight centered bordered" value="#{entry.value}" var="list" >
+					<c:set var="materia" value="#{list}"></c:set>
 					<c:set var="trimesterCuantity" value="#{trimesterCuantity + 1}"></c:set>
 					<f:facet name="header">
 						<p id="tableHead">Trimestre #{trimesterCuantity}</p> 
@@ -115,7 +116,7 @@
 					<h:outputText rendered="#{list.creditsReq == '0'}" value="-" />
 				</h:column>
 				<h:column>
-					<h:commandLink action="#{listChangingBean.delete(entry.value,list)}">
+					<h:commandLink action="#{manualOrganizationBean.delete(entry.key, materia)}">
 						<h:graphicImage value="/Vistas/Images/remove-circle-1.svg" />
 					</h:commandLink>
 				</h:column>
@@ -127,7 +128,7 @@
 	<h:panelGroup layout="block" id="InformationBotonsSubbox">
 		<h:panelGroup layout="block" id="subjectsBlock">
 			<h:form>
-			<h:dataTable id="boxElements" styleClass="highlight centered bordered" value="#{listChangingBean.newTableData}"
+			<h:dataTable id="boxElements" styleClass="highlight centered bordered" value="#{manualOrganizationBean.notSelectedCourses}"
 				var="subject">
 				<c:set var="materia" value="#{subject}"></c:set>
 				<h:column>
@@ -152,64 +153,18 @@
 				<h:column>
 					<f:facet name="header">
 					</f:facet>
-					<h:commandLink  onclick="PF('dialogToAdd').show(); return false;">
+					
+					<h:commandLink  action="#{manualOrganizationBean.add(2, materia)}">
 							<h:graphicImage value="/Vistas/Images/add-circle-1.svg" />
 					</h:commandLink>
-					<p:dialog id="dialog" widgetVar="dialogToAdd" closeOnEscape="true" 
-				  			  header="Añadir a Trimestre" closable="false" resizable="false">
-				  
-						<form id="formMove">
-							<p>#{materia.name} al Trimestre :</p>
-					   		<p:selectOneMenu 
-					   		
-					   				style="width: 35px;"
-					   				
-					   				 
-					   				value="#{autoPOBean.trimester}" >
-					   			<f:selectItems value="#{autoPOBean.trimester}"/> 
-					   			<f:ajax execute="#{dialogBean.trimesterPosition}"></f:ajax>
-					   		</p:selectOneMenu>
-							<h:commandButton action="#{dialogBean.add(autoPOBean.trimester,listChangingBean.newTableData,materia)}"  value="Aceptar" />
-							<h:commandButton value="Cancelar" />
-						</form>
-						
-					</p:dialog>
+					
 				</h:column>
 			</h:dataTable>
 			</h:form>
 		</h:panelGroup>
-		<h:panelGroup layout="block" id="Information">
-				
-				<c:set var="colorChangedivTrimes" value="#{autoPOBean.trimester.size()}"></c:set>
-				<c:set var="colorChangedivMonth" value="#{colorChangedivTrimes*3}"></c:set>
-				
-				<h:panelGroup layout="block" class="row" >
-					<h:panelGroup layout="block" class="col s12 m6">
-					
-						<h:panelGroup layout="block" class="card" id="cardTimePosition">
-							<h:panelGroup layout="block" class="card-content white-text" id="cardTimeArenge" >
-								<p>Permanencia:</p>
-								<p>#{colorChangedivMonth} Meses / #{colorChangedivTrimes} Trimestres</p>
-								<script type="text/javascript">
-									function colorChange(){
-										if(#{colorChangedivTrimes} >= 21){
-											document.getElementById("cardTimePosition").style.backgroundColor = "#EC3E3F";
-										}
-										else {
-											document.getElementById("cardTimePosition").style.backgroundColor = "#72af47";
-										}
-									}
-									window.onload = colorChange;
-								</script>
-							</h:panelGroup>
-						</h:panelGroup>
-					</h:panelGroup>
-				</h:panelGroup>
-				
-         </h:panelGroup>
 		<h:panelGroup layout="block" id="Botons">
 			<h:panelGroup layout="block" id="Guardar">
-				<h:link class="waves-effect waves-light btn" value="Guardar" outcome="EnConstruccion"></h:link>
+				<h:link class="waves-effect waves-light btn" value="Guardar" outcome="#{manualOrganizationBean.saveReorganization()}"></h:link>
 			</h:panelGroup>
          	<h:panelGroup layout="block" id="Cancelar">
          		<h:link onclick="PF('dialogToExit').show(); return false;" class="waves-effect waves-light btn" outcome="VistaPOAuto" value="Cancelar">
@@ -222,8 +177,9 @@
 			  header="Cancelar cambios" closable="false" resizable="false">
 			  
 		<form>
-			<p>Desea Salir?</p>
-			<h:button value="Si" type="submit" outcome="VistaPOAuto"></h:button>
+			<p id="formText" >Pueden existir cambios no guardados</p>
+			<p id="formText">¿Desea salir?</p>
+			<h:button value="Si" type="submit" onclick="return outcomeSwich();"></h:button>
 			<h:button value="No" type="submit" ></h:button>
 		</form>
 		
