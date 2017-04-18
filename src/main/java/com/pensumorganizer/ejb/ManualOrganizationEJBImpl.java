@@ -15,6 +15,7 @@ import com.pensumorganizer.managedbeans.AutoPrioritizerBean;
 public class ManualOrganizationEJBImpl implements ManualOrganizationEJBInterface {
 	
 	private static List<Course> notSelectedCourses;
+	private static Integer selectedTrimester;
 	private static Map<Integer, List<Course>> reorganizedPensum 
 					= new HashMap<Integer, List<Course>>(AutoPrioritizerBean.apEJB.getOrganizedPensum());
 
@@ -28,9 +29,9 @@ public class ManualOrganizationEJBImpl implements ManualOrganizationEJBInterface
     	return;
     }
 	
-	public void addCourse(Integer trimester, Course subject){
+	public void addCourse(Course subject){
 		System.out.println("Hey! adding!");
-		reorganizedPensum.get(trimester-1).add(subject);
+		reorganizedPensum.get(selectedTrimester-1).add(subject);
     	notSelectedCourses.remove(subject);
     	return;
     }
@@ -48,5 +49,14 @@ public class ManualOrganizationEJBImpl implements ManualOrganizationEJBInterface
 	public Map<Integer, List<Course>> getReorganizedPensum() {
 		return reorganizedPensum;
 	}
+
+	public Integer getSelectedTrimester() {
+		return selectedTrimester;
+	}
+
+	public void setSelectedTrimester(Integer selectedTrimester) {
+		ManualOrganizationEJBImpl.selectedTrimester = selectedTrimester;
+	}
+
 	
 }
