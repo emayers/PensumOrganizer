@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
+import java.util.ArrayList;
 
 import com.pensumorganizer.entities.*;
 
@@ -416,6 +416,37 @@ public class EstudianteProgramaDao {
 
 		}
 	}
+	public ArrayList<Integer> getAllIds(){
+		ArrayList<Integer> res=new ArrayList<Integer>();
+		 try {				    
+				String queryString = "SELECT IdEstudiante FROM EstudiantePrograma;";
+				connection = getConnection();
+				ptmt = connection.prepareStatement(queryString);
+				resultSet=ptmt.executeQuery();
+				while(resultSet.next())
+				  { 
+					System.out.println(resultSet.getInt("IdEstudiante"));
+					res.add(resultSet.getInt("IdEstudiante"));
+				  }
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					if (ptmt != null)
+						ptmt.close();
+					if (connection != null)
+						connection.close();
+					if (resultSet != null)
+						resultSet.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
+			}
+		return res;
+	}
 	public void add (){
 		try {	
 			String queryString = "INSERT INTO estudiantePrograma(IdEstudiante, Nombre, ProgramaCodigo, Version, AñoIngreso, TerminoIngreso, AñoLimitePermanencia, TerminoLimitePermanencia, TrimestresCursados, IndiceAcumulado)VALUES(1057512, 'NEY EMANUEL CASILLA VEGA', 'IDS', 2010, 2013, 3, 2018, 3, 15, 3.50);";
@@ -445,9 +476,9 @@ public class EstudianteProgramaDao {
 		// TODO Auto-generated method stub
 		EstudianteProgramaDao Estudiante = new EstudianteProgramaDao();
 		//Estudiante.add();
-		 EstudianteProgramaEntity ent = new EstudianteProgramaEntity();
-		 ent.setIdEstudiante(1056025);
-//		Estudiante.getName(1056025);
+		 //EstudianteProgramaEntity ent = new EstudianteProgramaEntity();
+		 //ent.setIdEstudiante(1056025);
+		//Estudiante.getName(1056025);
 //		Estudiante.getStudentId(1056025);
 //		Estudiante.getProgramCode(1056025);
 //		Estudiante.getVersion(1056025);
@@ -457,8 +488,9 @@ public class EstudianteProgramaDao {
 //		Estudiante.getLimitPermanenceTerm(1056025);
 //		Estudiante.getStudiedTrimesters(1056025);
 //		Estudiante.getIndex(1056025);
-		 Estudiante.setPassword(1056025, 123456);
-		Estudiante.getPassword(1056025);
+		// Estudiante.setPassword(1056025, 123456);
+		//Estudiante.getPassword(1056025);
+		 Estudiante.getAllIds();
     }  
 
 	}

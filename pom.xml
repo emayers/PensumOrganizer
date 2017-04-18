@@ -14,46 +14,77 @@
     <url>http://pensumorganizer.com</url>
     
     <dependencies>
-	  	<dependency>
-			<groupId>org.primefaces</groupId>
-			<artifactId>primefaces</artifactId>
-		</dependency>
+    		<!-- JSF AND PRIMEFACES -->
 		<dependency>
 		    <groupId>com.sun.faces</groupId>
 		    <artifactId>jsf-impl</artifactId>
+  			<version>2.2.10</version>
 		</dependency>
+		
 		<dependency>
 		    <groupId>com.sun.faces</groupId>
 		    <artifactId>jsf-api</artifactId>
+  			<version>2.2.10</version>
 		</dependency>
+		
+	  	<dependency>
+			<groupId>org.primefaces</groupId>
+			<artifactId>primefaces</artifactId>
+			<version>5.1</version>
+		</dependency>
+		
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
 			<scope>provided</scope>
 		</dependency>
+		
+		<dependency>
+		    <groupId>javax.el</groupId>
+		    <artifactId>javax.el-api</artifactId>
+  			<version>3.0.0</version>
+		</dependency>
+		
+		<!-- FONT -->
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>font-awesome</artifactId>
+  			<version>4.7.0</version>
+		</dependency>
+		
+		<!-- EJB AND INJECTION -->
 		<dependency>
 		    <groupId>javax.ejb</groupId>
 		    <artifactId>javax.ejb-api</artifactId>
 		    <version>3.2</version>
 		</dependency>
+		
 		<dependency>
 		    <groupId>javax.inject</groupId>
 		    <artifactId>javax.inject</artifactId>
 		    <version>1</version>
 		</dependency>
-		<dependency>
-			<groupId>org.webjars</groupId>
-			<artifactId>font-awesome</artifactId>
-		</dependency>	
-		<dependency>
-		    <groupId>javax.el</groupId>
-		    <artifactId>javax.el-api</artifactId>
-		</dependency>
+		
+		<!-- APACHE PDF PARSER -->
 		<dependency>
 		  <groupId>org.apache.pdfbox</groupId>
 		  <artifactId>pdfbox</artifactId>
 		  <version>2.0.4</version>
 		</dependency>
+		
+		<!-- AZURE CONNECTION DRIVER AND JPA -->
+		<dependency>
+            <groupId>com.microsoft.sqlserver</groupId>
+            <artifactId>mssql-jdbc</artifactId>
+            <version>6.1.0.jre8</version>
+        </dependency>
+        
+  		<dependency>
+            <groupId>javax.persistence</groupId>
+            <artifactId>persistence-api</artifactId>
+            <version>1.0</version>
+        </dependency>
   </dependencies>
   
   <build>
@@ -80,54 +111,10 @@
   <dependencyManagement>
   	<dependencies>
   		<dependency>
-  			<groupId>org.primefaces</groupId>
-  			<artifactId>primefaces</artifactId>
-  			<version>5.1</version>
-  		</dependency>
-  		<dependency>
   			<groupId>org.glassfish</groupId>
   			<artifactId>javax.faces</artifactId>
   			<version>2.2.9</version>
   		</dependency>
-  		<dependency>
-  			<groupId>javax.servlet</groupId>
-  			<artifactId>javax.servlet-api</artifactId>
-  			<version>3.1.0</version>
-  		</dependency>
-  		<dependency>
-  			<groupId>com.sun.faces</groupId>
-  			<artifactId>jsf-impl</artifactId>
-  			<version>2.2.10</version>
-  		</dependency>
-  		<dependency>
-  			<groupId>com.sun.faces</groupId>
-  			<artifactId>jsf-api</artifactId>
-  			<version>2.2.10</version>
-  		</dependency>
-  		<dependency>
-  			<groupId>org.webjars</groupId>
-  			<artifactId>font-awesome</artifactId>
-  			<version>4.7.0</version>
-  		</dependency>
-  		<dependency>
-  			<groupId>javax.el</groupId>
-  			<artifactId>javax.el-api</artifactId>
-  			<version>3.0.0</version>
-  		</dependency>
-  		<dependency>
-            <groupId>com.microsoft.sqlserver</groupId>
-            <artifactId>mssql-jdbc</artifactId>
-            <version>6.1.0.jre8</version>
-        </dependency>
-  		<dependency>
-            <groupId>javax.persistence</groupId>
-            <artifactId>persistence-api</artifactId>
-            <version>1.0</version>
-        </dependency>
-
-
-
-  		
   	</dependencies>
   </dependencyManagement>
     
