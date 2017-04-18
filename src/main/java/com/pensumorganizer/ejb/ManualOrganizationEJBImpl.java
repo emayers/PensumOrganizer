@@ -15,22 +15,23 @@ import com.pensumorganizer.managedbeans.AutoPrioritizerBean;
 @Singleton
 public class ManualOrganizationEJBImpl implements ManualOrganizationEJBInterface {
 	
+	private static Integer selectedTrimester;
 	private static List<Course> notSelectedCourses;
 	private static Map<Integer, List<Course>> reorganizedPensum = getClonedPensum();
 	
-    public void deleteCourse(Integer trimester, Course subject) {    	
+    public void deleteCourse(Integer currentTrimester, Course subject) {    	
     	if(notSelectedCourses == null){
     		notSelectedCourses = new ArrayList<Course>();
     	}
     	
 		System.out.println("Hey! Deleting!");
-    	reorganizedPensum.get(trimester).remove(subject);
+    	reorganizedPensum.get(currentTrimester).remove(subject);
     	notSelectedCourses.add(subject);
     }
 	
-	public void addCourse(Integer trimester, Course subject){
+	public void addCourse(Course subject){
 		System.out.println("Hey! Adding!");
-		reorganizedPensum.get(trimester-1).add(subject);
+		reorganizedPensum.get(selectedTrimester - 1).add(subject);
     	notSelectedCourses.remove(subject);
     }
     
@@ -40,12 +41,20 @@ public class ManualOrganizationEJBImpl implements ManualOrganizationEJBInterface
     	return "VistaPOAuto";
 	}
 	
-	public List<Course> getNotSelectedCourses() {
+	public Map<Integer, List<Course>> getReorganizedPensum(){
+		return reorganizedPensum;
+	}
+	
+	public List<Course> getNotSelectedCourses(){
 		return notSelectedCourses;
 	}
 	
-	public Map<Integer, List<Course>> getReorganizedPensum() {
-		return reorganizedPensum;
+	public Integer getSelectedTrimester() {
+		return selectedTrimester;
+	}
+
+	public void setSelectedTrimester(Integer selectedTrimester) {
+		ManualOrganizationEJBImpl.selectedTrimester = selectedTrimester;
 	}
 	
 	private static Map<Integer, List<Course>> getClonedPensum(){
@@ -62,5 +71,5 @@ public class ManualOrganizationEJBImpl implements ManualOrganizationEJBInterface
 		
 		return clonedPensum;
 	}
-	
 }
+
