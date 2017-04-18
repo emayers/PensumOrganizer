@@ -164,6 +164,8 @@
 						<p id="formText">#{materia.name} al Trimestre :</p>
 				   		<p:selectOneMenu
 				   				
+				   				value="#{manualOrganizationBean.selectedTrimester}"
+				   				
 				   				onchange="selectGrab(this)"
 				   				
 				   				class="DropdownTri" 
@@ -177,7 +179,7 @@
 				   				<c:set var="trimesterPos" value="#{trimesterPos}"></c:set>
 				   			</c:forEach>
 					   		</p:selectOneMenu>
-							<h:commandButton action="#{manualOrganizationBean.add(trimesterPos, materia)}"  value="Aceptar"  />
+							<h:commandButton action="#{manualOrganizationBean.add(materia)}"  value="Aceptar"  />
 							<h:commandButton value="Cancelar" />
 				</p:dialog>
 				</h:column>
