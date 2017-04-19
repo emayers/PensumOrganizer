@@ -231,6 +231,10 @@ form #Cancelar{
 /*Dialog*/
 #formText{
 	text-align: center;
+	margin-bottom: 30px;
+}
+#formTextExit{
+	text-align: center;
 	margin-bottom: 0px;
 }
 
