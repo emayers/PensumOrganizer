@@ -4,18 +4,18 @@ import java.io.Serializable;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 
 import com.pensumorganizer.ejb.AuthenticationEJBImpl;
 
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class AuthenticationBean implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
 	@EJB
-	AuthenticationEJBImpl aEJB = new AuthenticationEJBImpl();
+	public static AuthenticationEJBImpl aEJB = new AuthenticationEJBImpl();
 
     public String submit() {    	
     	return aEJB.submit();
@@ -27,5 +27,13 @@ public class AuthenticationBean implements Serializable{
 
 	public Integer getPassword() {
 		return aEJB.getPassword();
+	}
+	
+	public void setUserName(Integer userName) {
+		aEJB.setUserName(userName);
+	}
+
+	public void setPassword(Integer password) {
+		aEJB.setPassword(password);
 	}
 }

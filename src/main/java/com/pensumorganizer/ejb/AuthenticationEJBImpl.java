@@ -10,8 +10,8 @@ import com.pensumorganizer.ejb.interfaces.AuthenticationEJBInterface;
 @Stateless
 public class AuthenticationEJBImpl implements AuthenticationEJBInterface {
 	
-	private static EstudianteProgramaDao student = new EstudianteProgramaDao();
-	private static List<Integer> validUserNames = student.getAllIds();
+	private static EstudianteProgramaDao studentsProgram = new EstudianteProgramaDao();
+	private static List<Integer> validUserNames = studentsProgram.getAllIds();
 	
 	private Integer userName;
     private Integer password;
@@ -19,7 +19,7 @@ public class AuthenticationEJBImpl implements AuthenticationEJBInterface {
 
     public String submit() {
     	if(!(validUserNames.contains(userName) && 
-    			student.getPassword(userName).equals(password))){
+    			studentsProgram.getPassword(userName).equals(password))){
     		outPut = "Error";
     	}
     	else{

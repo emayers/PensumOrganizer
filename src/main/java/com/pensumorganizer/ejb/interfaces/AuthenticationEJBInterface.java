@@ -9,5 +9,9 @@ public interface AuthenticationEJBInterface {
 
 	public Integer getUserName();
 
-	public Integer getPassword();	
+	public Integer getPassword();
+	
+	public void setUserName(Integer userName);
+
+	public void setPassword(Integer password);
 }

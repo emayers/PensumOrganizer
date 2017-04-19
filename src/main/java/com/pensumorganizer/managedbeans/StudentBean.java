@@ -1,21 +1,19 @@
 package com.pensumorganizer.managedbeans;
 
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
-import com.pensumorganizer.dao.Student;
+import com.pensumorganizer.ejb.StudentEJBImpl;
 
 @ManagedBean
 @SessionScoped
 public class StudentBean {
 
-	private Student student = new Student("Juan", "Vasquez", 1037777, "AGO - OCT", 2012, "IDS", 2010);
-
-	public Student getStudent() {
-		return student;
-	}
+	@EJB
+	StudentEJBImpl sEJB = new StudentEJBImpl();
 	
-	public StudentBean() {
+	public String getStudentName() {
+		return sEJB.getStudentName();
 	}
-	
 }
