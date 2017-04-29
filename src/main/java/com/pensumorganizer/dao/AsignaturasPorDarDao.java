@@ -25,6 +25,7 @@ public class AsignaturasPorDarDao {
 		return conn;
 	}
 	
+	/*Returns all courses codes*/
 	public ArrayList<String> getCourseCode(int id){
 		ArrayList<String> res = new ArrayList<String>();
 		try{
@@ -59,11 +60,14 @@ public class AsignaturasPorDarDao {
 		
 	}
 	
+	/*Returns an ArrayList of Course objects*///FIX
 	public ArrayList<Course> getCourses(int id){
 		ArrayList<Course> res = new ArrayList<Course>();
 		ArrayList<String> cor=new ArrayList<String>();
+		EstudianteProgramaDao est=new EstudianteProgramaDao();
+		PensumDao psm=new PensumDao();
 		try{
-			String queryString = "SELECT AsignaturaCodigo, Descripcion, Prerrequisito, ReqCreditos, CoRequisito FROM AsignaturasPorDar WHERE IdEstudiante=?;";
+			String queryString = "SELECT AsignaturaCodigo, Descripcion, Prerequisito, CoRequisito FROM AsignaturasPorDar WHERE IdEstudiante=?;";
 			connection = getConnection();
 			ptmt = connection.prepareStatement(queryString);
 			ptmt.setInt(1, id);
@@ -71,18 +75,20 @@ public class AsignaturasPorDarDao {
 			while(resultSet.next()){
 				Course course=new Course();
 				System.out.println(resultSet.getString("AsignaturaCodigo")
-						           +" "+resultSet.getInt("ReqCreditos")
 						           +" "+resultSet.getString("CoRequisito")
 						           +" "+resultSet.getString("Descripcion")
-						           +" "+resultSet.getString("Prerrequisito"));//maybe use the other dao for prerequisites =3=
+						           +" "+resultSet.getString("Prerequisito"));//maybe use the other dao for prerequisites =3=
 				course.setId(resultSet.getString("AsignaturaCodigo"));
 				course.setName(resultSet.getString("Descripcion"));
-				course.setCreditsReq(resultSet.getInt("ReqCreditos"));
 				cor.add(resultSet.getString("CoRequisito"));
 				course.setCoReqID(cor);
 				res.add(course);
 		}
-		    
+			System.out.println("ReqCred");
+			for(int i=0;i<res.size();i++){
+				res.get(i).setCreditsReq(psm.getCreditsRequirements(est.getProgramCode(id), res.get(i).getId()));
+				System.out.println(res.get(i).getCreditsReq());
+			}
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
@@ -107,6 +113,7 @@ public class AsignaturasPorDarDao {
 	}
 	
 
+	/*For testing, to be deleted*/
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		AsignaturasPorDarDao apdd=new AsignaturasPorDarDao();

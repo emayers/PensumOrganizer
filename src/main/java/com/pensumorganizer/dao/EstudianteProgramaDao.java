@@ -29,7 +29,7 @@ public class EstudianteProgramaDao {
 		conn = ConnectionFactory.getInstance().getConnection();
 		return conn;
 	}
-	
+	/*Returns student's name*/
 	public String getName(int id){
 		String res=null;
 		 try {				    
@@ -64,7 +64,7 @@ public class EstudianteProgramaDao {
 		return res;
 		 
 	}
-	
+	/*Returns student's id, maybe useless*/
 	public int getStudentId(int id){//check
 		int res=0;
 		 try {				    
@@ -97,7 +97,7 @@ public class EstudianteProgramaDao {
 			}
 		return res;
 	}
-	
+	/*Returns the program code, for example: IDS*/
 	public String getProgramCode(int id){
 		String res=null;
 		 try {				    
@@ -130,6 +130,7 @@ public class EstudianteProgramaDao {
 			}
 		return res;
 	}
+	/*Returns year of approval of Pensum, for example, our pensum is the 2010 version*/
 	public int getVersion(int id){
 		int res=0;
 		 try {				    
@@ -162,6 +163,7 @@ public class EstudianteProgramaDao {
 			}
 		return res;
 	}
+	/*Return the year of admission of the student*/
 	public int getAdmissionYear(int id){
 		int res=0;
 		 try {				    
@@ -195,6 +197,11 @@ public class EstudianteProgramaDao {
 		return res;
 	}
 	
+	/*Returns term of admission, remembering that:
+	 * 1 stands for AGOSTO-OCTUBRE
+	 * 2 stands for FEBRERO-ABRIL
+	 * 3 stands for MARZO-ABRIL
+	 * 4 stands for MAYO-JULIO*/
 	public int getAdmissionTerm(int id){
 		int res=0;
 		 try {				    
@@ -228,6 +235,7 @@ public class EstudianteProgramaDao {
 		return res;
 	}
 	
+	/*Returns the student's limit permanence year*/
 	public int getLimitPermanenceYear(int id){
 		int res=0;
 		 try {				    
@@ -260,7 +268,11 @@ public class EstudianteProgramaDao {
 			}
 		return res;
 	}
-	
+	/*Returns limit permanence term, remembering that:
+	 * 1 stands for AGOSTO-OCTUBRE
+	 * 2 stands for FEBRERO-ABRIL
+	 * 3 stands for MARZO-ABRIL
+	 * 4 stands for MAYO-JULIO*/
 	public int getLimitPermanenceTerm(int id){
 		int res=0;
 		 try {				    
@@ -293,6 +305,8 @@ public class EstudianteProgramaDao {
 			}
 		return res;
 	}
+	/*Returns the number of trimesters the student has been active, for example, 
+	 * we have 15 studied trimesters (16 counting this one)*/
 	public int getStudiedTrimesters(int id){
 		int res=0;
 		 try {				    
@@ -325,7 +339,7 @@ public class EstudianteProgramaDao {
 			}
 		return res;
 	}
-	
+	/*Returns the student's general index or whatever it's name is (índice general)*/
 	public double getIndex(int id){
 		double res=0;
 		 try {				    
@@ -358,6 +372,7 @@ public class EstudianteProgramaDao {
 			}
 		return res;
 	}
+	/*Returns the student's password*/
 	public int getPassword(int id){
 		int res=0;
 		 try {				    
@@ -390,6 +405,7 @@ public class EstudianteProgramaDao {
 			}
 		return res;
 	}
+	/*Sets the student's password*/
 	public void setPassword(int id, int psswd){
 		try {				    
 			String queryString = "UPDATE EstudiantePrograma SET Password=? WHERE IdEstudiante=?;";
@@ -416,6 +432,7 @@ public class EstudianteProgramaDao {
 
 		}
 	}
+	/*Returns all the ids of all the students*/
 	public ArrayList<Integer> getAllIds(){
 		ArrayList<Integer> res=new ArrayList<Integer>();
 		 try {				    
@@ -447,6 +464,7 @@ public class EstudianteProgramaDao {
 			}
 		return res;
 	}
+	/*Adds a new student, for connection testing purposes only*/
 	public void add (){
 		try {	
 			String queryString = "INSERT INTO estudiantePrograma(IdEstudiante, Nombre, ProgramaCodigo, Version, AñoIngreso, TerminoIngreso, AñoLimitePermanencia, TerminoLimitePermanencia, TrimestresCursados, IndiceAcumulado)VALUES(1057512, 'NEY EMANUEL CASILLA VEGA', 'IDS', 2010, 2013, 3, 2018, 3, 15, 3.50);";
@@ -471,6 +489,8 @@ public class EstudianteProgramaDao {
 		}
 		
 	}
+	
+	/*For testing, to be deleted*/
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

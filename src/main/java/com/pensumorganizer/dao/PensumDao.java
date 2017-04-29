@@ -24,6 +24,7 @@ public class PensumDao {
 		return conn;
 	}
 	
+	/*For testing, shows pensum in console*/
 	public void show(PensumEntity psm){
 		try{
 			
@@ -58,6 +59,7 @@ public class PensumDao {
 		
 	}
 	
+	/*Returns version of the pensum, for example, 2010*/
 	public int getVersion(String code){
 		int res = 0;
 		try{
@@ -91,6 +93,7 @@ public class PensumDao {
 		return res;
 		
 	}
+	/*Returns the total amount of credits, for example, IDS has 249 credits*/
 	public int getProgramCredits(String code){
 		int res = 0;
 		try{
@@ -125,6 +128,7 @@ public class PensumDao {
 		
 	}
 	
+	/*Returns the program code, for example, IDS*/
 	public String getProgramCode(int id){
 		String res = null;
 		try{
@@ -159,6 +163,7 @@ public class PensumDao {
 		
 	}
 	
+	/*Returns all trimesters taken (number), for example, 1, 2, 3...19, 20, 21*/
 	public ArrayList<Integer> getTrimester(String code){
 		ArrayList<Integer> res = new ArrayList<Integer>();
 		try{
@@ -193,6 +198,7 @@ public class PensumDao {
 		
 	}
 	
+	/*Returns all courses codes taken*/
 	public ArrayList<String> getCourseCode(String code){
 		ArrayList<String> res = new ArrayList<String>();
 		try{
@@ -227,7 +233,8 @@ public class PensumDao {
 		
 	}
 	
-	public ArrayList<Integer> getCreditsRequirements(String code){
+	/*Returns all credits requirements*/
+	public ArrayList<Integer> getAllCreditsRequirements(String code){
 		ArrayList<Integer> res = new ArrayList<Integer>();
 		try{
 			String queryString = "SELECT RequisitosCreditos FROM Pensum WHERE ProgramaCodigo=? ORDER BY Trimestre, AsignaturaCodigo;";
@@ -261,7 +268,78 @@ public class PensumDao {
 		
 	}
 	
-	public ArrayList<String> getCoRequisites(String code){
+	public int getCreditsRequirements(String code, String subject){
+		int res = 0;
+		try{
+			String queryString = "SELECT RequisitosCreditos FROM Pensum WHERE ProgramaCodigo=? AND AsignaturaCodigo=? ORDER BY Trimestre, AsignaturaCodigo;";
+			connection = getConnection();
+			ptmt = connection.prepareStatement(queryString);
+			ptmt.setString(1, code);
+			ptmt.setString(2, subject);
+			resultSet=ptmt.executeQuery();
+			if(resultSet.next()){ 
+				System.out.println(resultSet.getInt("RequisitosCreditos"));
+				res=resultSet.getInt("RequisitosCreditos");			  
+		}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (ptmt != null)
+					ptmt.close();
+				if (connection != null)
+					connection.close();
+				if (resultSet != null)
+					resultSet.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		}
+		return res;
+		
+	}
+	/*Returns all corequisites, according to program, like IDS*/
+	public ArrayList<String> getCoRequisites(String code, String subject){
+		ArrayList<String> res=new ArrayList<String>();
+		try{
+			String queryString = "SELECT CoRequisito FROM Pensum WHERE ProgramaCodigo=? AND AsignaturaCodigo=? ORDER BY Trimestre, AsignaturaCodigo;";
+			connection = getConnection();
+			ptmt = connection.prepareStatement(queryString);
+			ptmt.setString(1, code);
+			ptmt.setString(2, subject);
+			resultSet=ptmt.executeQuery();
+			while(resultSet.next()){ 
+				System.out.println(resultSet.getString("CoRequisito"));
+				res.add(resultSet.getString("CoRequisito"));			  
+		}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (ptmt != null)
+					ptmt.close();
+				if (connection != null)
+					connection.close();
+				if (resultSet != null)
+					resultSet.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		}
+		return res;
+		
+	}
+	
+	/*Returns all corequisites, according to program, like IDS*/
+	public ArrayList<String> getAllCoRequisites(String code){
 		ArrayList<String> res=new ArrayList<String>();
 		try{
 			String queryString = "SELECT CoRequisito FROM Pensum WHERE ProgramaCodigo=? ORDER BY Trimestre, AsignaturaCodigo;";
@@ -295,10 +373,13 @@ public class PensumDao {
 		
 	}
 	
+	/*Returns the Pensum in Courses objects*///TODO, fix the double db call
 	public ArrayList<Course> getCourses(String code, int version){
 		ArrayList<Course> res = new ArrayList<Course>();
 		ArrayList<String> cor=new ArrayList<String>();
-		ArrayList<String>pre=new ArrayList<String>();
+		PrerrequisitoDao pqd=new PrerrequisitoDao();
+		ArrayList<Prerrequisito>pre=pqd.getPreRequisiteByProgram(code, version);
+		AsignaturasDao ad=new AsignaturasDao();
 		try{
 			String queryString = "SELECT AsignaturaCodigo, Trimestre, RequisitosCreditos, CoRequisito, Version FROM Pensum WHERE ProgramaCodigo=? AND Version=? ORDER BY Trimestre, AsignaturaCodigo;";
 			connection = getConnection();
@@ -317,9 +398,15 @@ public class PensumDao {
 				course.setCreditsReq(resultSet.getInt("RequisitosCreditos"));
 				cor.add(resultSet.getString("CoRequisito"));
 				course.setCoReqID(cor);
-				PrerrequisitoDao prd=new PrerrequisitoDao();
-				pre=prd.getPreRequisite(code, resultSet.getString("AsignaturaCodigo"), version);
-				course.setPreqID(pre);
+				String id=course.getId();
+//				for(int i=0;i<pre.size();i++){
+//					 String subj=pre.get(i).getSubject();
+//					  //System.out.println(id +" "+subj);
+//					if(id.equals(subj)){
+//					   course.setPreqID(pre.get(i).getPreReq());
+//					   System.out.println("added");
+//					}
+//				}
 				res.add(course);
 				
 		}
@@ -342,11 +429,28 @@ public class PensumDao {
 			}
 
 		}
+		System.out.println("Descripciones+creds");
+		String wtv=null;
+		int wtv2=0;
+		for(int i=0;i<res.size();i++){
+			res.get(i).setName(ad.getDescription(res.get(i).getId()));
+			wtv=res.get(i).getName();
+			System.out.println(wtv);
+			res.get(i).setCredits(ad.getCredits(res.get(i).getId()));
+			wtv2=res.get(i).getCredits();
+			System.out.println(wtv2);
+		}
+		System.out.println("Prerrequisitos");
+		for(int i=0;i<res.size();i++){
+			res.get(i).setPreqID(pqd.getPreRequisite(code, res.get(i).getId(), version));
+			System.out.println(res.get(i).getPreqID());
+		}
 		return res;
 		
 		
 	}
 	
+	//For testing, to be deleted
 	public static void main(String [] args){
 		PensumDao psm = new PensumDao();
 		PensumEntity pensum=new PensumEntity();

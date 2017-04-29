@@ -1,9 +1,10 @@
 package com.pensumorganizer.dao;
+
+import java.sql.SQLException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -11,7 +12,8 @@ import com.pensumorganizer.entities.*;
 
 import com.pensumorganizer.connectionfactory.*;
 
-public class ProgramasDao {
+public class AsignaturasDao {
+	
 	Connection connection = null;
 	PreparedStatement ptmt = null;
 	ResultSet resultSet = null;
@@ -21,33 +23,20 @@ public class ProgramasDao {
 		conn = ConnectionFactory.getInstance().getConnection();
 		return conn;
 	}
-	/*MAYBE DON'T NEED
-	public String getProgramCode(){
 	
-	}*/
-	
-	/*MAYBE DON'T NEED
-	 * public String AreaCodigo(){
-	 * }
-	 */
-	
-	/*MAYBE DON'T NEED
-	 * public String NivelCodigo(){
-	 * }
-	 */
-	
-	/*Returns the program description, example: INGENIERIA DE SOFTWARE*/
+	/*Returns the subject name*/
 	public String getDescription(String code){
 		String res=null;
 		try{
-			String queryString = "SELECT Descripcion FROM Programas WHERE ProgramaCodigo=?;";
+			
+			String queryString = "SELECT Descripcion FROM Asignaturas WHERE AsignaturaCodigo=?;";
 			connection = getConnection();
 			ptmt = connection.prepareStatement(queryString);
 			ptmt.setString(1, code);
 			resultSet=ptmt.executeQuery();
 			if(resultSet.next()){ 
 				System.out.println(resultSet.getString("Descripcion"));
-				res=resultSet.getString("Descripcion");			  
+			  
 		}
 		}
 		catch (SQLException e) {
@@ -70,18 +59,19 @@ public class ProgramasDao {
 		return res;
 	}
 	
-	/*Returns the total trimesters of the program, for example, IDS-2010 has 14 trimesters*/
-	public int getTotalTrimesters(String code){
+	/*Returns the subject's credits*/
+	public int getCredits(String code){
 		int res=0;
 		try{
-			String queryString = "SELECT TotalTrimestres FROM Programas WHERE ProgramaCodigo=?;";
+			
+			String queryString = "SELECT Creditos FROM Asignaturas WHERE AsignaturaCodigo=?;";
 			connection = getConnection();
 			ptmt = connection.prepareStatement(queryString);
 			ptmt.setString(1, code);
 			resultSet=ptmt.executeQuery();
 			if(resultSet.next()){ 
-				System.out.println(resultSet.getInt("TotalTrimestres"));
-				res=resultSet.getInt("TotalTrimestres");			  
+				System.out.println(resultSet.getInt("Creditos"));
+			  
 		}
 		}
 		catch (SQLException e) {
@@ -102,14 +92,14 @@ public class ProgramasDao {
 
 		}
 		return res;
+		
 	}
 
-	/*For testing, to be deleted*/
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		ProgramasDao prg=new ProgramasDao();
-		prg.getDescription("SIS");
-		prg.getTotalTrimesters("SIS");
+		AsignaturasDao ad=new AsignaturasDao();
+		ad.getDescription("IDS316");
+		ad.getCredits("IDS316");
 
 	}
 

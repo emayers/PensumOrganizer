@@ -11,13 +11,11 @@ import java.sql.Driver;
 public class ConnectionFactory {
 	
 	String connectionString =  
-    		"jdbc:sqlserver://pensumorganizerdb.database.windows.net:1433;"
-    		+ "database=PensumOrganizerDB;"
-    		+ "user=usuario@pensumorganizerdb;password=1234qweR;"
-    		+ "encrypt=true;"
-    		+ "trustServerCertificate=false;"
-    		+ "hostNameInCertificate=*.database.windows.net;"
-    		+ "loginTimeout=30;"; 
+    		"jdbc:sqlserver://podb2.database.windows.net:1433;"
+			+"database=PODB2;user=usuario@podb2;password=1234qweR;"
+    		+"encrypt=true;trustServerCertificate=false;"
+			+"hostNameInCertificate=*.database.windows.net;"
+    		+"loginTimeout=30;"; 
 	
 	String driverClassName="com.sqlserver.jdbc.Driver";
 	private static ConnectionFactory connectionFactory = null;
