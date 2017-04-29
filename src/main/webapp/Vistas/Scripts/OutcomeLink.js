@@ -2,13 +2,14 @@
  * 
  */
 var link;
-var toRet;
+var loc;
 function getLinkValue(links){
 	link = links.innerHTML;
 }
 
 function outcomeSwich(){
 	var page;
+	loc = location.pathname;
 	switch (link) {
 	case 'Página Principal':
 		page = window.location.href='/Vistas/VistaDashboard.xhtml';
@@ -25,23 +26,20 @@ function outcomeSwich(){
 	case 'Ayuda':
 		page = window.location.href='/Vistas/VistaHelp.xhtml';
 		break;
+	case 'Log Out':
+		page = window.location.href='/Vistas/VistaLogin.xhtml';
+		break;
 
 	default:
-		page = window.location.href='/Vistas/VistaPOAuto.xhtml';
+		if(loc == "/Vistas/VistaPOAuto.xhtml"){
+			page = window.location.href='/Vistas/VistaDashboard.xhtml';
+		} else{
+			page = window.location.href='/Vistas/VistaPOAuto.xhtml';
+		}
 		break;
 	}
 	
 	return page;
-}
-
-function selectGrab(event){
-	
-	console.log(event);
-	var selectedVal = event.options[event.selectedIndex];
-	toRet = selectedVal.value; 
-	document.getElementById("hdd").value=toRet;
-	console.log(toRet);
-	
 }
 
 

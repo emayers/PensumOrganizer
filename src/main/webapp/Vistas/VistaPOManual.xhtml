@@ -8,7 +8,7 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 	
   <h:head>
-  	<link rel="Stylesheet" type="text/css" href="./Style/manual.css?verison=6.1"/>
+  	<link rel="Stylesheet" type="text/css" href="./Style/manual.css?verison=6.2"/>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,800,600"></link>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css"></link>
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"></link>
@@ -131,8 +131,6 @@
 			<h:dataTable id="boxElements" styleClass="highlight centered bordered" 
 					value="#{manualOrganizationBean.notSelectedCourses}"
 					var="subject" >
-					
-				<c:set var="materiaElement" value="#{subject}"></c:set>
 				<h:column>
 					<f:facet name="header">
 						Asignatura
@@ -158,30 +156,30 @@
 					<h:commandLink  onclick="PF('dialogToAdd').show(); return false;">
 							<h:graphicImage value="/Vistas/Images/add-circle-1.svg" />
 					</h:commandLink>
- 					<p:dialog id="dialog" widgetVar="dialogToAdd" closeOnEscape="true" 
-			  			  header="Añadir a Trimestre" closable="false" resizable="false">
-						<c:set var="materia" value="#{materiaElement}"></c:set>
-						<p id="formText">#{materia.name} al Trimestre :</p>
-				   		<p:selectOneMenu
-				   				
-				   				value="#{manualOrganizationBean.selectedTrimester}"
-				   				
-				   				onchange="selectGrab(this)"
-				   				
-				   				class="DropdownTri" 
-				   		
-				   				style="width: 125px;position: relative;bottom: 35px;left: 136px;"
-				   			
-				   				>
-					   		<c:forEach items="#{manualOrganizationBean.reorganizedPensum}">
-				   				<c:set var="trimesterPos" value="#{trimesterPos+1}"></c:set>
-				   				<f:selectItem  itemValue="#{trimesterPos}" itemLabel="Trimester #{trimesterPos}"/>
-				   				<c:set var="trimesterPos" value="#{trimesterPos}"></c:set>
-				   			</c:forEach>
-					   		</p:selectOneMenu>
-							<h:commandButton action="#{manualOrganizationBean.add(materia)}"  value="Aceptar"  />
-							<h:commandButton value="Cancelar" />
-				</p:dialog>
+	 					<p:dialog id="dialog" widgetVar="dialogToAdd" closeOnEscape="true" 
+				  			  header="Añadir a Trimestre" closable="false" resizable="false">
+							<p id="formText">#{currentSubject.name} al Trimestre :</p>
+					   		<p:selectOneMenu
+					   				
+					   				value="#{manualOrganizationBean.selectedTrimester}"
+					   				
+					   				onchange="selectGrab(this)"
+					   				
+					   				class="DropdownTri" 
+					   		
+					   				style="width: 125px;position: relative;bottom: 35px;left: 136px;"
+					   			
+					   				>
+						   		<c:forEach items="#{manualOrganizationBean.reorganizedPensum}">
+					   				<c:set var="trimesterPos" value="#{trimesterPos+1}"></c:set>
+					   				<f:selectItem  itemValue="#{trimesterPos}" itemLabel="Trimester #{trimesterPos}"/>
+					   				<c:set var="trimesterPos" value="#{trimesterPos}"></c:set>
+					   			</c:forEach>
+						   		</p:selectOneMenu>
+								<h:commandButton action="#{manualOrganizationBean.add(currentSubject)}"  value="Aceptar"  />
+								<h:commandButton value="Cancelar" />
+						</p:dialog>
+					
 				</h:column>
 			</h:dataTable>
 			</h:form>
@@ -203,8 +201,8 @@
 			  header="Cancelar cambios" closable="false" resizable="false">
 			  
 		<form>
-			<p id="formText" >Pueden existir cambios no guardados</p>
-			<p id="formText">¿Desea salir?</p>
+			<p id="formTextExit" >Pueden existir cambios no guardados</p>
+			<p id="formTextExit">¿Desea salir?</p>
 			<h:button value="Si" type="submit" onclick="return outcomeSwich();"></h:button>
 			<h:button value="No" type="submit" ></h:button>
 		</form>
