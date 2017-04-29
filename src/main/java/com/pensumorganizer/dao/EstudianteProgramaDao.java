@@ -1,17 +1,12 @@
 package com.pensumorganizer.dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
-import com.pensumorganizer.entities.*;
-
-import com.pensumorganizer.connectionfactory.*;
-
+import com.pensumorganizer.connectionfactory.ConnectionFactory;
 
 public class EstudianteProgramaDao {
 	
@@ -19,9 +14,8 @@ public class EstudianteProgramaDao {
 	PreparedStatement ptmt = null;
 	ResultSet resultSet = null;
 	
-
 	public EstudianteProgramaDao() {
-
+		super();
 	}
 
 	private Connection getConnection() throws SQLException {
@@ -30,7 +24,9 @@ public class EstudianteProgramaDao {
 		return conn;
 	}
 	/*Returns student's name*/
-	public String getName(int id){
+	
+	public String getName(Integer id){
+
 		String res=null;
 		 try {				    
 				String queryString = "SELECT Nombre FROM EstudiantePrograma WHERE IdEstudiante=?;";
@@ -64,9 +60,11 @@ public class EstudianteProgramaDao {
 		return res;
 		 
 	}
+
 	/*Returns student's id, maybe useless*/
-	public int getStudentId(int id){//check
-		int res=0;
+	
+	public Integer getStudentId(Integer id){//check
+		Integer res=0;
 		 try {				    
 				String queryString = "SELECT IdEstudiante FROM EstudiantePrograma WHERE IdEstudiante=?;";
 				connection = getConnection();
@@ -97,8 +95,10 @@ public class EstudianteProgramaDao {
 			}
 		return res;
 	}
+
 	/*Returns the program code, for example: IDS*/
-	public String getProgramCode(int id){
+	
+	public String getProgramCode(Integer id){
 		String res=null;
 		 try {				    
 				String queryString = "SELECT ProgramaCodigo FROM EstudiantePrograma WHERE IdEstudiante=?;";
@@ -130,9 +130,12 @@ public class EstudianteProgramaDao {
 			}
 		return res;
 	}
+
 	/*Returns year of approval of Pensum, for example, our pensum is the 2010 version*/
-	public int getVersion(int id){
-		int res=0;
+	
+	public Integer getVersion(Integer id){
+		Integer res=0;
+
 		 try {				    
 				String queryString = "SELECT Version FROM EstudiantePrograma WHERE IdEstudiante=?;";
 				connection = getConnection();
@@ -163,9 +166,11 @@ public class EstudianteProgramaDao {
 			}
 		return res;
 	}
+
 	/*Return the year of admission of the student*/
-	public int getAdmissionYear(int id){
-		int res=0;
+	
+	public Integer getAdmissionYear(Integer id){
+		Integer res=0;
 		 try {				    
 				String queryString = "SELECT AñoIngreso FROM EstudiantePrograma WHERE IdEstudiante=?;";
 				connection = getConnection();
@@ -197,13 +202,14 @@ public class EstudianteProgramaDao {
 		return res;
 	}
 	
+
 	/*Returns term of admission, remembering that:
 	 * 1 stands for AGOSTO-OCTUBRE
 	 * 2 stands for FEBRERO-ABRIL
 	 * 3 stands for MARZO-ABRIL
 	 * 4 stands for MAYO-JULIO*/
-	public int getAdmissionTerm(int id){
-		int res=0;
+	public Integer getAdmissionTerm(Integer id){
+		Integer res=0;
 		 try {				    
 				String queryString = "SELECT TerminoIngreso FROM EstudiantePrograma WHERE IdEstudiante=?;";
 				connection = getConnection();
@@ -235,9 +241,10 @@ public class EstudianteProgramaDao {
 		return res;
 	}
 	
+
 	/*Returns the student's limit permanence year*/
-	public int getLimitPermanenceYear(int id){
-		int res=0;
+	public Integer getLimitPermanenceYear(Integer id){
+		Integer res=0;
 		 try {				    
 				String queryString = "SELECT AñoLimitePermanencia FROM EstudiantePrograma WHERE IdEstudiante=?;";
 				connection = getConnection();
@@ -268,13 +275,14 @@ public class EstudianteProgramaDao {
 			}
 		return res;
 	}
+
 	/*Returns limit permanence term, remembering that:
 	 * 1 stands for AGOSTO-OCTUBRE
 	 * 2 stands for FEBRERO-ABRIL
 	 * 3 stands for MARZO-ABRIL
-	 * 4 stands for MAYO-JULIO*/
-	public int getLimitPermanenceTerm(int id){
-		int res=0;
+	 * 4 stands for MAYO-JULIO*/	
+	public Integer getLimitPermanenceTerm(Integer id){
+		Integer res=0;
 		 try {				    
 				String queryString = "SELECT TerminoLimitePermanencia FROM EstudiantePrograma WHERE IdEstudiante=?;";
 				connection = getConnection();
@@ -305,10 +313,11 @@ public class EstudianteProgramaDao {
 			}
 		return res;
 	}
+
 	/*Returns the number of trimesters the student has been active, for example, 
-	 * we have 15 studied trimesters (16 counting this one)*/
-	public int getStudiedTrimesters(int id){
-		int res=0;
+	 * we have 15 studied trimesters (16 counting this one)*/	
+	public Integer getStudiedTrimesters(Integer id){
+		Integer res=0;
 		 try {				    
 				String queryString = "SELECT TrimestresCursados FROM EstudiantePrograma WHERE IdEstudiante=?;";
 				connection = getConnection();
@@ -340,7 +349,8 @@ public class EstudianteProgramaDao {
 		return res;
 	}
 	/*Returns the student's general index or whatever it's name is (índice general)*/
-	public double getIndex(int id){
+	
+	public double getIndex(Integer id){
 		double res=0;
 		 try {				    
 				String queryString = "SELECT IndiceAcumulado FROM EstudiantePrograma WHERE IdEstudiante=?;";
@@ -372,9 +382,10 @@ public class EstudianteProgramaDao {
 			}
 		return res;
 	}
-	/*Returns the student's password*/
-	public int getPassword(int id){
-		int res=0;
+
+	/*Returns the student's password*/	
+	public Integer getPassword(Integer id){
+		Integer res=0;
 		 try {				    
 				String queryString = "SELECT Password FROM EstudiantePrograma WHERE IdEstudiante=?;";
 				connection = getConnection();
@@ -405,8 +416,11 @@ public class EstudianteProgramaDao {
 			}
 		return res;
 	}
+
 	/*Sets the student's password*/
-	public void setPassword(int id, int psswd){
+	
+	public void setPassword(Integer id, Integer psswd){
+
 		try {				    
 			String queryString = "UPDATE EstudiantePrograma SET Password=? WHERE IdEstudiante=?;";
 			connection = getConnection();
@@ -432,6 +446,7 @@ public class EstudianteProgramaDao {
 
 		}
 	}
+
 	/*Returns all the ids of all the students*/
 	public ArrayList<Integer> getAllIds(){
 		ArrayList<Integer> res=new ArrayList<Integer>();
@@ -464,6 +479,7 @@ public class EstudianteProgramaDao {
 			}
 		return res;
 	}
+
 	/*Adds a new student, for connection testing purposes only*/
 	public void add (){
 		try {	

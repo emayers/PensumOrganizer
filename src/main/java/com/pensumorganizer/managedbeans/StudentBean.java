@@ -9,13 +9,16 @@ import com.pensumorganizer.dao.Student;
 @SessionScoped
 public class StudentBean {
 
-	private Student student = new Student("Juan", "Vasquez", 1037777, "AGO - OCT", 2012, "IDS", 2010);
-
-	public Student getStudent() {
+//	@EJB
+//	StudentEJBImpl sEJB = new StudentEJBImpl();
+//	
+//	public String getStudentName() {
+//		return sEJB.getStudentName();
+//	}
+	
+	Student student = new Student("Sara", "Fermin", 1053691, "IDS", 2013, "IDS", 2010);
+	
+	public Student getStudent(){
 		return student;
 	}
-	
-	public StudentBean() {
-	}
-	
 }
