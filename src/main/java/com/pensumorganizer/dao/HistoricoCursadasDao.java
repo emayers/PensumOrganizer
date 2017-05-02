@@ -6,9 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import com.pensumorganizer.entities.*;
+import com.pensumorganizer.connectionfactory.ConnectionFactory;
+import com.pensumorganizer.entities.HistoricoCursadasEntity;
 
-import com.pensumorganizer.connectionfactory.*;
 
 
 public class HistoricoCursadasDao {

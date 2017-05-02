@@ -54,7 +54,7 @@ public class AsignaturasPorDarDao {
 		
 	}
 	
-	/*Returns an ArrayList of Course objects*///FIX
+	/*Returns an ArrayList of Course objects*/
 	public ArrayList<Course> getCourses(int id){
 		ArrayList<Course> res = new ArrayList<Course>();
 		ArrayList<String> cor=new ArrayList<String>();

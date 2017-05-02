@@ -19,7 +19,7 @@ public class ElectivasDao {
 		return conn;
 	}
 	
-	//TODO
+	
 	
 	public ArrayList<String> getAllElectives(String program, String code){
 		ArrayList<String> res=new ArrayList<String>();
