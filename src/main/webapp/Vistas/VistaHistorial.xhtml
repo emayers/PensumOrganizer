@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html [<!ENTITY nbsp "&#160;">]>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
@@ -6,10 +6,11 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+	 
 	
   <meta name="viewport" content="width=device-width, initial-scale=1.1"></meta>
 <h:head>
-  	<link rel="Stylesheet" type="text/css" href="./Style/Historial.css?version=6.0"></link>
+  	<link rel="Stylesheet" type="text/css" href="./Style/Historial.css?version=6.1"></link>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,800,600"></link>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css"></link>
   	
@@ -54,7 +55,9 @@
 			<h:dataTable styleClass="highlight centered bordered" value="#{entry.value}" var="list">
 					<c:set var="trimesterCuantity" value="#{trimesterCuantity + 1}"></c:set>
 					<f:facet name="header">
-						<p id="tableHead">Trimestre #{trimesterCuantity}</p> 
+						<p id="tableHead">Trimestre #{trimesterCuantity} 
+						<span style="display:inline-block; width:350px;"></span> 
+						Índice Trimestral 4.00 &nbsp;</p>
 					</f:facet>
 				<h:column>
 					<f:facet name="header">
