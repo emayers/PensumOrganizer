@@ -3,10 +3,26 @@ package com.pensumorganizer.dao;
 import java.util.List;
 
 public class Course {
-	private String name, id, trimesterDescription;
+	private String name, id, trimesterDescription, grade;
+	public String getGrade() {
+		return grade;
+	}
+
+	public void setGrade(String grade) {
+		this.grade = grade;
+	}
+
+	public int getHistYear() {
+		return histYear;
+	}
+
+	public void setHistYear(int histYear) {
+		this.histYear = histYear;
+	}
+
 	private List<String> preqID, coReqID;
 	private boolean preqTaken, taken, coReqTaken, creditsReqReached;
-	private int creditsReq, credits, idealTrimestrer, weight, term, trimNum;
+	private int creditsReq, credits, idealTrimestrer, weight, term, trimNum, histYear;
 	private Integer trimesterTaken;
 	
 	public Course(){

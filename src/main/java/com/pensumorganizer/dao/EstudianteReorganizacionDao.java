@@ -61,9 +61,9 @@ public class EstudianteReorganizacionDao {
 		
 	}
 	
-	public Map<Integer, ArrayList<Course>> getCourses(int id){
-		Map<Integer, ArrayList<Course>> mapCourses=new HashMap<Integer, ArrayList<Course>>();
-		ArrayList<Course> res = new ArrayList<Course>();
+	public Map<Integer, Course> getCourses(int id){
+		Map<Integer, Course> mapCourses=new HashMap<Integer, Course>();
+		//ArrayList<Course> res = new ArrayList<Course>();
 		ArrayList<String> cor=new ArrayList<String>();
 		ArrayList<String> pre=new ArrayList<String>();
 		int trim=0;
@@ -74,9 +74,10 @@ public class EstudianteReorganizacionDao {
 			ptmt.setInt(1, id);
 			resultSet=ptmt.executeQuery();
 			while(resultSet.next()){
-				String terminoActual=null;
-				terminoActual=resultSet.getString("TerminoDescripcion");
+				//String terminoActual=null;
+				//terminoActual=resultSet.getString("TerminoDescripcion");
 				Course course=new Course();
+				
 				System.out.println(resultSet.getString("AsignaturaCodigo")
 				           +" "+resultSet.getString("Descripcion")
 				           +" "+resultSet.getInt("Termino")
@@ -95,36 +96,11 @@ public class EstudianteReorganizacionDao {
 				course.setCredits(resultSet.getInt("Creditos"));
 				pre.add(resultSet.getString("Prerrequisito"));
 				course.setPreqID(pre);
-				course.setTrimNum(trim);
-				res.add(course);
-				while(resultSet.next()&&terminoActual.equals(resultSet.getString("TerminoDescripcion"))){
-				//Course course=new Course();
-				System.out.println(resultSet.getString("AsignaturaCodigo")
-						           +" "+resultSet.getString("Descripcion")
-						           +" "+resultSet.getInt("Termino")
-						           +" "+resultSet.getString("TerminoDescripcion")
-						           +" "+resultSet.getInt("Creditos")
-						           +" "+resultSet.getString("Prerrequisito")
-						           +" "+resultSet.getInt("RequisitoCred")
-						           +" "+resultSet.getString("Corequisito"));
-				course.setId(resultSet.getString("AsignaturaCodigo"));
-				course.setName(resultSet.getString("Descripcion"));
-				course.setCreditsReq(resultSet.getInt("RequisitoCred"));
-				cor.add(resultSet.getString("CoRequisito"));
-				course.setCoReqID(cor);
-				course.setTerm(resultSet.getInt("Termino"));
-				course.setTrimesterDescription(resultSet.getString("TerminoDescripcion"));
-				course.setCredits(resultSet.getInt("Creditos"));
-				pre.add(resultSet.getString("Prerrequisito"));
-				course.setPreqID(pre);
-				course.setTrimNum(trim);
-				res.add(course);
-		}
+				course.setTrimNum(resultSet.getInt("NumTrimestre"));
+				//trim=course.getTrimNum();
+				mapCourses.put(trim, course);
 				trim++;
-				System.out.println("Trimestre "+ trim);
-				mapCourses.put(trim, res);
-				
-				
+				System.out.println("Trimestre "+ trim);		
 				
 			}
 			
@@ -151,28 +127,28 @@ public class EstudianteReorganizacionDao {
 		
 	}
 	
-	public void setReorganization(Map<Integer, ArrayList<Course>> map, int id){
-		for(int index=1;index<map.size();index++){
-			List<Course> current=map.get(index);
-			for(Course course : current){
+	public void setReorganization(Map<Integer, Course> map, int id){
+		
 		try{
 			String queryString = "INSERT INTO EstudianteReorganizacion (AsignaturaCodigo, Descripcion, Termino, TerminoDescripcion, Creditos, Prerrequisito, RequisitoCred, Corequisito, NumTrimestre, IdEstudiante)"
 		                          +"VALUES(?,?,?,?,?,?,?,?,?,?);";
 			connection = getConnection();
 			ptmt = connection.prepareStatement(queryString);
+			for(Course course:map.values()){
 			ptmt.setString(1, course.getId());
 			ptmt.setString(2, course.getName());
 			ptmt.setInt(3, course.getTerm());
 			ptmt.setString(4, course.getTrimesterDescription());
 			ptmt.setInt(5, course.getCredits());
-			ptmt.setString(6, "wtv");
+			ptmt.setString(6, course.getPreqID().toString());
 			ptmt.setInt(7, course.getCreditsReq());
-			ptmt.setString(8, "wtv");
-			ptmt.setInt(9, index);
+			ptmt.setString(8, course.getCoReqID().toString());
+			ptmt.setInt(9, course.getTrimNum());
 			ptmt.setInt(10, id);
 			ptmt.executeUpdate();
 			System.out.println("Data added ");
 			
+		}
 			
 		}
 		catch (SQLException e) {
@@ -191,9 +167,9 @@ public class EstudianteReorganizacionDao {
 
 		}
 		}
-		}
 		
-	}
+		
+	
 	
 	public void deletePreviousOrganization(int id){
 		try{
@@ -231,9 +207,9 @@ public class EstudianteReorganizacionDao {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		EstudianteReorganizacionDao erd=new EstudianteReorganizacionDao();
-		Map<Integer, ArrayList<Course>> map=new HashMap<Integer, ArrayList<Course>>();
-		map=erd.getCourses(1056025);
-		erd.setReorganization(map, 188888);
+		Map<Integer, Course> map=new HashMap<Integer, Course>();
+		map=erd.getCourses(1058691);
+		erd.setReorganization(map, 2033505);
 
 	}
 
