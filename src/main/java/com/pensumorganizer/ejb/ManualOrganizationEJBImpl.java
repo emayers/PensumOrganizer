@@ -16,6 +16,7 @@ import com.pensumorganizer.managedbeans.AutoPrioritizerBean;
 public class ManualOrganizationEJBImpl implements ManualOrganizationEJBInterface {
 	
 	private static Integer selectedTrimester;
+	private static Course clickedCourse;
 	private static List<Course> notSelectedCourses;
 	private static Map<Integer, List<Course>> reorganizedPensum = getClonedPensum();
 	
@@ -29,10 +30,10 @@ public class ManualOrganizationEJBImpl implements ManualOrganizationEJBInterface
     	notSelectedCourses.add(subject);
     }
 	
-	public void addCourse(Course subject){
+	public void addCourse(){
 		System.out.println("Hey! Adding!");
-		reorganizedPensum.get(selectedTrimester - 1).add(subject);
-    	notSelectedCourses.remove(subject);
+		reorganizedPensum.get(selectedTrimester - 1).add(clickedCourse);
+    	notSelectedCourses.remove(clickedCourse);
     }
     
 	public String saveReorganization(){
@@ -70,6 +71,14 @@ public class ManualOrganizationEJBImpl implements ManualOrganizationEJBInterface
 		}
 		
 		return clonedPensum;
+	}
+
+	public Course getClickedCourse() {
+		return clickedCourse;
+	}
+
+	public void setClickedCourse(Course clickedCourse) {
+		ManualOrganizationEJBImpl.clickedCourse = clickedCourse;
 	}
 }
 

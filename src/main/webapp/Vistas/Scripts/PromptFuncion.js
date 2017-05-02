@@ -2,10 +2,14 @@
  * 
  */
 
-function userInput(){
+function selectGrab(event){
 	
-	var userIn = prompt("Mover materia a trimestre: ", "trimester");
+	console.log(event);
+	console.log(event.parentNode);
+	console.log(event.parentNode.parentNode);
+	var selectedVal = event.options[event.selectedIndex];
+	toRet = selectedVal.value; 
 	
-	return userIn;
+	console.log(toRet);
 	
 }
