@@ -18,6 +18,7 @@ public class CalificacionesDao {
 		return conn;
 	}
 	
+	/*Returns the points associated with the letter, for example, A returns 4.00*/
 	public double getPoints(String grade){
 		double res=0;
 try{
@@ -54,6 +55,7 @@ return res;
 		
 	}
 
+	/*For testing, to be deleted*/
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		CalificacionesDao cd=new CalificacionesDao();

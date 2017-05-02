@@ -28,6 +28,7 @@ public class TrimestresDao {
 	 * }
 	 */
 	
+	/*Returns the description of the trimester, example: AGOSTO-OCTUBRE 2013, includes the year*/
 	public String getDescription(int year, int term){
 		String res=null;
 		try{
@@ -62,6 +63,8 @@ public class TrimestresDao {
 		return res;
 	}
 	
+	
+	/*For testing, to be deleted*/
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
