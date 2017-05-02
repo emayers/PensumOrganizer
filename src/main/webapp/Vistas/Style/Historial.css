@@ -121,6 +121,7 @@ table{
 #tableHead{
 	color: white;
 	background: #EC3E3F;
+	text-align: -webkit-right;
 }
 
 #indiceTrimestratTitle{
