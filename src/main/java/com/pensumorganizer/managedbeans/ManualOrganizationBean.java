@@ -32,8 +32,8 @@ public class ManualOrganizationBean implements Serializable {
 		return moEJB.saveReorganization();
 	}
 	
-	public void add(Course subject){
-		moEJB.addCourse(subject);
+	public void add(){
+		moEJB.addCourse();
 	}
 	
 	public void delete(Integer trimester, Course subject) {
@@ -46,6 +46,14 @@ public class ManualOrganizationBean implements Serializable {
 	
 	public void setSelectedTrimester(Integer selectedTrimester){
 		moEJB.setSelectedTrimester(selectedTrimester);
+	}
+	
+	public Course getClickedCourse() {
+		return moEJB.getClickedCourse();
+	}
+
+	public void setClickedCourse(Course clickedCourse) {
+		moEJB.setClickedCourse(clickedCourse);
 	}
 }
 
