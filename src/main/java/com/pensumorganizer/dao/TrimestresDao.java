@@ -18,19 +18,11 @@ public class TrimestresDao {
 		return conn;
 	}
 	
-	/*MAYBE DON'T NEED
-	public int getYear(String code){
-			
-	}*/
 	
-	/*MAYBE DON'T NEED
-	 * public int gerTerm(){
-	 * }
-	 */
 	
-	/*Returns the description of the trimester, example: AGOSTO-OCTUBRE 2013, includes the year*/
 	public String getDescription(int year, int term){
-		String res=null;
+		/*Returns the description of the trimester, example: AGOSTO-OCTUBRE 2013, includes the year*/
+		String description=null;
 		try{
 			String queryString = "SELECT Descripcion FROM Trimestres WHERE (Año=? AND Termino=?);";
 			connection = getConnection();
@@ -39,8 +31,8 @@ public class TrimestresDao {
 			ptmt.setInt(2, term);
 			resultSet=ptmt.executeQuery();
 			if(resultSet.next()){ 
-				System.out.println(resultSet.getString("Descripcion"));
-				res=resultSet.getString("Descripcion");			  
+//				System.out.println(resultSet.getString("Descripcion"));
+				description=resultSet.getString("Descripcion");			  
 		}
 		}
 		catch (SQLException e) {
@@ -60,13 +52,14 @@ public class TrimestresDao {
 			}
 
 		}
-		return res;
+		return description;
 	}
 	
 	
-	/*For testing, to be deleted*/
+	
 
 	public static void main(String[] args) {
+		/*For testing, to be deleted*/
 		// TODO Auto-generated method stub
 		TrimestresDao trm=new TrimestresDao();
 		trm.getDescription(2013, 3);

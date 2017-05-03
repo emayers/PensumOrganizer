@@ -18,19 +18,20 @@ public class CalificacionesDao {
 		return conn;
 	}
 	
-	/*Returns the points associated with the letter, for example, A returns 4.00*/
-	public double getPoints(String grade){
-		double res=0;
-try{
+	
+	public double getPoints(String gradeCode){
+		/*Returns the points associated with the letter, for example, A returns 4.00*/
+		double points=0;
+        try{
 			
 			String queryString = "SELECT Puntos FROM Calificaciones WHERE CalificacionCodigo=?;";
 			connection = getConnection();
 			ptmt = connection.prepareStatement(queryString);
-			ptmt.setString(1, grade);
+			ptmt.setString(1, gradeCode);
 			resultSet=ptmt.executeQuery();
 			if(resultSet.next()){ 
-				System.out.println(resultSet.getDouble("Puntos"));
-				res=resultSet.getDouble("Puntos");
+//				System.out.println(resultSet.getDouble("Puntos"));
+				points=resultSet.getDouble("Puntos");
 			  
 		}
 		}
@@ -51,12 +52,13 @@ try{
 			}
 
 		}
-return res;
+        return points;
 		
 	}
 
-	/*For testing, to be deleted*/
+	
 	public static void main(String[] args) {
+		/*For testing, to be deleted*/
 		// TODO Auto-generated method stub
 		CalificacionesDao cd=new CalificacionesDao();
 		cd.getPoints("A");
