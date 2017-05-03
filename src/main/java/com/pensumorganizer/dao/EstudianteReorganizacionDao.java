@@ -27,8 +27,10 @@ public class EstudianteReorganizacionDao {
 	 * }
 	 * */
 	
-	public ArrayList<String> getCourseCode(int id){
-		ArrayList<String> res = new ArrayList<String>();
+	
+	public ArrayList<String> getCoursesCodes(int id){
+		/*Maybe don´t need*/
+		ArrayList<String> listOfAllCoursesCodes = new ArrayList<String>();
 		try{
 			String queryString = "SELECT AsignaturaCodigo FROM EstudianteReorganizacion WHERE IdEstudiante=?;";
 			connection = getConnection();
@@ -37,7 +39,7 @@ public class EstudianteReorganizacionDao {
 			resultSet=ptmt.executeQuery();
 			while(resultSet.next()){ 
 				System.out.println(resultSet.getString("AsignaturaCodigo"));
-				res.add(resultSet.getString("AsignaturaCodigo"));			  
+				listOfAllCoursesCodes.add(resultSet.getString("AsignaturaCodigo"));			  
 		}
 		}
 		catch (SQLException e) {
@@ -57,16 +59,18 @@ public class EstudianteReorganizacionDao {
 			}
 
 		}
-		return res;
+		return listOfAllCoursesCodes;
 		
 	}
 	
-	public Map<Integer, Course> getCourses(int id){
-		Map<Integer, Course> mapCourses=new HashMap<Integer, Course>();
-		//ArrayList<Course> res = new ArrayList<Course>();
-		ArrayList<String> cor=new ArrayList<String>();
-		ArrayList<String> pre=new ArrayList<String>();
-		int trim=0;
+	public Map<Integer, List<Course>> getOrganization(int id){
+		/*Returns the last organization*/
+		Map<Integer, List<Course>> lastOrganization=new HashMap<Integer, List<Course>>();
+		List<Course>dummy=new ArrayList<Course>();
+		lastOrganization.put(0, dummy);
+		ArrayList<String> corequisites=new ArrayList<String>();
+		ArrayList<String> prerequisites=new ArrayList<String>();
+		int trimesterNumber=0;
 		try{
 			String queryString = "SELECT AsignaturaCodigo, Descripcion, Termino, TerminoDescripcion, Creditos, Prerrequisito, RequisitoCred, Corequisito, NumTrimestre FROM EstudianteReorganizacion WHERE IdEstudiante=?;";
 			connection = getConnection();
@@ -74,33 +78,34 @@ public class EstudianteReorganizacionDao {
 			ptmt.setInt(1, id);
 			resultSet=ptmt.executeQuery();
 			while(resultSet.next()){
-				//String terminoActual=null;
-				//terminoActual=resultSet.getString("TerminoDescripcion");
+				trimesterNumber=resultSet.getInt("NumTrimestre");
+				if(trimesterNumber>=lastOrganization.size()){
+					List<Course>trimester=new ArrayList<Course>();
+					lastOrganization.put(trimesterNumber, trimester);
+				}
 				Course course=new Course();
 				
-				System.out.println(resultSet.getString("AsignaturaCodigo")
-				           +" "+resultSet.getString("Descripcion")
-				           +" "+resultSet.getInt("Termino")
-				           +" "+resultSet.getString("TerminoDescripcion")
-				           +" "+resultSet.getInt("Creditos")
-				           +" "+resultSet.getString("Prerrequisito")
-				           +" "+resultSet.getInt("RequisitoCred")
-				           +" "+resultSet.getString("Corequisito"));
+//				System.out.println(resultSet.getString("AsignaturaCodigo")
+//				           +" "+resultSet.getString("Descripcion")
+//				           +" "+resultSet.getInt("Termino")
+//				           +" "+resultSet.getString("TerminoDescripcion")
+//				           +" "+resultSet.getInt("Creditos")
+//				           +" "+resultSet.getString("Prerrequisito")
+//				           +" "+resultSet.getInt("RequisitoCred")
+//				           +" "+resultSet.getString("Corequisito"));
 				course.setId(resultSet.getString("AsignaturaCodigo"));
 				course.setName(resultSet.getString("Descripcion"));
 				course.setCreditsReq(resultSet.getInt("RequisitoCred"));
 				course.setTerm(resultSet.getInt("Termino"));
 				course.setTrimesterDescription(resultSet.getString("TerminoDescripcion"));
-				cor.add(resultSet.getString("CoRequisito"));
-				course.setCoReqID(cor);
+				corequisites.add(resultSet.getString("CoRequisito"));
+				course.setCoReqID(corequisites);
 				course.setCredits(resultSet.getInt("Creditos"));
-				pre.add(resultSet.getString("Prerrequisito"));
-				course.setPreqID(pre);
+				prerequisites.add(resultSet.getString("Prerrequisito"));
+				course.setPreqID(prerequisites);
 				course.setTrimNum(resultSet.getInt("NumTrimestre"));
-				//trim=course.getTrimNum();
-				mapCourses.put(trim, course);
-				trim++;
-				System.out.println("Trimestre "+ trim);		
+				lastOrganization.get(trimesterNumber).add(course);
+				System.out.println("Trimestre "+ trimesterNumber);		
 				
 			}
 			
@@ -122,12 +127,13 @@ public class EstudianteReorganizacionDao {
 			}
 
 		}
-		return mapCourses;
+		return lastOrganization;
 		
 		
 	}
 	
 	public void setReorganization(Map<Integer, List<Course>> reorganizedPensum, int id){
+		/*inserts the new organization to the DB*/
 		
 		try{
 			String queryString = "INSERT INTO EstudianteReorganizacion (AsignaturaCodigo, Descripcion, Termino, TerminoDescripcion, Creditos, Prerrequisito, RequisitoCred, Corequisito, NumTrimestre, IdEstudiante)"
@@ -177,16 +183,15 @@ public class EstudianteReorganizacionDao {
 		
 	
 	
-	public void deletePreviousOrganization(int id){
+	public void deleteOrganization(int id){
+		/*DELETES THE LAST ORGANIZATION*/
 		try{
 			String queryString = "DELETE FROM EstudianteReorganizacion WHERE IdEstudiante=?;";
 			connection = getConnection();
 			ptmt = connection.prepareStatement(queryString);
 			ptmt.setInt(1, id);
-			resultSet=ptmt.executeQuery();
-			if(resultSet.next()){
-				System.out.println("Previous Organization deleted");
-		}
+			ptmt.executeUpdate();				
+			System.out.println("Previous Organization deleted");
 		    
 		}
 		catch (SQLException e) {
@@ -214,8 +219,9 @@ public class EstudianteReorganizacionDao {
 		// TODO Auto-generated method stub
 		EstudianteReorganizacionDao erd=new EstudianteReorganizacionDao();
 		Map<Integer, List<Course>> map=new HashMap<Integer, List<Course>>();
-		map=erd.getCourses(1058691);
+		map=erd.getOrganization(1058691);
 		erd.setReorganization(map, 2033505);
+		//erd.deleteOrganization(2033505);
 
 	}
 

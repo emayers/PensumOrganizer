@@ -16,33 +16,20 @@ public class ProgramasDao {
 		conn = ConnectionFactory.getInstance().getConnection();
 		return conn;
 	}
-	/*MAYBE DON'T NEED
-	public String getProgramCode(){
 	
-	}*/
 	
-	/*MAYBE DON'T NEED
-	 * public String AreaCodigo(){
-	 * }
-	 */
-	
-	/*MAYBE DON'T NEED
-	 * public String NivelCodigo(){
-	 * }
-	 */
-	
-	/*Returns the program description, example: INGENIERIA DE SOFTWARE*/
-	public String getDescription(String code){
-		String res=null;
+	public String getDescription(String programCode){
+		/*Returns the program description, example: INGENIERIA DE SOFTWARE*/
+		String description=null;
 		try{
 			String queryString = "SELECT Descripcion FROM Programas WHERE ProgramaCodigo=?;";
 			connection = getConnection();
 			ptmt = connection.prepareStatement(queryString);
-			ptmt.setString(1, code);
+			ptmt.setString(1, programCode);
 			resultSet=ptmt.executeQuery();
 			if(resultSet.next()){ 
-				System.out.println(resultSet.getString("Descripcion"));
-				res=resultSet.getString("Descripcion");			  
+//				System.out.println(resultSet.getString("Descripcion"));
+				description=resultSet.getString("Descripcion");			  
 		}
 		}
 		catch (SQLException e) {
@@ -62,21 +49,22 @@ public class ProgramasDao {
 			}
 
 		}
-		return res;
+		return description;
 	}
 	
-	/*Returns the total trimesters of the program, for example, IDS-2010 has 14 trimesters*/
-	public int getTotalTrimesters(String code){
-		int res=0;
+	
+	public int getTotalTrimesters(String programCode){
+		/*Returns the total trimesters of the program, for example, IDS-2010 has 14 trimesters*/
+		int totalTrimesters=0;
 		try{
 			String queryString = "SELECT TotalTrimestres FROM Programas WHERE ProgramaCodigo=?;";
 			connection = getConnection();
 			ptmt = connection.prepareStatement(queryString);
-			ptmt.setString(1, code);
+			ptmt.setString(1, programCode);
 			resultSet=ptmt.executeQuery();
 			if(resultSet.next()){ 
-				System.out.println(resultSet.getInt("TotalTrimestres"));
-				res=resultSet.getInt("TotalTrimestres");			  
+//				System.out.println(resultSet.getInt("TotalTrimestres"));
+				totalTrimesters=resultSet.getInt("TotalTrimestres");			  
 		}
 		}
 		catch (SQLException e) {
@@ -96,11 +84,12 @@ public class ProgramasDao {
 			}
 
 		}
-		return res;
+		return totalTrimesters;
 	}
 
-	/*For testing, to be deleted*/
+	
 	public static void main(String[] args) {
+		/*For testing, to be deleted*/
 		// TODO Auto-generated method stub
 		ProgramasDao prg=new ProgramasDao();
 		prg.getDescription("SIS");
