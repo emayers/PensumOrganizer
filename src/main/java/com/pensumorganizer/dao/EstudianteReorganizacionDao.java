@@ -127,28 +127,34 @@ public class EstudianteReorganizacionDao {
 		
 	}
 	
-	public void setReorganization(Map<Integer, Course> map, int id){
+	public void setReorganization(Map<Integer, List<Course>> reorganizedPensum, int id){
 		
 		try{
 			String queryString = "INSERT INTO EstudianteReorganizacion (AsignaturaCodigo, Descripcion, Termino, TerminoDescripcion, Creditos, Prerrequisito, RequisitoCred, Corequisito, NumTrimestre, IdEstudiante)"
 		                          +"VALUES(?,?,?,?,?,?,?,?,?,?);";
 			connection = getConnection();
 			ptmt = connection.prepareStatement(queryString);
-			for(Course course:map.values()){
-			ptmt.setString(1, course.getId());
-			ptmt.setString(2, course.getName());
-			ptmt.setInt(3, course.getTerm());
-			ptmt.setString(4, course.getTrimesterDescription());
-			ptmt.setInt(5, course.getCredits());
-			ptmt.setString(6, course.getPreqID().toString());
-			ptmt.setInt(7, course.getCreditsReq());
-			ptmt.setString(8, course.getCoReqID().toString());
-			ptmt.setInt(9, course.getTrimNum());
-			ptmt.setInt(10, id);
-			ptmt.executeUpdate();
-			System.out.println("Data added ");
 			
-		}
+			for(int indice = 0; indice < reorganizedPensum.size(); indice++){
+				List<Course> trimester = reorganizedPensum.get(indice);
+				
+				for(int index = 0; index < trimester.size(); index++){
+					Course course = trimester.get(index);
+					
+					ptmt.setString(1, course.getId());
+					ptmt.setString(2, course.getName());
+					ptmt.setInt(3, course.getTerm());
+					ptmt.setString(4, course.getTrimesterDescription());
+					ptmt.setInt(5, course.getCredits());
+					ptmt.setString(6, course.getPreqID().toString());
+					ptmt.setInt(7, course.getCreditsReq());
+					ptmt.setString(8, course.getCoReqID().toString());
+					ptmt.setInt(9, course.getTrimNum());
+					ptmt.setInt(10, id);
+					ptmt.executeUpdate();
+					System.out.println("Data added ");	
+				}
+			}
 			
 		}
 		catch (SQLException e) {
@@ -207,7 +213,7 @@ public class EstudianteReorganizacionDao {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		EstudianteReorganizacionDao erd=new EstudianteReorganizacionDao();
-		Map<Integer, Course> map=new HashMap<Integer, Course>();
+		Map<Integer, List<Course>> map=new HashMap<Integer, List<Course>>();
 		map=erd.getCourses(1058691);
 		erd.setReorganization(map, 2033505);
 
