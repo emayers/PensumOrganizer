@@ -117,7 +117,7 @@
 				</h:column>
 				<h:column>
 					<h:commandLink action="#{manualOrganizationBean.delete(entry.key, materia)}">
-						<h:graphicImage value="/Vistas/Images/remove-circle-1.svg" />
+						<h:graphicImage value="/Vistas/Images/remove-circle-1.png" />
 					</h:commandLink>
 				</h:column>
 			</h:dataTable>	
@@ -153,17 +153,18 @@
 				<h:column>
 					<f:facet name="header">
 					</f:facet>
-					<h:commandLink  onclick="PF('dialogToAdd').show(); return false;">
-							<h:graphicImage value="/Vistas/Images/add-circle-1.svg" />
-					</h:commandLink>
-	 					<p:dialog id="dialog" widgetVar="dialogToAdd" closeOnEscape="true" 
-				  			  header="Añadir a Trimestre" closable="false" resizable="false">
-							<p id="formText">#{currentSubject.name} al Trimestre :</p>
+					
+					<p:commandLink oncomplete="PF('dialogToAdd').show(); return false;">
+							<h:graphicImage value="/Vistas/Images/add-circle-1.png" />		 
+							<f:setPropertyActionListener target="#{manualOrganizationBean.clickedCourse}" value="#{subject}" />	
+					</p:commandLink>
+					
+				 		<p:dialog id="dialog" widgetVar="dialogToAdd" closeOnEscape="true" 
+				  			  header="Añadir a Trimestre" closable="false" resizable="false" dynamic="true" >
+							<p id="formText">#{manualOrganizationBean.clickedCourse.name} al Trimestre :</p>
 					   		<p:selectOneMenu
 					   				
-					   				value="#{manualOrganizationBean.selectedTrimester}"
-					   				
-					   				onchange="selectGrab(this)"
+					   				value="#{manualOrganizationBean.selectedTrimester}"	
 					   				
 					   				class="DropdownTri" 
 					   		
@@ -176,7 +177,7 @@
 					   				<c:set var="trimesterPos" value="#{trimesterPos}"></c:set>
 					   			</c:forEach>
 						   		</p:selectOneMenu>
-								<h:commandButton action="#{manualOrganizationBean.add(currentSubject)}"  value="Aceptar"  />
+								<h:commandButton action="#{manualOrganizationBean.add()}"  value="Aceptar"  />
 								<h:commandButton value="Cancelar" />
 						</p:dialog>
 					
