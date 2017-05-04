@@ -148,18 +148,17 @@ public class PrerrequisitoDao {
 			}
 	
 	
-	public ArrayList<String> getPreRequisite(String ProgramCode, String CourseCode, int Version){
+	public ArrayList<String> getPreRequisite(String ProgramCode, String CourseCode){
 		/*Returns the codes of the prerequisites of a subject, as a subject may have more than 
 		 * one prerequisite, it returns an ArrayList*/
 		ArrayList<String> listOfPrerequisites=new ArrayList<String>();
 		try{
 					
-					String queryString = "SELECT Prerrequisito, Asignatura FROM Prerrequisitos WHERE (ProgramaCodigo=? AND Version=? AND Asignatura=?);";
+					String queryString = "SELECT Prerrequisito, Asignatura FROM Prerrequisitos WHERE (ProgramaCodigo=? AND Asignatura=?);";
 					connection = getConnection();
 					ptmt = connection.prepareStatement(queryString);
 					ptmt.setString(1, ProgramCode);
-					ptmt.setInt(2, Version);
-					ptmt.setString(3, CourseCode);
+					ptmt.setString(2, CourseCode);
 					resultSet=ptmt.executeQuery();
 					while(resultSet.next()){ 
 //						System.out.println(resultSet.getString("Prerrequisito"));

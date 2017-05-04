@@ -72,6 +72,8 @@ public class ReorganizationsDAO {
 		ArrayList<String> corequisites=new ArrayList<String>();
 		ArrayList<String> prerequisites=new ArrayList<String>();
 		int trimesterNumber=0;
+		PensumsDAO psmDao=new PensumsDAO();
+		StudentsDAO student=new StudentsDAO();
 		try{
 			String queryString = "SELECT AsignaturaCodigo, Descripcion, Termino, TerminoDescripcion, Creditos, Prerrequisito, RequisitoCred, Corequisito, NumTrimestre FROM EstudianteReorganizacion WHERE IdEstudiante=?;";
 			connection = getConnection();
@@ -127,6 +129,14 @@ public class ReorganizationsDAO {
 				e.printStackTrace();
 			}
 
+		}
+		for(int indice = 0; indice < lastOrganization.size(); indice++){
+			List<Course> trimester = lastOrganization.get(indice);
+			
+			for(int index = 0; index < trimester.size(); index++){
+				Course course = trimester.get(index);
+				course.setIdealTrimestrer(psmDao.getIdealTrimester(student.getProgramCode(id), course.getId()));
+			}
 		}
 		return lastOrganization;
 		

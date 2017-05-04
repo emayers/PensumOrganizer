@@ -22,6 +22,7 @@ public class Course {
 
 	private List<String> preqID, coReqID;
 	private boolean preqTaken, taken, coReqTaken, creditsReqReached, approved;
+
 	private int creditsReq, credits, idealTrimestrer, weight, term, reorganizationTrimester, yearTaken;
 	private Integer trimesterTaken;
 	
