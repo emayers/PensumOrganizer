@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.pensumorganizer.util.ConnectionFactory;
 import com.pensumorganizer.util.structures.Course;
@@ -272,14 +273,18 @@ public class PensumsDAO {
 		
 	}
 	
-	public int getCreditsRequirements(String programCode, String subject){
+	/** Returns the credits requirements of a subject
+	 * Parameters: programCode:'IDS-2016'
+	 *              courseCode: 'IDS-306'
+	 * Returns an int             */
+	public int getCreditsRequirements(String programCode, String courseCode){
 		int creditsRequirements = 0;
 		try{
 			String queryString = "SELECT RequisitosCreditos FROM Pensum WHERE ProgramaCodigo=? AND AsignaturaCodigo=? ORDER BY Trimestre, AsignaturaCodigo;";
 			connection = getConnection();
 			ptmt = connection.prepareStatement(queryString);
 			ptmt.setString(1, programCode);
-			ptmt.setString(2, subject);
+			ptmt.setString(2, courseCode);
 			resultSet=ptmt.executeQuery();
 			if(resultSet.next()){ 
 //				System.out.println(resultSet.getInt("RequisitosCreditos"));
@@ -379,6 +384,51 @@ public class PensumsDAO {
 		
 	}
 	
+	public int getIdealTrimester(String programCode, String courseCode){
+		int idealTrimester=0;
+		try{
+			String queryString = "SELECT Trimestre FROM Pensum WHERE (ProgramaCodigo=? AND AsignaturaCodigo=?);";
+			connection = getConnection();
+			ptmt = connection.prepareStatement(queryString);
+			ptmt.setString(1, programCode);
+			ptmt.setString(2, courseCode);
+			resultSet=ptmt.executeQuery();
+			if(resultSet.next()){
+				idealTrimester=resultSet.getInt("Trimestre");
+		}
+		    
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (ptmt != null)
+					ptmt.close();
+				if (connection != null)
+					connection.close();
+				if (resultSet != null)
+					resultSet.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		}
+		return idealTrimester;
+		
+	}
+	
+	/**Returns the prerequisites of a given course on a given program
+	 * Parameters:  programCode:'SIS-2010'
+	 *              courseCode:'INS203'
+	 * Returns an arraylist of strings             */
+	public List<String> getPrerequisites(String programCode, String courseCode){
+		List<String> prerequisites=new ArrayList<String>();
+		PrerrequisitoDao prereqDao=new PrerrequisitoDao();
+		prerequisites=prereqDao.getPreRequisite(programCode, courseCode);
+		return prerequisites;
+	}
 	
 	public ArrayList<Course> getCourses(String programCode, int version){
 		/*Returns the Pensum in Courses objects*/
@@ -440,7 +490,7 @@ public class PensumsDAO {
 		}
 //		System.out.println("Prerrequisitos");
 		for(int i=0;i<pensum.size();i++){
-			pensum.get(i).setPreqID(prereqDao.getPreRequisite(programCode, pensum.get(i).getId(), version));
+			pensum.get(i).setPreqID(prereqDao.getPreRequisite(programCode, pensum.get(i).getId()));
 //			System.out.println(pensum.get(i).getPreqID());
 		}
 		return pensum;

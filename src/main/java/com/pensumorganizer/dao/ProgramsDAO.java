@@ -86,14 +86,47 @@ public class ProgramsDAO {
 		}
 		return totalTrimesters;
 	}
+	
+	public int getProgramCredits(String programCode){
+		int programCredits=0;
+		try{
+			String queryString = "SELECT CreditosPrograma FROM Programas WHERE ProgramaCodigo=?;";
+			connection = getConnection();
+			ptmt = connection.prepareStatement(queryString);
+			ptmt.setString(1, programCode);
+			resultSet=ptmt.executeQuery();
+			if(resultSet.next()){ 
+//				System.out.println(resultSet.getInt("TotalTrimestres"));
+				programCredits=resultSet.getInt("CreditosPrograma");			  
+		}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (ptmt != null)
+					ptmt.close();
+				if (connection != null)
+					connection.close();
+				if (resultSet != null)
+					resultSet.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		}
+		return programCredits;
+		
+	}
+	
+	
+	
 
 	
 	public static void main(String[] args) {
 		/*For testing, to be deleted*/
-		// TODO Auto-generated method stub
-		ProgramsDAO prg=new ProgramsDAO();
-		prg.getProgramName("SIS");
-		prg.getTotalTrimesters("SIS");
 
 	}
 
