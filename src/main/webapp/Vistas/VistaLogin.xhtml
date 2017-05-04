@@ -3,12 +3,15 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
 <h:head>
 	<!-- GOOGLE FONTS -->
 	<link rel="stylesheet" type="text/css" href="./Style/login.css?version=6.0" />
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,800,600" />
+	<script type="text/javascript" src="Scripts/Limiter.js"></script>
 
 	<!-- UTF -->
 	<meta charset="UTF-8"/>
@@ -21,18 +24,30 @@
 <h:body>
 
 	<h:form>
+		
 		<h:panelGroup layout="block" id="logoTitleDiv">
 			<h:graphicImage class="logoTitle" value="/Vistas/Images/Logo-red.png" />
 		</h:panelGroup>
-		<h:inputText p:placeholder="ID Institucional" id="studentId" value="#{authenticationBean.userName}"/>
-		<h:inputSecret p:placeholder="Contraseña" id="password" value="#{authenticationBean.password}"/>
-		<h:commandButton action="#{authenticationBean.submit()}"  value="Iniciar Sesión" />
+		<p:messages showDetail="false" showIcon="false" redisplay="false"/>
+		<h:inputText p:placeholder="ID Institucional" id="studentId" 
+					 value="#{authenticationBean.userName}" 
+					 required="true"
+					 requiredMessage="Por favor, ingrese su ID"
+					 onkeypress="inputLimit(this)">
+		</h:inputText>
+		<h:inputSecret p:placeholder="Contraseña" id="password" 
+					   value="#{authenticationBean.password}" 
+					   required="true"
+					   requiredMessage="Por favor, ingrese su contraseña"
+					   onkeypress="inputLimit(this)">
+		</h:inputSecret>
+		<h:commandButton id="Submiting" action="#{authenticationBean.submit()}"  value="Iniciar Sesión" />
 	</h:form>
 
 	<footer id="footer" class="page-footer">
        <h:panelGroup id="copyright" layout="block" class="footer-copyright">
          <h:panelGroup layout="block" id="copyrightContainer">
-         HANDS © 2017
+         	HANDS © 2017
          </h:panelGroup>
        </h:panelGroup>
        	<h:panelGroup layout="block" id="intecLogo">

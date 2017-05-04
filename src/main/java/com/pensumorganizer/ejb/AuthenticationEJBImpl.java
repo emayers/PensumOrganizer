@@ -3,6 +3,8 @@ package com.pensumorganizer.ejb;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 
 import com.pensumorganizer.dao.StudentsDAO;
 import com.pensumorganizer.ejb.interfaces.AuthenticationEJBInterface;
@@ -16,13 +18,14 @@ public class AuthenticationEJBImpl implements AuthenticationEJBInterface {
 	private Integer userName;
     private Integer password;
     private String outPut;
-
+    		
     public String submit() {	
     	if(!(validUserNames.contains(userName) && 
     			students.getPassword(userName).equals(password))){
-    		outPut = "Error";
+    		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ID o Contraseña incorecta, intente de nuevo", ""));
     	}
     	else{
+    		System.out.println("hey!");
     		outPut = "VistaDashboard";
     	}
     	
