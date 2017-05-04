@@ -379,6 +379,42 @@ public class PensumDao {
 		
 	}
 	
+	public int getIdealTrimester(String programCode, String courseCode, int version){
+		int idealTrimester=0;
+		try{
+			String queryString = "SELECT Trimestre FROM Pensum WHERE (ProgramaCodigo=? AND Version=? AND AsignaturaCodigo=?);";
+			connection = getConnection();
+			ptmt = connection.prepareStatement(queryString);
+			ptmt.setString(1, programCode);
+			ptmt.setInt(2, version);
+			ptmt.setString(3, courseCode);
+			resultSet=ptmt.executeQuery();
+			if(resultSet.next()){
+				idealTrimester=resultSet.getInt("Trimestre");
+		}
+		    
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (ptmt != null)
+					ptmt.close();
+				if (connection != null)
+					connection.close();
+				if (resultSet != null)
+					resultSet.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		}
+		return idealTrimester;
+		
+	}
+	
 	
 	public ArrayList<Course> getCourses(String programCode, int version){
 		/*Returns the Pensum in Courses objects*/

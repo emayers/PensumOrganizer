@@ -296,6 +296,7 @@ public class HistoricoCursadasDao {
 			ptmt.setInt(1, id);
 			resultSet=ptmt.executeQuery();
 			while(resultSet.next()){ 
+				
 				Course takenCourse= new Course();
 //				System.out.println(resultSet.getInt("Año") + " "+resultSet.getInt("Termino") + " "+resultSet.getInt("IdEstudiante") +" "+ 
 //						resultSet.getString("AsignaturaCodigo") +" " +resultSet.getInt("Seccion") + " " +resultSet.getString("CalificacionCodigo") +

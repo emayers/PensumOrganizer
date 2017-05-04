@@ -71,6 +71,8 @@ public class EstudianteReorganizacionDao {
 		ArrayList<String> corequisites=new ArrayList<String>();
 		ArrayList<String> prerequisites=new ArrayList<String>();
 		int trimesterNumber=0;
+		PensumDao psmDao=new PensumDao();
+		EstudianteProgramaDao student=new EstudianteProgramaDao();
 		try{
 			String queryString = "SELECT AsignaturaCodigo, Descripcion, Termino, TerminoDescripcion, Creditos, Prerrequisito, RequisitoCred, Corequisito, NumTrimestre FROM EstudianteReorganizacion WHERE IdEstudiante=?;";
 			connection = getConnection();
@@ -126,6 +128,14 @@ public class EstudianteReorganizacionDao {
 				e.printStackTrace();
 			}
 
+		}
+		for(int indice = 0; indice < lastOrganization.size(); indice++){
+			List<Course> trimester = lastOrganization.get(indice);
+			
+			for(int index = 0; index < trimester.size(); index++){
+				Course course = trimester.get(index);
+				course.setIdealTrimestrer(psmDao.getIdealTrimester(student.getProgramCode(id), course.getId(), student.getVersion(id)));
+			}
 		}
 		return lastOrganization;
 		

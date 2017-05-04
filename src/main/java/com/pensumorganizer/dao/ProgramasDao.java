@@ -18,7 +18,7 @@ public class ProgramasDao {
 	}
 	
 	
-	public String getDescription(String programCode){
+	public String getProgramName(String programCode){
 		/*Returns the program description, example: INGENIERIA DE SOFTWARE*/
 		String description=null;
 		try{
@@ -53,14 +53,15 @@ public class ProgramasDao {
 	}
 	
 	
-	public int getTotalTrimesters(String programCode){
+	public int getTotalTrimesters(String programCode, int version){
 		/*Returns the total trimesters of the program, for example, IDS-2010 has 14 trimesters*/
 		int totalTrimesters=0;
 		try{
-			String queryString = "SELECT TotalTrimestres FROM Programas WHERE ProgramaCodigo=?;";
+			String queryString = "SELECT TotalTrimestres FROM Programas WHERE ProgramaCodigo=? AND Version=?;";
 			connection = getConnection();
 			ptmt = connection.prepareStatement(queryString);
 			ptmt.setString(1, programCode);
+			ptmt.setInt(2, version);
 			resultSet=ptmt.executeQuery();
 			if(resultSet.next()){ 
 //				System.out.println(resultSet.getInt("TotalTrimestres"));
@@ -86,14 +87,60 @@ public class ProgramasDao {
 		}
 		return totalTrimesters;
 	}
+	
+	public int getProgramCredits(String programCode, int version){
+		int programCredits=0;
+		try{
+			String queryString = "SELECT CreditosPrograma FROM Programas WHERE ProgramaCodigo=? AND Version=?;";
+			connection = getConnection();
+			ptmt = connection.prepareStatement(queryString);
+			ptmt.setString(1, programCode);
+			ptmt.setInt(2, version);
+			resultSet=ptmt.executeQuery();
+			if(resultSet.next()){ 
+//				System.out.println(resultSet.getInt("TotalTrimestres"));
+				programCredits=resultSet.getInt("CreditosPrograma");			  
+		}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (ptmt != null)
+					ptmt.close();
+				if (connection != null)
+					connection.close();
+				if (resultSet != null)
+					resultSet.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		}
+		return programCredits;
+		
+	}
+	
+	public int getVersion(){
+		return 0;
+		//check
+	}
+	
+	public String getProgramCode(){
+		return null;
+		//check
+	}
+	
 
 	
 	public static void main(String[] args) {
 		/*For testing, to be deleted*/
 		// TODO Auto-generated method stub
 		ProgramasDao prg=new ProgramasDao();
-		prg.getDescription("SIS");
-		prg.getTotalTrimesters("SIS");
+		prg.getProgramName("SIS");
+		//prg.getTotalTrimesters("SIS");
 
 	}
 
