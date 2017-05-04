@@ -419,42 +419,145 @@ public class PensumsDAO {
 		
 	}
 	
+	public String getCourseName(String programCode, String courseCode){
+		String courseName=null;
+		try{
+			String queryString = "SELECT Nombre FROM Pensum WHERE (ProgramaCodigo=? AND AsignaturaCodigo=?);";
+			connection = getConnection();
+			ptmt = connection.prepareStatement(queryString);
+			ptmt.setString(1, programCode);
+			ptmt.setString(2, courseCode);
+			resultSet=ptmt.executeQuery();
+			if(resultSet.next()){
+				courseName=resultSet.getString("Nombre");
+		}
+		    
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (ptmt != null)
+					ptmt.close();
+				if (connection != null)
+					connection.close();
+				if (resultSet != null)
+					resultSet.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		}
+		return courseName;
+	}
+	
+	public int getCredits(String programCode, String courseCode){
+		int credits=0;
+		try{
+			String queryString = "SELECT Creditos FROM Pensum WHERE (ProgramaCodigo=? AND AsignaturaCodigo=?);";
+			connection = getConnection();
+			ptmt = connection.prepareStatement(queryString);
+			ptmt.setString(1, programCode);
+			ptmt.setString(2, courseCode);
+			resultSet=ptmt.executeQuery();
+			if(resultSet.next()){
+				credits=resultSet.getInt("Creditos");
+		}
+		    
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (ptmt != null)
+					ptmt.close();
+				if (connection != null)
+					connection.close();
+				if (resultSet != null)
+					resultSet.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		}
+		return credits;
+		
+	}
+	
 	/**Returns the prerequisites of a given course on a given program
 	 * Parameters:  programCode:'SIS-2010'
 	 *              courseCode:'INS203'
 	 * Returns an arraylist of strings             */
 	public List<String> getPrerequisites(String programCode, String courseCode){
-		List<String> prerequisites=new ArrayList<String>();
-		PrerrequisitoDao prereqDao=new PrerrequisitoDao();
-		prerequisites=prereqDao.getPreRequisite(programCode, courseCode);
-		return prerequisites;
-	}
-	
-	public ArrayList<Course> getCourses(String programCode, int version){
-		/*Returns the Pensum in Courses objects*/
-		ArrayList<Course> pensum = new ArrayList<Course>();
-		ArrayList<String> corequisites=new ArrayList<String>();
-		PrerrequisitoDao prereqDao=new PrerrequisitoDao();
-		CoursesDAO asigDao=new CoursesDAO();
+		ArrayList<String> prerequisites=new ArrayList<String>();
 		try{
-			String queryString = "SELECT AsignaturaCodigo, Trimestre, RequisitosCreditos, CoRequisito, Version FROM Pensum WHERE ProgramaCodigo=? AND Version=? ORDER BY Trimestre, AsignaturaCodigo;";
+			String queryString = "SELECT Prerrequisitos FROM Pensum WHERE (ProgramaCodigo=? AND AsignaturaCodigo=?);";
 			connection = getConnection();
 			ptmt = connection.prepareStatement(queryString);
 			ptmt.setString(1, programCode);
-			ptmt.setInt(2, version);
+			ptmt.setString(2, courseCode);
+			resultSet=ptmt.executeQuery();
+			if(resultSet.next()){
+				prerequisites.add(resultSet.getString("Prerrequisitos"));
+		}
+		    
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (ptmt != null)
+					ptmt.close();
+				if (connection != null)
+					connection.close();
+				if (resultSet != null)
+					resultSet.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		}
+		return prerequisites;
+		
+	}
+	
+	
+	
+	public ArrayList<Course> getCourses(String programCode){
+		/*Returns the Pensum in Courses objects*/
+		ArrayList<Course> pensum = new ArrayList<Course>();
+		ArrayList<String> corequisites=new ArrayList<String>();
+		ArrayList<String> prerequisites=new ArrayList<String>();
+		try{
+			String queryString = "SELECT * FROM Pensum WHERE ProgramaCodigo=? ORDER BY Trimestre;";
+			connection = getConnection();
+			ptmt = connection.prepareStatement(queryString);
+			ptmt.setString(1, programCode);
 			resultSet=ptmt.executeQuery();
 			while(resultSet.next()){
 				Course course=new Course();
 				System.out.println(resultSet.getString("AsignaturaCodigo")
 						           +" "+resultSet.getInt("Trimestre")+
 						           " "+resultSet.getInt("RequisitosCreditos")
-						           +" "+resultSet.getString("CoRequisito"));
+						           +" "+resultSet.getString("CoRequisito")
+						           +" "+resultSet.getString("Prerrequisitos")
+						           +" "+resultSet.getString("Nombre")
+						           +" "+resultSet.getInt("Creditos"));
 				course.setId(resultSet.getString("AsignaturaCodigo"));
 				course.setIdealTrimestrer(resultSet.getInt("Trimestre"));
 				course.setCreditsReq(resultSet.getInt("RequisitosCreditos"));
 				corequisites.add(resultSet.getString("CoRequisito"));
 				course.setCoReqID(corequisites);
-				course.getId();
+				prerequisites.add(resultSet.getString("Prerrequisitos"));
+				course.setPreqID(prerequisites);
+				course.setName(resultSet.getString("Nombre"));
+				course.setCredits(resultSet.getInt("Creditos"));
 				pensum.add(course);
 				
 		}
@@ -477,22 +580,7 @@ public class PensumsDAO {
 			}
 
 		}
-//		System.out.println("Descripciones+creds");
-//		String wtv=null;
-//		int wtv2=0;
-		for(int i=0;i<pensum.size();i++){
-			pensum.get(i).setName(asigDao.getDescription(pensum.get(i).getId()));
-//			wtv=pensum.get(i).getName();
-//			System.out.println(wtv);
-			pensum.get(i).setCredits(asigDao.getCredits(pensum.get(i).getId()));
-//			wtv2=pensum.get(i).getCredits();
-//			System.out.println(wtv2);
-		}
-//		System.out.println("Prerrequisitos");
-		for(int i=0;i<pensum.size();i++){
-			pensum.get(i).setPreqID(prereqDao.getPreRequisite(programCode, pensum.get(i).getId()));
-//			System.out.println(pensum.get(i).getPreqID());
-		}
+
 		return pensum;
 		
 		
@@ -510,7 +598,7 @@ public class PensumsDAO {
 		//psm.getCourseCode("IDS");
 		//psm.getCreditsRequirements("IDS");
 		//psm.getCoRequisites("IDS");
-		psm.getCourses("IDS", 2010);
+		psm.getCourses("IDS-2010");
 	}
 	
 

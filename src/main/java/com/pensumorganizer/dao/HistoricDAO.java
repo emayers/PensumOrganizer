@@ -286,8 +286,6 @@ public class HistoricDAO {
 		StudentsDAO student=new StudentsDAO();
 		String program= student.getProgramCode(studentId);
 		PensumsDAO pensum=new PensumsDAO();
-		CoursesDAO asigDao=new CoursesDAO();
-		PrerrequisitoDao prereqDao=new PrerrequisitoDao();
 		int trimester=1, admYear=student.getAdmissionYear(studentId), admTerm=student.getAdmissionTerm(studentId);
 		try{
 			
@@ -303,14 +301,15 @@ public class HistoricDAO {
 					trimester++;
 				}
 				Course takenCourse= new Course();
-//				System.out.println(resultSet.getInt("Año") + " "+resultSet.getInt("Termino") + " "+resultSet.getInt("IdEstudiante") +" "+ 
-//						resultSet.getString("AsignaturaCodigo") +" " +resultSet.getInt("Seccion") + " " +resultSet.getString("CalificacionCodigo") +
-//						" "+resultSet.getString("TipoSeccion"));
+				System.out.println(resultSet.getInt("Año") + " "+resultSet.getInt("Termino") + " "+resultSet.getInt("IdEstudiante") +" "+ 
+						resultSet.getString("AsignaturaCodigo") +" " +resultSet.getInt("Seccion") + " " +resultSet.getString("CalificacionCodigo") +
+						" "+resultSet.getString("TipoSeccion"));
 				takenCourse.setHistYear(resultSet.getInt("Año"));
 				takenCourse.setTerm(resultSet.getInt("Termino"));
 				takenCourse.setId(resultSet.getString("AsignaturaCodigo"));
 				takenCourse.setGrade(resultSet.getString("CalificacionCodigo"));
 				takenCourse.setTrimesterTaken(trimester);
+				System.out.println(trimester);
 				history.add(takenCourse);
 			  
 		}
@@ -333,28 +332,18 @@ public class HistoricDAO {
 			}
 
 		}
-		//System.out.println("Descripciones+creds");
-		//String wtv=null;
-		//int wtv2=0;
 		for(int i=0;i<history.size();i++){
-			history.get(i).setName(asigDao.getDescription(history.get(i).getId()));
-			//wtv=history.get(i).getName();
-			//System.out.println(wtv);
-			history.get(i).setCredits(asigDao.getCredits(history.get(i).getId()));
-			//wtv2=history.get(i).getCredits();
-			//System.out.println(wtv2);
-		}
-		//System.out.println("Prerrequisitos");
-		for(int i=0;i<history.size();i++){
-			history.get(i).setPreqID(prereqDao.getPreRequisite(program, history.get(i).getId()));
-			//System.out.println(history.get(i).getPreqID());
-		}
-		
-		//System.out.println("Corequisitos");
-		for(int i=0;i<history.size();i++){
+			history.get(i).setName(pensum.getCourseName(program, history.get(i).getId()));
+			System.out.println(history.get(i).getName());
+			history.get(i).setCredits(pensum.getCredits(program,history.get(i).getId()));
+			System.out.println(history.get(i).getCredits());
 			history.get(i).setCoReqID(pensum.getCoRequisites(program, history.get(i).getId()));
-			//System.out.println(history.get(i).getCoReqID());
+			System.out.println(history.get(i).getCoReqID());
+			history.get(i).setPreqID(pensum.getPrerequisites(program, history.get(i).getId()));
+			System.out.println(history.get(i).getPreqID());
+
 		}
+
 		return history;
 		
 	}
@@ -397,9 +386,8 @@ public class HistoricDAO {
 	
 	public List<Course> getApprovedCourses(int studentId){
 		List<Course>approvedCourses=new ArrayList<Course>();
-		CoursesDAO asigDao=new CoursesDAO();
-		PrerrequisitoDao prereq=new PrerrequisitoDao();
 		StudentsDAO student=new StudentsDAO();
+		String program=student.getProgramCode(studentId);
 		PensumsDAO pensum=new PensumsDAO();
 		try{
 			String queryString = "SELECT * FROM HistoricoCursadas WHERE IdEstudiante=?;";
@@ -436,23 +424,11 @@ public class HistoricDAO {
 
 		}
 		for(int i=0;i<approvedCourses.size();i++){
-			approvedCourses.get(i).setName(asigDao.getDescription(approvedCourses.get(i).getId()));
-			//wtv=history.get(i).getName();
-			//System.out.println(wtv);
-			approvedCourses.get(i).setCredits(asigDao.getCredits(approvedCourses.get(i).getId()));
-			//wtv2=history.get(i).getCredits();
-			//System.out.println(wtv2);
-		}
-		//System.out.println("Prerrequisitos");
-		for(int i=0;i<approvedCourses.size();i++){
-			approvedCourses.get(i).setPreqID(prereq.getPreRequisite(student.getProgramCode(studentId), approvedCourses.get(i).getId()));
-			//System.out.println(history.get(i).getPreqID());
-		}
-		
-		//System.out.println("Corequisitos");
-		for(int i=0;i<approvedCourses.size();i++){
-			approvedCourses.get(i).setCoReqID(pensum.getCoRequisites(student.getProgramCode(studentId), approvedCourses.get(i).getId()));
-			//System.out.println(history.get(i).getCoReqID());
+			approvedCourses.get(i).setName(pensum.getCourseName(program, approvedCourses.get(i).getId()));
+			approvedCourses.get(i).setCredits(pensum.getCredits(program,approvedCourses.get(i).getId()));
+			approvedCourses.get(i).setCoReqID(pensum.getCoRequisites(program, approvedCourses.get(i).getId()));
+			approvedCourses.get(i).setPreqID(pensum.getPrerequisites(program, approvedCourses.get(i).getId()));
+
 		}
 		return approvedCourses;
 	}
