@@ -1,18 +1,13 @@
 package com.pensumorganizer.dao;
 
-import java.sql.SQLException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.ArrayList;
+import java.sql.SQLException;
 
-import com.pensumorganizer.entities.*;
+import com.pensumorganizer.util.ConnectionFactory;
 
-import com.pensumorganizer.connectionfactory.*;
-
-public class AsignaturasDao {
+public class CoursesDAO {
 	
 	Connection connection = null;
 	PreparedStatement ptmt = null;
@@ -24,20 +19,21 @@ public class AsignaturasDao {
 		return conn;
 	}
 	
-	/*Returns the subject name*/
-	public String getDescription(String code){
-		String res=null;
+	
+	public String getDescription(String subjectCode){
+		/*Returns the subject name*/
+		String subjectDescription=null;
 		try{
 			
 			String queryString = "SELECT Descripcion FROM Asignaturas WHERE AsignaturaCodigo=?;";
 			connection = getConnection();
 			ptmt = connection.prepareStatement(queryString);
-			ptmt.setString(1, code);
+			ptmt.setString(1, subjectCode);
 			resultSet=ptmt.executeQuery();
-			if(resultSet.next()){ 
-				System.out.println(resultSet.getString("Descripcion"));
-			  
-		}
+//			if(resultSet.next()){ 
+//				System.out.println(resultSet.getString("Descripcion"));
+//			  
+//		}
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
@@ -56,23 +52,24 @@ public class AsignaturasDao {
 			}
 
 		}
-		return res;
+		return subjectDescription;
 	}
 	
-	/*Returns the subject's credits*/
-	public int getCredits(String code){
-		int res=0;
+	
+	public int getCredits(String subjectCode){
+		/*Returns the subject's credits*/
+		int credits=0;
 		try{
 			
 			String queryString = "SELECT Creditos FROM Asignaturas WHERE AsignaturaCodigo=?;";
 			connection = getConnection();
 			ptmt = connection.prepareStatement(queryString);
-			ptmt.setString(1, code);
+			ptmt.setString(1, subjectCode);
 			resultSet=ptmt.executeQuery();
-			if(resultSet.next()){ 
-				System.out.println(resultSet.getInt("Creditos"));
-			  
-		}
+//			if(resultSet.next()){ 
+//				System.out.println(resultSet.getInt("Creditos"));
+//			  
+//		}
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
@@ -91,13 +88,14 @@ public class AsignaturasDao {
 			}
 
 		}
-		return res;
+		return credits;
 		
 	}
 
 	public static void main(String[] args) {
+		/*For testing, to be deleted*/
 		// TODO Auto-generated method stub
-		AsignaturasDao ad=new AsignaturasDao();
+		CoursesDAO ad=new CoursesDAO();
 		ad.getDescription("IDS316");
 		ad.getCredits("IDS316");
 

@@ -1,4 +1,4 @@
-package com.pensumorganizer.dao;
+package com.pensumorganizer.util.structures;
 
 import java.util.List;
 
@@ -13,16 +13,16 @@ public class Course {
 	}
 
 	public int getHistYear() {
-		return histYear;
+		return yearTaken;
 	}
 
 	public void setHistYear(int histYear) {
-		this.histYear = histYear;
+		this.yearTaken = histYear;
 	}
 
 	private List<String> preqID, coReqID;
-	private boolean preqTaken, taken, coReqTaken, creditsReqReached;
-	private int creditsReq, credits, idealTrimestrer, weight, term, trimNum, histYear;
+	private boolean preqTaken, taken, coReqTaken, creditsReqReached, approved;
+	private int creditsReq, credits, idealTrimestrer, weight, term, reorganizationTrimester, yearTaken;
 	private Integer trimesterTaken;
 	
 	public Course(){
@@ -151,11 +151,19 @@ public class Course {
 	}
 
 	public int getTrimNum() {
-		return trimNum;
+		return reorganizationTrimester;
 	}
 
 	public void setTrimNum(int trimNum) {
-		this.trimNum = trimNum;
+		this.reorganizationTrimester = trimNum;
+	}
+
+	public boolean isApproved() {
+		return approved;
+	}
+
+	public void setApproved(boolean approved) {
+		this.approved = approved;
 	}
 	
 }

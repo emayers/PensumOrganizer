@@ -9,24 +9,24 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
-import com.pensumorganizer.dao.Course;
-import com.pensumorganizer.ejb.ProgramEJBImpl;
+import com.pensumorganizer.ejb.PensumEJBImpl;
+import com.pensumorganizer.util.structures.Course;
 
 @ManagedBean
 @SessionScoped
-public class ProgramBean implements Serializable {
+public class PensumBean implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
 	@EJB
-	ProgramEJBImpl pEJB = new ProgramEJBImpl();
+	public static PensumEJBImpl pEJB = new PensumEJBImpl();
 	
 	@PostConstruct
 	private void prepare(){
-		pEJB.recreateProgram();
+		pEJB.recreatePensum();
 	}
 	
-	public Map<Integer, List<Course>> getProgram() {		
-		return pEJB.getProgram();
+	public Map<Integer, List<Course>> getPensum() {		
+		return pEJB.getPensum();
 	}
 }

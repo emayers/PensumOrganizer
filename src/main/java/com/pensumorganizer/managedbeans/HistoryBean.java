@@ -9,8 +9,8 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
-import com.pensumorganizer.dao.Course;
 import com.pensumorganizer.ejb.HistoryEJBImpl;
+import com.pensumorganizer.util.structures.Course;
 
 @ManagedBean
 @SessionScoped
@@ -19,7 +19,7 @@ public class HistoryBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@EJB
-	HistoryEJBImpl hEJB = new HistoryEJBImpl();
+	public static HistoryEJBImpl hEJB = new HistoryEJBImpl();
 	
 	@PostConstruct
 	private void prepare(){

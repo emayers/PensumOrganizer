@@ -6,9 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import com.pensumorganizer.connectionfactory.ConnectionFactory;
+import com.pensumorganizer.util.ConnectionFactory;
 
-public class ElectivasDao {
+public class ElectivesDAO {
 	Connection connection = null;
 	PreparedStatement ptmt = null;
 	ResultSet resultSet = null;
@@ -21,18 +21,19 @@ public class ElectivasDao {
 	
 	
 	
-	public ArrayList<String> getAllElectives(String program, String code){
-		ArrayList<String> res=new ArrayList<String>();
+	public ArrayList<String> getAllElectives(String programCode, String subjectCode){
+		/*returns all possible electives according to general code, for example, all electives for SH1X1 (Socio-Historica)*/
+		ArrayList<String> listOfAllElectives=new ArrayList<String>();
 		try{
 			String queryString = "SELECT Electiva FROM Electivas WHERE ProgramaCodigo=? AND AsignaturaCodigo=?;";
 			connection = getConnection();
 			ptmt = connection.prepareStatement(queryString);
-			ptmt.setString(1, program);
-			ptmt.setString(2, code);
+			ptmt.setString(1, programCode);
+			ptmt.setString(2, subjectCode);
 			resultSet=ptmt.executeQuery();
 			while(resultSet.next()){
-				System.out.println(resultSet.getString("Electiva"));
-				res.add(resultSet.getString("Electiva"));
+//				System.out.println(resultSet.getString("Electiva"));
+				listOfAllElectives.add(resultSet.getString("Electiva"));
 		}
 		    
 		}
@@ -53,22 +54,23 @@ public class ElectivasDao {
 			}
 
 		}
-		return res;
+		return listOfAllElectives;
 	}
 	
-	/*Returns true if the subject is an elective, false if it isn't*/
-	public boolean findElective(String program, String code, String elective){
-		boolean res=false;
+	
+	public boolean isElective(String programCode, String generalSubjectCode, String subjectCode){
+		/*Returns true if the subject is an elective, false if it isn't*/
+		boolean isElective=false;
 		try{
 			String queryString = "SELECT Electiva FROM Electivas WHERE ProgramaCodigo=? AND AsignaturaCodigo=? AND Electiva=?;";
 			connection = getConnection();
 			ptmt = connection.prepareStatement(queryString);
-			ptmt.setString(1, program);
-			ptmt.setString(2, code);
-			ptmt.setString(3, elective);
+			ptmt.setString(1, programCode);
+			ptmt.setString(2, generalSubjectCode);
+			ptmt.setString(3, subjectCode);
 			resultSet=ptmt.executeQuery();
 			if(resultSet.next()){
-					res=true;
+					isElective=true;
 					System.out.println("I've found it" +" "+resultSet.getString("Electiva"));
 					
 				}
@@ -92,16 +94,17 @@ public class ElectivasDao {
 			}
 
 		}
-		return res;
+		return isElective;
 		
 	}
 
-	/*For testing, to be deleted*/
+	
 	public static void main(String[] args) {
+		/*For testing, to be deleted*/
 		// TODO Auto-generated method stub
-		ElectivasDao ed= new ElectivasDao();
+		ElectivesDAO ed= new ElectivesDAO();
 		ed.getAllElectives("IDS", "ASH1X1");
-		ed.findElective("IDS","ASH1X1","SHG101");
+		ed.isElective("IDS","ASH1X1","SHG101");
 		//ed.findElective("IDS","ASH1X1","ING210");
 
 	}

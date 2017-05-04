@@ -6,10 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import com.pensumorganizer.connectionfactory.ConnectionFactory;
-import com.pensumorganizer.entities.PensumEntity;
+import com.pensumorganizer.util.ConnectionFactory;
+import com.pensumorganizer.util.structures.Course;
 
-public class PensumDao {
+public class PensumsDAO {
 	
 	Connection connection = null;
 	PreparedStatement ptmt = null;
@@ -21,14 +21,15 @@ public class PensumDao {
 		return conn;
 	}
 	
-	/*For testing, shows pensum in console*/
-	public void show(PensumEntity psm){
+	
+	public void show(String programCode){
+		/*For testing, shows pensum in console*/
 		try{
 			
 			String queryString = "SELECT * FROM Pensum WHERE ProgramaCodigo=?;";
 			connection = getConnection();
 			ptmt = connection.prepareStatement(queryString);
-			ptmt.setString(1, psm.getProgramaCodigo());
+			ptmt.setString(1, programCode);
 			resultSet=ptmt.executeQuery();
 			while(resultSet.next()){ 
 				System.out.println(resultSet.getInt("Version") + " "+resultSet.getInt("CreditosPrograma") + " "+resultSet.getString("ProgramaCodigo") +" "+ 
@@ -56,18 +57,19 @@ public class PensumDao {
 		
 	}
 	
-	/*Returns version of the pensum, for example, 2010*/
-	public int getVersion(String code){
-		int res = 0;
+	
+	public int getVersion(String programCode){
+		/*Returns version of the pensum, for example, 2010*/
+		int version = 0;
 		try{
 			String queryString = "SELECT Version FROM Pensum WHERE ProgramaCodigo=? ORDER BY Trimestre, AsignaturaCodigo;";
 			connection = getConnection();
 			ptmt = connection.prepareStatement(queryString);
-			ptmt.setString(1, code);
+			ptmt.setString(1, programCode);
 			resultSet=ptmt.executeQuery();
 			if(resultSet.next()){ 
-				System.out.println(resultSet.getInt("Version"));
-				res=resultSet.getInt("Version");			  
+//				System.out.println(resultSet.getInt("Version"));
+				version=resultSet.getInt("Version");			  
 		}
 		}
 		catch (SQLException e) {
@@ -87,21 +89,22 @@ public class PensumDao {
 			}
 
 		}
-		return res;
+		return version;
 		
 	}
-	/*Returns the total amount of credits, for example, IDS has 249 credits*/
-	public int getProgramCredits(String code){
-		int res = 0;
+	
+	public int getProgramCredits(String programCode){
+		/*Returns the total amount of credits, for example, IDS has 249 credits*/
+		int programCredits = 0;
 		try{
 			String queryString = "SELECT CreditosPrograma FROM Pensum WHERE ProgramaCodigo=? ORDER BY Trimestre, AsignaturaCodigo;";
 			connection = getConnection();
 			ptmt = connection.prepareStatement(queryString);
-			ptmt.setString(1, code);
+			ptmt.setString(1, programCode);
 			resultSet=ptmt.executeQuery();
 			if(resultSet.next()){ 
-				System.out.println(resultSet.getInt("CreditosPrograma"));
-				res=resultSet.getInt("CreditosPrograma");			  
+//				System.out.println(resultSet.getInt("CreditosPrograma"));
+				programCredits=resultSet.getInt("CreditosPrograma");			  
 		}
 		}
 		catch (SQLException e) {
@@ -121,13 +124,14 @@ public class PensumDao {
 			}
 
 		}
-		return res;
+		return programCredits;
 		
 	}
 	
-	/*Returns the program code, for example, IDS*/
+	
 	public String getProgramCode(int id){
-		String res = null;
+		/*Returns the program code, for example, IDS*/
+		String programCode = null;
 		try{
 			String queryString = "SELECT ProgramaCodigo FROM EstudiantePrograma WHERE IdEstudiante=?;";
 			connection = getConnection();
@@ -135,8 +139,8 @@ public class PensumDao {
 			ptmt.setInt(1, id);
 			resultSet=ptmt.executeQuery();
 			if(resultSet.next()){ 
-				System.out.println(resultSet.getString("ProgramaCodigo"));
-				res=resultSet.getString("ProgramaCodigo");			  
+//				System.out.println(resultSet.getString("ProgramaCodigo"));
+				programCode=resultSet.getString("ProgramaCodigo");			  
 		}
 		}
 		catch (SQLException e) {
@@ -156,22 +160,23 @@ public class PensumDao {
 			}
 
 		}
-		return res;
+		return programCode;
 		
 	}
 	
-	/*Returns all trimesters taken (number), for example, 1, 2, 3...19, 20, 21*/
-	public ArrayList<Integer> getTrimester(String code){
-		ArrayList<Integer> res = new ArrayList<Integer>();
+	
+	public ArrayList<Integer> getAllTrimesterNumbers(String programCode){
+		/*Returns all trimesters (number), for example, 1, 2, 3...12, 13, 14, maybe don't need*/
+		ArrayList<Integer> listOfAllNumbersOfTrimesters = new ArrayList<Integer>();
 		try{
 			String queryString = "SELECT Trimestre FROM Pensum WHERE ProgramaCodigo=? ORDER BY Trimestre, AsignaturaCodigo;";
 			connection = getConnection();
 			ptmt = connection.prepareStatement(queryString);
-			ptmt.setString(1, code);
+			ptmt.setString(1, programCode);
 			resultSet=ptmt.executeQuery();
 			while(resultSet.next()){ 
-				System.out.println(resultSet.getInt("Trimestre"));
-				res.add(resultSet.getInt("Trimestre"));			  
+//				System.out.println(resultSet.getInt("Trimestre"));
+				listOfAllNumbersOfTrimesters.add(resultSet.getInt("Trimestre"));			  
 		}
 		}
 		catch (SQLException e) {
@@ -191,22 +196,23 @@ public class PensumDao {
 			}
 
 		}
-		return res;
+		return listOfAllNumbersOfTrimesters;
 		
 	}
 	
-	/*Returns all courses codes taken*/
-	public ArrayList<String> getCourseCode(String code){
-		ArrayList<String> res = new ArrayList<String>();
+	
+	public ArrayList<String> getCoursesCodes(String programCode){
+		/*Returns all courses codes*/
+		ArrayList<String> listOfAllCourseCodes = new ArrayList<String>();
 		try{
 			String queryString = "SELECT AsignaturaCodigo FROM Pensum WHERE ProgramaCodigo=? ORDER BY Trimestre, AsignaturaCodigo;";
 			connection = getConnection();
 			ptmt = connection.prepareStatement(queryString);
-			ptmt.setString(1, code);
+			ptmt.setString(1, programCode);
 			resultSet=ptmt.executeQuery();
 			while(resultSet.next()){ 
 				System.out.println(resultSet.getString("AsignaturaCodigo"));
-				res.add(resultSet.getString("AsignaturaCodigo"));			  
+				listOfAllCourseCodes.add(resultSet.getString("AsignaturaCodigo"));			  
 		}
 		}
 		catch (SQLException e) {
@@ -226,22 +232,23 @@ public class PensumDao {
 			}
 
 		}
-		return res;
+		return listOfAllCourseCodes;
 		
 	}
 	
-	/*Returns all credits requirements*/
-	public ArrayList<Integer> getAllCreditsRequirements(String code){
-		ArrayList<Integer> res = new ArrayList<Integer>();
+	
+	public ArrayList<Integer> getAllCreditsRequirements(String programCode){
+		/*Returns all credits requirements*/
+		ArrayList<Integer> listOfAllCreditsRequirements = new ArrayList<Integer>();
 		try{
 			String queryString = "SELECT RequisitosCreditos FROM Pensum WHERE ProgramaCodigo=? ORDER BY Trimestre, AsignaturaCodigo;";
 			connection = getConnection();
 			ptmt = connection.prepareStatement(queryString);
-			ptmt.setString(1, code);
+			ptmt.setString(1, programCode);
 			resultSet=ptmt.executeQuery();
 			while(resultSet.next()){ 
-				System.out.println(resultSet.getInt("RequisitosCreditos"));
-				res.add(resultSet.getInt("RequisitosCreditos"));			  
+//				System.out.println(resultSet.getInt("RequisitosCreditos"));
+				listOfAllCreditsRequirements.add(resultSet.getInt("RequisitosCreditos"));			  
 		}
 		}
 		catch (SQLException e) {
@@ -261,22 +268,22 @@ public class PensumDao {
 			}
 
 		}
-		return res;
+		return listOfAllCreditsRequirements;
 		
 	}
 	
-	public int getCreditsRequirements(String code, String subject){
-		int res = 0;
+	public int getCreditsRequirements(String programCode, String subject){
+		int creditsRequirements = 0;
 		try{
 			String queryString = "SELECT RequisitosCreditos FROM Pensum WHERE ProgramaCodigo=? AND AsignaturaCodigo=? ORDER BY Trimestre, AsignaturaCodigo;";
 			connection = getConnection();
 			ptmt = connection.prepareStatement(queryString);
-			ptmt.setString(1, code);
+			ptmt.setString(1, programCode);
 			ptmt.setString(2, subject);
 			resultSet=ptmt.executeQuery();
 			if(resultSet.next()){ 
-				System.out.println(resultSet.getInt("RequisitosCreditos"));
-				res=resultSet.getInt("RequisitosCreditos");			  
+//				System.out.println(resultSet.getInt("RequisitosCreditos"));
+				creditsRequirements=resultSet.getInt("RequisitosCreditos");			  
 		}
 		}
 		catch (SQLException e) {
@@ -296,22 +303,23 @@ public class PensumDao {
 			}
 
 		}
-		return res;
+		return creditsRequirements;
 		
 	}
-	/*Returns all corequisites, according to program, like IDS*/
-	public ArrayList<String> getCoRequisites(String code, String subject){
-		ArrayList<String> res=new ArrayList<String>();
+	
+	public ArrayList<String> getCoRequisites(String programCode, String subject){
+		/*Returns all corequisites, according to program and subject, like IDS*/
+		ArrayList<String> corequisites=new ArrayList<String>();
 		try{
 			String queryString = "SELECT CoRequisito FROM Pensum WHERE ProgramaCodigo=? AND AsignaturaCodigo=? ORDER BY Trimestre, AsignaturaCodigo;";
 			connection = getConnection();
 			ptmt = connection.prepareStatement(queryString);
-			ptmt.setString(1, code);
+			ptmt.setString(1, programCode);
 			ptmt.setString(2, subject);
 			resultSet=ptmt.executeQuery();
 			while(resultSet.next()){ 
-				System.out.println(resultSet.getString("CoRequisito"));
-				res.add(resultSet.getString("CoRequisito"));			  
+//				System.out.println(resultSet.getString("CoRequisito"));
+				corequisites.add(resultSet.getString("CoRequisito"));			  
 		}
 		}
 		catch (SQLException e) {
@@ -331,22 +339,23 @@ public class PensumDao {
 			}
 
 		}
-		return res;
+		return corequisites;
 		
 	}
 	
-	/*Returns all corequisites, according to program, like IDS*/
-	public ArrayList<String> getAllCoRequisites(String code){
-		ArrayList<String> res=new ArrayList<String>();
+	
+	public ArrayList<String> getAllCoRequisites(String programCode){
+		/*Returns all corequisites, according to program, like IDS*/
+		ArrayList<String> allCorequisites=new ArrayList<String>();
 		try{
 			String queryString = "SELECT CoRequisito FROM Pensum WHERE ProgramaCodigo=? ORDER BY Trimestre, AsignaturaCodigo;";
 			connection = getConnection();
 			ptmt = connection.prepareStatement(queryString);
-			ptmt.setString(1, code);
+			ptmt.setString(1, programCode);
 			resultSet=ptmt.executeQuery();
 			while(resultSet.next()){ 
-				System.out.println(resultSet.getString("CoRequisito"));
-				res.add(resultSet.getString("CoRequisito"));			  
+//				System.out.println(resultSet.getString("CoRequisito"));
+				allCorequisites.add(resultSet.getString("CoRequisito"));			  
 		}
 		}
 		catch (SQLException e) {
@@ -366,22 +375,22 @@ public class PensumDao {
 			}
 
 		}
-		return res;
+		return allCorequisites;
 		
 	}
 	
-	/*Returns the Pensum in Courses objects*///TODO, fix the double db call
-	public ArrayList<Course> getCourses(String code, int version){
-		ArrayList<Course> res = new ArrayList<Course>();
-		ArrayList<String> cor=new ArrayList<String>();
-		PrerrequisitoDao pqd=new PrerrequisitoDao();
-		ArrayList<Prerrequisito>pre=pqd.getPreRequisiteByProgram(code, version);
-		AsignaturasDao ad=new AsignaturasDao();
+	
+	public ArrayList<Course> getCourses(String programCode, int version){
+		/*Returns the Pensum in Courses objects*/
+		ArrayList<Course> pensum = new ArrayList<Course>();
+		ArrayList<String> corequisites=new ArrayList<String>();
+		PrerrequisitoDao prereqDao=new PrerrequisitoDao();
+		CoursesDAO asigDao=new CoursesDAO();
 		try{
 			String queryString = "SELECT AsignaturaCodigo, Trimestre, RequisitosCreditos, CoRequisito, Version FROM Pensum WHERE ProgramaCodigo=? AND Version=? ORDER BY Trimestre, AsignaturaCodigo;";
 			connection = getConnection();
 			ptmt = connection.prepareStatement(queryString);
-			ptmt.setString(1, code);
+			ptmt.setString(1, programCode);
 			ptmt.setInt(2, version);
 			resultSet=ptmt.executeQuery();
 			while(resultSet.next()){
@@ -393,18 +402,10 @@ public class PensumDao {
 				course.setId(resultSet.getString("AsignaturaCodigo"));
 				course.setIdealTrimestrer(resultSet.getInt("Trimestre"));
 				course.setCreditsReq(resultSet.getInt("RequisitosCreditos"));
-				cor.add(resultSet.getString("CoRequisito"));
-				course.setCoReqID(cor);
-				String id=course.getId();
-//				for(int i=0;i<pre.size();i++){
-//					 String subj=pre.get(i).getSubject();
-//					  //System.out.println(id +" "+subj);
-//					if(id.equals(subj)){
-//					   course.setPreqID(pre.get(i).getPreReq());
-//					   System.out.println("added");
-//					}
-//				}
-				res.add(course);
+				corequisites.add(resultSet.getString("CoRequisito"));
+				course.setCoReqID(corequisites);
+				course.getId();
+				pensum.add(course);
 				
 		}
 		    
@@ -426,32 +427,31 @@ public class PensumDao {
 			}
 
 		}
-		System.out.println("Descripciones+creds");
-		String wtv=null;
-		int wtv2=0;
-		for(int i=0;i<res.size();i++){
-			res.get(i).setName(ad.getDescription(res.get(i).getId()));
-			wtv=res.get(i).getName();
-			System.out.println(wtv);
-			res.get(i).setCredits(ad.getCredits(res.get(i).getId()));
-			wtv2=res.get(i).getCredits();
-			System.out.println(wtv2);
+//		System.out.println("Descripciones+creds");
+//		String wtv=null;
+//		int wtv2=0;
+		for(int i=0;i<pensum.size();i++){
+			pensum.get(i).setName(asigDao.getDescription(pensum.get(i).getId()));
+//			wtv=pensum.get(i).getName();
+//			System.out.println(wtv);
+			pensum.get(i).setCredits(asigDao.getCredits(pensum.get(i).getId()));
+//			wtv2=pensum.get(i).getCredits();
+//			System.out.println(wtv2);
 		}
-		System.out.println("Prerrequisitos");
-		for(int i=0;i<res.size();i++){
-			res.get(i).setPreqID(pqd.getPreRequisite(code, res.get(i).getId(), version));
-			System.out.println(res.get(i).getPreqID());
+//		System.out.println("Prerrequisitos");
+		for(int i=0;i<pensum.size();i++){
+			pensum.get(i).setPreqID(prereqDao.getPreRequisite(programCode, pensum.get(i).getId(), version));
+//			System.out.println(pensum.get(i).getPreqID());
 		}
-		return res;
+		return pensum;
 		
 		
 	}
 	
-	//For testing, to be deleted
+	
 	public static void main(String [] args){
-		PensumDao psm = new PensumDao();
-		PensumEntity pensum=new PensumEntity();
-		pensum.setProgramaCodigo("IDS");
+		//For testing, to be deleted
+		PensumsDAO psm = new PensumsDAO();
 		//psm.show(pensum);
 		//psm.getVersion("IDS");
 		//psm.getProgramCredits("IDS");

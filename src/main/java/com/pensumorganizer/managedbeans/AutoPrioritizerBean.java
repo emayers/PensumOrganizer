@@ -4,13 +4,12 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
-import com.pensumorganizer.dao.Course;
 import com.pensumorganizer.ejb.AutoPrioritizerEJBImpl;
+import com.pensumorganizer.util.structures.Course;
 
 @ManagedBean
 @SessionScoped
@@ -21,9 +20,8 @@ public class AutoPrioritizerBean implements Serializable {
 	@EJB
 	public static AutoPrioritizerEJBImpl apEJB = new AutoPrioritizerEJBImpl();
 	
-	@PostConstruct
-	private void prepare(){
-		apEJB.organizePensum();
+	public String reorganizePensum(){
+		return apEJB.organizePensum();
 	}
 	
 	public Map<Integer, List<Course>> getPensum() {

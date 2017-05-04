@@ -6,12 +6,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import com.pensumorganizer.connectionfactory.ConnectionFactory;
-import com.pensumorganizer.entities.HistoricoCursadasEntity;
+import com.pensumorganizer.util.ConnectionFactory;
+import com.pensumorganizer.util.structures.Course;
 
 
 
-public class HistoricoCursadasDao {
+public class HistoricDAO {
 	
 	Connection connection = null;
 	PreparedStatement ptmt = null;
@@ -23,8 +23,9 @@ public class HistoricoCursadasDao {
 		return conn;
 	}
 	
-	/*For testing, shows the history of the student in console, maybe some other use might be considered*/
+	
 	public void show(int id){
+		/*For testing, shows the history of the student in console, maybe some other use might be considered*/
 		try{
 			
 			String queryString = "SELECT * FROM HistoricoCursadas WHERE IdEstudiante=?;";
@@ -59,9 +60,10 @@ public class HistoricoCursadasDao {
 		
 	}
 	
-	/*Returns all the years for each subject taken*/
+	
 	public ArrayList<Integer> getYear(int id){
-		ArrayList<Integer> res = new ArrayList<Integer>();
+		/*Returns all the years for each subject taken*/
+		ArrayList<Integer> listOfAllYears = new ArrayList<Integer>();
 		try{
 			String queryString = "SELECT Año FROM HistoricoCursadas WHERE IdEstudiante=? ORDER BY Año, Termino, AsignaturaCodigo;";
 			connection = getConnection();
@@ -69,8 +71,8 @@ public class HistoricoCursadasDao {
 			ptmt.setInt(1, id);
 			resultSet=ptmt.executeQuery();
 			while(resultSet.next()){ 
-				System.out.println(resultSet.getInt("Año"));
-				res.add(resultSet.getInt("Año"));			  
+//				System.out.println(resultSet.getInt("Año"));
+				listOfAllYears.add(resultSet.getInt("Año"));			  
 		}
 		}
 		catch (SQLException e) {
@@ -90,16 +92,17 @@ public class HistoricoCursadasDao {
 			}
 
 		}
-		return res;
+		return listOfAllYears;
 		
 	}
-	/*Returns all the terms for each subject taken, remembering that:
-	 * 1 stands for AGOSTO-OCTUBRE
-	 * 2 stands for FEBRERO-ABRIL
-	 * 3 stands for MARZO-ABRIL
-	 * 4 stands for MAYO-JULIO*/
+	
 	public ArrayList<Integer> getTerm(int id){
-		ArrayList<Integer> res = new ArrayList<Integer>();
+		/*Returns all the terms for each subject taken, remembering that:
+		 * 1 stands for AGOSTO-OCTUBRE
+		 * 2 stands for FEBRERO-ABRIL
+		 * 3 stands for MARZO-ABRIL
+		 * 4 stands for MAYO-JULIO*/
+		ArrayList<Integer> listOfAllTerms = new ArrayList<Integer>();
 		try{
 			String queryString = "SELECT Termino FROM HistoricoCursadas WHERE IdEstudiante=? ORDER BY Año, Termino, AsignaturaCodigo;";
 			connection = getConnection();
@@ -107,8 +110,8 @@ public class HistoricoCursadasDao {
 			ptmt.setInt(1, id);
 			resultSet=ptmt.executeQuery();
 			while(resultSet.next()){ 
-				System.out.println(resultSet.getInt("Termino"));
-				res.add(resultSet.getInt("Termino"));			  
+//				System.out.println(resultSet.getInt("Termino"));
+				listOfAllTerms.add(resultSet.getInt("Termino"));			  
 		}
 		}
 		catch (SQLException e) {
@@ -128,13 +131,14 @@ public class HistoricoCursadasDao {
 			}
 
 		}
-		return res;
+		return listOfAllTerms;
 		
 	}
 	
-	/*Returns all codes of all subjects taken*/
-	public ArrayList<String> getCourseCode(int id){
-		ArrayList<String> res = new ArrayList<String>();
+
+	public ArrayList<String> getAllCoursesCodes(int id){
+		/*Returns all codes of all subjects taken*/
+		ArrayList<String> listOfAllCoursesCodes = new ArrayList<String>();
 		try{
 			String queryString = "SELECT AsignaturaCodigo FROM HistoricoCursadas WHERE IdEstudiante=? ORDER BY Año, Termino, AsignaturaCodigo;";
 			connection = getConnection();
@@ -142,8 +146,8 @@ public class HistoricoCursadasDao {
 			ptmt.setInt(1, id);
 			resultSet=ptmt.executeQuery();
 			while(resultSet.next()){ 
-				System.out.println(resultSet.getString("AsignaturaCodigo"));
-				res.add(resultSet.getString("AsignaturaCodigo"));			  
+//				System.out.println(resultSet.getString("AsignaturaCodigo"));
+				listOfAllCoursesCodes.add(resultSet.getString("AsignaturaCodigo"));			  
 		}
 		}
 		catch (SQLException e) {
@@ -163,13 +167,14 @@ public class HistoricoCursadasDao {
 			}
 
 		}
-		return res;
+		return listOfAllCoursesCodes;
 		
 	}
 	
-	/*Returns all numbers of sections, maybe not needed now*/
-	public ArrayList<Integer> getSection(int id){
-		ArrayList<Integer> res = new ArrayList<Integer>();
+	
+	public ArrayList<Integer> getAllSections(int id){
+		/*Returns all numbers of sections, maybe not needed now*/
+		ArrayList<Integer> listOfAllSections = new ArrayList<Integer>();
 		try{
 			String queryString = "SELECT Seccion FROM HistoricoCursadas WHERE IdEstudiante=? ORDER BY Año, Termino, AsignaturaCodigo;";
 			connection = getConnection();
@@ -177,8 +182,8 @@ public class HistoricoCursadasDao {
 			ptmt.setInt(1, id);
 			resultSet=ptmt.executeQuery();
 			while(resultSet.next()){ 
-				System.out.println(resultSet.getInt("Seccion"));
-				res.add(resultSet.getInt("Seccion"));			  
+//				System.out.println(resultSet.getInt("Seccion"));
+				listOfAllSections.add(resultSet.getInt("Seccion"));			  
 		}
 		}
 		catch (SQLException e) {
@@ -198,13 +203,14 @@ public class HistoricoCursadasDao {
 			}
 
 		}
-		return res;
+		return listOfAllSections;
 		
 	}
 	
-	/*Returns all grades of all subjects (letter only)*/
+	
 	public ArrayList<String> getGrade(int id){
-		ArrayList<String> res = new ArrayList<String>();
+		/*Returns all grades of all subjects (letter only)*/
+		ArrayList<String> listOfAllGrades = new ArrayList<String>();
 		try{
 			String queryString = "SELECT CalificacionCodigo FROM HistoricoCursadas WHERE IdEstudiante=? ORDER BY Año, Termino, AsignaturaCodigo;";
 			connection = getConnection();
@@ -212,8 +218,8 @@ public class HistoricoCursadasDao {
 			ptmt.setInt(1, id);
 			resultSet=ptmt.executeQuery();
 			while(resultSet.next()){ 
-				System.out.println(resultSet.getString("CalificacionCodigo"));
-				res.add(resultSet.getString("CalificacionCodigo"));			  
+//				System.out.println(resultSet.getString("CalificacionCodigo"));
+				listOfAllGrades.add(resultSet.getString("CalificacionCodigo"));			  
 		}
 		}
 		catch (SQLException e) {
@@ -233,13 +239,14 @@ public class HistoricoCursadasDao {
 			}
 
 		}
-		return res;
+		return listOfAllGrades;
 		
 	}
 	
-	/*Returns if Theoretic or laboratory*/
-	public ArrayList<String> getSectionType(int id){
-		ArrayList<String> res = new ArrayList<String>();
+	
+	public ArrayList<String> getAllSectionTypes(int id){
+		/*Returns if Theoretic or laboratory, maybe not needed*/
+		ArrayList<String> listOfAllSectionTypes = new ArrayList<String>();
 		try{
 			String queryString = "SELECT TipoSeccion FROM HistoricoCursadas WHERE IdEstudiante=? ORDER BY Año, Termino, AsignaturaCodigo;";
 			connection = getConnection();
@@ -247,8 +254,8 @@ public class HistoricoCursadasDao {
 			ptmt.setInt(1, id);
 			resultSet=ptmt.executeQuery();
 			while(resultSet.next()){ 
-				System.out.println(resultSet.getString("TipoSeccion"));
-				res.add(resultSet.getString("TipoSeccion"));			  
+//				System.out.println(resultSet.getString("TipoSeccion"));
+				listOfAllSectionTypes.add(resultSet.getString("TipoSeccion"));			  
 		}
 		}
 		catch (SQLException e) {
@@ -268,19 +275,19 @@ public class HistoricoCursadasDao {
 			}
 
 		}
-		return res;
+		return listOfAllSectionTypes;
 		
 	}
 	
 	/*Add method that returns an array of History objects, similar to the Courses structure*/
 	public ArrayList<Course> getHistory(int id){
 		ArrayList<Course> history= new ArrayList<Course>();
-		EstudianteProgramaDao est=new EstudianteProgramaDao();
-		String program= est.getProgramCode(id);
-		int version=est.getVersion(id);
-		PensumDao psm=new PensumDao();
-		AsignaturasDao ad=new AsignaturasDao();
-		PrerrequisitoDao pqd=new PrerrequisitoDao();
+		StudentsDAO student=new StudentsDAO();
+		String program= student.getProgramCode(id);
+		int version=student.getProgramVersion(id);
+		PensumsDAO pensum=new PensumsDAO();
+		CoursesDAO asigDao=new CoursesDAO();
+		PrerrequisitoDao prereqDao=new PrerrequisitoDao();
 		try{
 			
 			String queryString = "SELECT * FROM HistoricoCursadas WHERE IdEstudiante=?;";
@@ -289,15 +296,15 @@ public class HistoricoCursadasDao {
 			ptmt.setInt(1, id);
 			resultSet=ptmt.executeQuery();
 			while(resultSet.next()){ 
-				Course hist= new Course();
-				System.out.println(resultSet.getInt("Año") + " "+resultSet.getInt("Termino") + " "+resultSet.getInt("IdEstudiante") +" "+ 
-						resultSet.getString("AsignaturaCodigo") +" " +resultSet.getInt("Seccion") + " " +resultSet.getString("CalificacionCodigo") +
-						" "+resultSet.getString("TipoSeccion"));
-				hist.setHistYear(resultSet.getInt("Año"));
-				hist.setTerm(resultSet.getInt("Termino"));
-				hist.setId(resultSet.getString("AsignaturaCodigo"));
-				hist.setGrade(resultSet.getString("CalificacionCodigo"));
-				history.add(hist);
+				Course takenCourse= new Course();
+//				System.out.println(resultSet.getInt("Año") + " "+resultSet.getInt("Termino") + " "+resultSet.getInt("IdEstudiante") +" "+ 
+//						resultSet.getString("AsignaturaCodigo") +" " +resultSet.getInt("Seccion") + " " +resultSet.getString("CalificacionCodigo") +
+//						" "+resultSet.getString("TipoSeccion"));
+				takenCourse.setHistYear(resultSet.getInt("Año"));
+				takenCourse.setTerm(resultSet.getInt("Termino"));
+				takenCourse.setId(resultSet.getString("AsignaturaCodigo"));
+				takenCourse.setGrade(resultSet.getString("CalificacionCodigo"));
+				history.add(takenCourse);
 			  
 		}
 			
@@ -319,35 +326,36 @@ public class HistoricoCursadasDao {
 			}
 
 		}
-		System.out.println("Descripciones+creds");
-		String wtv=null;
-		int wtv2=0;
+		//System.out.println("Descripciones+creds");
+		//String wtv=null;
+		//int wtv2=0;
 		for(int i=0;i<history.size();i++){
-			history.get(i).setName(ad.getDescription(history.get(i).getId()));
-			wtv=history.get(i).getName();
-			System.out.println(wtv);
-			history.get(i).setCredits(ad.getCredits(history.get(i).getId()));
-			wtv2=history.get(i).getCredits();
-			System.out.println(wtv2);
+			history.get(i).setName(asigDao.getDescription(history.get(i).getId()));
+			//wtv=history.get(i).getName();
+			//System.out.println(wtv);
+			history.get(i).setCredits(asigDao.getCredits(history.get(i).getId()));
+			//wtv2=history.get(i).getCredits();
+			//System.out.println(wtv2);
 		}
-		System.out.println("Prerrequisitos");
+		//System.out.println("Prerrequisitos");
 		for(int i=0;i<history.size();i++){
-			history.get(i).setPreqID(pqd.getPreRequisite(program, history.get(i).getId(), version));
-			System.out.println(history.get(i).getPreqID());
+			history.get(i).setPreqID(prereqDao.getPreRequisite(program, history.get(i).getId(), version));
+			//System.out.println(history.get(i).getPreqID());
 		}
 		
-		System.out.println("Corequisitos");
+		//System.out.println("Corequisitos");
 		for(int i=0;i<history.size();i++){
-			history.get(i).setCoReqID(psm.getCoRequisites(program, history.get(i).getId()));
-			System.out.println(history.get(i).getCoReqID());
+			history.get(i).setCoReqID(pensum.getCoRequisites(program, history.get(i).getId()));
+			//System.out.println(history.get(i).getCoReqID());
 		}
 		return history;
 		
 	}
 	
-	/*For testing, to be deleted*/
+	
 	public static void main(String [] args){
-		HistoricoCursadasDao hist=new HistoricoCursadasDao();
+		/*For testing, to be deleted*/
+		HistoricDAO hist=new HistoricDAO();
 		//HistoricoCursadasEntity std= new HistoricoCursadasEntity();
 		//std.setIdEstudiante(1058691);
 		//hist.getYear(1058691);
