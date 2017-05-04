@@ -56,8 +56,13 @@ public class AutoPrioritizerEJBImpl implements AutoPrioritizerEJBInterface {
 			int creditsWeight = currentCourse.getCredits();
 			int chainWeight = getChainWeight(currentCourse, coursesToTake);
 			
-			currentCourse.setWeight(trimesterWeight + creditsWeight + chainWeight);
+			if(!currentCourse.getId().equals("PRO3")){
+				currentCourse.setWeight( Math.abs(trimesterWeight + creditsWeight + chainWeight));
+			}else{
+				currentCourse.setWeight(Math.abs(trimesterWeight + creditsWeight + chainWeight)*7);
+			}
 			prioritizedCourses.add(currentCourse);
+
 		}
 		
 		return prioritizedCourses;
@@ -114,8 +119,12 @@ public class AutoPrioritizerEJBImpl implements AutoPrioritizerEJBInterface {
 			currentCourse = temporalQueue.remove();
 			
 			if(currentCourse.isPreqTaken()){
+				
 				if((creditCount + currentCourse.getCredits()) <= 
 						MAX_CREDITS_PER_TRIMESTER){
+					break;
+				}
+				else if(prioritizedCourses.size()<2 && currentCourse.getCredits()<5){
 					break;
 				}
 			}
