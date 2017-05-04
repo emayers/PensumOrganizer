@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.ejb.Stateless;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 
 import com.pensumorganizer.ejb.interfaces.AuthenticationEJBInterface;
 
@@ -26,19 +28,12 @@ public class AuthenticationEJBImpl implements AuthenticationEJBInterface {
     	validUserNames.put(1045782, 444444);
     	validUserNames.put(1058691, 555555);
     	
-//    	if(!(validUserNames.contains(userName) && 
-//    			studentsProgram.getPassword(userName).equals(password))){
-//    		outPut = "Error";
-//    	}
-//    	else{
-//    		outPut = "VistaDashboard";
-//    	}
-    	
     	if(!(validUserNames.containsKey(userName) && 
     			validUserNames.get(userName).equals(password))){
-    		outPut = "Error";
+    		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ID o Contraseña incorecta, intente de nuevo", ""));
     	}
     	else{
+    		System.out.println("hey!");
     		outPut = "VistaDashboard";
     	}
     	
