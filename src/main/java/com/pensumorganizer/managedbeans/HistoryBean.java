@@ -19,7 +19,7 @@ public class HistoryBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@EJB
-	HistoryEJBImpl hEJB = new HistoryEJBImpl();
+	public static HistoryEJBImpl hEJB = new HistoryEJBImpl();
 	
 	@PostConstruct
 	private void prepare(){

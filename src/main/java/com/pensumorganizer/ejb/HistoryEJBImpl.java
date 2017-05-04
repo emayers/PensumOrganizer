@@ -26,7 +26,7 @@ public class HistoryEJBImpl implements HistoryEJBInterface{
 	}
 	
 	public void recreateHistory(){
-		List<Course> takenCourses = getTakenCoursesList();
+		List<Course> takenCourses = getTakenCourses();
 		//TODO CHECK
 		for (Course course : takenCourses) {
 			int courseTrimester = course.getTrimesterTaken() - 1;
@@ -44,19 +44,13 @@ public class HistoryEJBImpl implements HistoryEJBInterface{
 	}
 
 
-	private static List<Course> getTakenCoursesList() {
-//		List<Course> coursesProgram = TrialDataSetter.getCoursesProgram(),
-//					 takenCourses = new ArrayList<Course>();
-//		
-//		for (Course courses : coursesProgram) {
-//			if (courses.isTaken()) {
-//				takenCourses.add(courses);
-//			}
-//		}
-//		
-//		return takenCourses;
-		
+	private static List<Course> getTakenCourses() {
 		return studentHistory.getHistory(studentId);
+	}
+	
+	public List<Course> getApprovedCourses(){
+		//TODO
+		return new ArrayList<Course>();
 	}
 
 }

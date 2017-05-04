@@ -47,26 +47,6 @@ public class AutoPrioritizerEJBImpl implements AutoPrioritizerEJBInterface {
 	}
 	
 	private static PriorityQueue<Course> prioritizeCourses(){
-//		PriorityQueue<Course> coursesToTake = 
-//				new PriorityQueue<Course>(new CourseComparator());
-//		
-//		Course currentCourse;
-//
-//		for (int index = coursesProgram.size() - 1; index > 0; index--) {
-//			currentCourse = coursesProgram.get(index);
-//			
-//			if(!currentCourse.isTaken()){
-//				int trimesterWeight = getTrimesterWeight(currentCourse);
-//				int creditsWeight = currentCourse.getCredits();
-//				int chainWeight = getChainWeight(currentCourse, coursesProgram);
-//				
-//				currentCourse.setWeight(trimesterWeight + creditsWeight + chainWeight);
-//				coursesToTake.add(currentCourse);
-//			}
-//		}
-//		
-//		return coursesToTake;
-		
 		PriorityQueue<Course> prioritizedCourses = 
 				new PriorityQueue<Course>(new CourseComparator());
 		List<Course> coursesToTake = notTakenCourses.getSubjectsToTake(studentId);
@@ -84,8 +64,7 @@ public class AutoPrioritizerEJBImpl implements AutoPrioritizerEJBInterface {
 	}
 	
 	private static Map<Integer, List<Course>> reorganizePensum(PriorityQueue<Course> prioritizedCourses){
-		Map<Integer, List<Course>> trimesters = 
-				new LinkedHashMap<Integer, List<Course>>();
+		Map<Integer, List<Course>> trimesters = new LinkedHashMap<Integer, List<Course>>();
 		List<Course> currentTrimester = new ArrayList<Course>();
 		
 		int trimesterCount = 0;
