@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.pensumorganizer.util.ConnectionFactory;
 import com.pensumorganizer.util.structures.Course;
@@ -280,23 +281,27 @@ public class HistoricDAO {
 	}
 	
 	/*Add method that returns an array of History objects, similar to the Courses structure*/
-	public ArrayList<Course> getHistory(int id){
+	public ArrayList<Course> getHistory(int studentId){
 		ArrayList<Course> history= new ArrayList<Course>();
 		StudentsDAO student=new StudentsDAO();
-		String program= student.getProgramCode(id);
-		int version=student.getProgramVersion(id);
+		String program= student.getProgramCode(studentId);
 		PensumsDAO pensum=new PensumsDAO();
 		CoursesDAO asigDao=new CoursesDAO();
 		PrerrequisitoDao prereqDao=new PrerrequisitoDao();
+		int trimester=1, admYear=student.getAdmissionYear(studentId), admTerm=student.getAdmissionTerm(studentId);
 		try{
 			
-			String queryString = "SELECT * FROM HistoricoCursadas WHERE IdEstudiante=?;";
+			String queryString = "SELECT * FROM HistoricoCursadas WHERE IdEstudiante=? ORDER BY Año, Termino;";
 			connection = getConnection();
 			ptmt = connection.prepareStatement(queryString);
-			ptmt.setInt(1, id);
+			ptmt.setInt(1, studentId);
 			resultSet=ptmt.executeQuery();
 			while(resultSet.next()){ 
-				
+				if(resultSet.getInt("Año")!=admYear || resultSet.getInt("Termino")!=admTerm){
+					admYear=resultSet.getInt("Año");
+					admTerm=resultSet.getInt("Termino");
+					trimester++;
+				}
 				Course takenCourse= new Course();
 //				System.out.println(resultSet.getInt("Año") + " "+resultSet.getInt("Termino") + " "+resultSet.getInt("IdEstudiante") +" "+ 
 //						resultSet.getString("AsignaturaCodigo") +" " +resultSet.getInt("Seccion") + " " +resultSet.getString("CalificacionCodigo") +
@@ -305,6 +310,7 @@ public class HistoricDAO {
 				takenCourse.setTerm(resultSet.getInt("Termino"));
 				takenCourse.setId(resultSet.getString("AsignaturaCodigo"));
 				takenCourse.setGrade(resultSet.getString("CalificacionCodigo"));
+				takenCourse.setTrimesterTaken(trimester);
 				history.add(takenCourse);
 			  
 		}
@@ -340,7 +346,7 @@ public class HistoricDAO {
 		}
 		//System.out.println("Prerrequisitos");
 		for(int i=0;i<history.size();i++){
-			history.get(i).setPreqID(prereqDao.getPreRequisite(program, history.get(i).getId(), version));
+			history.get(i).setPreqID(prereqDao.getPreRequisite(program, history.get(i).getId()));
 			//System.out.println(history.get(i).getPreqID());
 		}
 		
@@ -353,6 +359,103 @@ public class HistoricDAO {
 		
 	}
 	
+	public boolean isApproved(int studentId, String courseCode){
+		boolean isApproved=false;
+		try{
+			String queryString = "SELECT * FROM HistoricoCursadas WHERE IdEstudiante=? AND AsignaturaCodigo=?;";
+			connection = getConnection();
+			ptmt = connection.prepareStatement(queryString);
+			ptmt.setInt(1, studentId);
+			ptmt.setString(2, courseCode);
+			resultSet=ptmt.executeQuery();
+			if(resultSet.next()){ 
+//				System.out.println(resultSet.getString("TipoSeccion"));
+				if(resultSet.getString("Aprobado").equals('T')){
+					isApproved= true;
+				}					  
+		}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (ptmt != null)
+					ptmt.close();
+				if (connection != null)
+					connection.close();
+				if (resultSet != null)
+					resultSet.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		}
+		return isApproved;
+	}
+	
+	public List<Course> getApprovedCourses(int studentId){
+		List<Course>approvedCourses=new ArrayList<Course>();
+		CoursesDAO asigDao=new CoursesDAO();
+		PrerrequisitoDao prereq=new PrerrequisitoDao();
+		StudentsDAO student=new StudentsDAO();
+		PensumsDAO pensum=new PensumsDAO();
+		try{
+			String queryString = "SELECT * FROM HistoricoCursadas WHERE IdEstudiante=?;";
+			connection = getConnection();
+			ptmt = connection.prepareStatement(queryString);
+			ptmt.setInt(1, studentId);
+			resultSet=ptmt.executeQuery();
+			while(resultSet.next()){ 
+				Course takenCourse=new Course();
+//				System.out.println(resultSet.getString("TipoSeccion"));
+				if(resultSet.getString("Aprobado").equals('T')){
+					takenCourse.setHistYear(resultSet.getInt("Año"));
+					takenCourse.setTerm(resultSet.getInt("Termino"));
+					takenCourse.setId(resultSet.getString("AsignaturaCodigo"));
+					takenCourse.setGrade(resultSet.getString("CalificacionCodigo"));
+				}					  
+		}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (ptmt != null)
+					ptmt.close();
+				if (connection != null)
+					connection.close();
+				if (resultSet != null)
+					resultSet.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		}
+		for(int i=0;i<approvedCourses.size();i++){
+			approvedCourses.get(i).setName(asigDao.getDescription(approvedCourses.get(i).getId()));
+			//wtv=history.get(i).getName();
+			//System.out.println(wtv);
+			approvedCourses.get(i).setCredits(asigDao.getCredits(approvedCourses.get(i).getId()));
+			//wtv2=history.get(i).getCredits();
+			//System.out.println(wtv2);
+		}
+		//System.out.println("Prerrequisitos");
+		for(int i=0;i<approvedCourses.size();i++){
+			approvedCourses.get(i).setPreqID(prereq.getPreRequisite(student.getProgramCode(studentId), approvedCourses.get(i).getId()));
+			//System.out.println(history.get(i).getPreqID());
+		}
+		
+		//System.out.println("Corequisitos");
+		for(int i=0;i<approvedCourses.size();i++){
+			approvedCourses.get(i).setCoReqID(pensum.getCoRequisites(student.getProgramCode(studentId), approvedCourses.get(i).getId()));
+			//System.out.println(history.get(i).getCoReqID());
+		}
+		return approvedCourses;
+	}
 	
 	public static void main(String [] args){
 		/*For testing, to be deleted*/

@@ -21,7 +21,15 @@ public class Course {
 	}
 
 	private List<String> preqID, coReqID;
-	private boolean preqTaken, taken, coReqTaken, creditsReqReached;
+	private boolean preqTaken, taken, coReqTaken, creditsReqReached, approved;
+	public boolean isApproved() {
+		return approved;
+	}
+
+	public void setApproved(boolean approved) {
+		this.approved = approved;
+	}
+
 	private int creditsReq, credits, idealTrimestrer, weight, term, reorganizationTrimester, yearTaken;
 	private Integer trimesterTaken;
 	

@@ -53,15 +53,14 @@ public class ProgramsDAO {
 	}
 	
 	
-	public int getTotalTrimesters(String programCode, int version){
+	public int getTotalTrimesters(String programCode){
 		/*Returns the total trimesters of the program, for example, IDS-2010 has 14 trimesters*/
 		int totalTrimesters=0;
 		try{
-			String queryString = "SELECT TotalTrimestres FROM Programas WHERE ProgramaCodigo=? AND Version=?;";
+			String queryString = "SELECT TotalTrimestres FROM Programas WHERE ProgramaCodigo=?;";
 			connection = getConnection();
 			ptmt = connection.prepareStatement(queryString);
 			ptmt.setString(1, programCode);
-			ptmt.setInt(2, version);
 			resultSet=ptmt.executeQuery();
 			if(resultSet.next()){ 
 //				System.out.println(resultSet.getInt("TotalTrimestres"));
@@ -88,14 +87,13 @@ public class ProgramsDAO {
 		return totalTrimesters;
 	}
 	
-	public int getProgramCredits(String programCode, int version){
+	public int getProgramCredits(String programCode){
 		int programCredits=0;
 		try{
-			String queryString = "SELECT CreditosPrograma FROM Programas WHERE ProgramaCodigo=? AND Version=?;";
+			String queryString = "SELECT CreditosPrograma FROM Programas WHERE ProgramaCodigo=?;";
 			connection = getConnection();
 			ptmt = connection.prepareStatement(queryString);
 			ptmt.setString(1, programCode);
-			ptmt.setInt(2, version);
 			resultSet=ptmt.executeQuery();
 			if(resultSet.next()){ 
 //				System.out.println(resultSet.getInt("TotalTrimestres"));
@@ -123,15 +121,7 @@ public class ProgramsDAO {
 		
 	}
 	
-	public int getVersion(){
-		return 0;
-		//check
-	}
 	
-	public String getProgramCode(){
-		return null;
-		//check
-	}
 	
 
 	

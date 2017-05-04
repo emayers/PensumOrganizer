@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.pensumorganizer.util.ConnectionFactory;
@@ -92,9 +93,16 @@ public class CoursesDAO {
 		
 	}
 	
-	public List<String> getCorequisites(){
-		return null;
-		//check
+	/**Returns the corequisites of a given subject
+	 * Parameters: programCode:'IDS-2010'
+	 *             courseCode: 'CSG201'
+	 * Returns an ArrayList of strings            */
+	public List<String> getCorequisites(String programCode, String courseCode){
+		List<String>coRequisites=new ArrayList<String>();
+		PensumsDAO psmDao=new PensumsDAO();
+		coRequisites=psmDao.getCoRequisites(programCode, courseCode);
+		return coRequisites;
+		
 		
 	}
 
