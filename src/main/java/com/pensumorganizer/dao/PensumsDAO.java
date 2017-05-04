@@ -6,10 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import com.pensumorganizer.connectionfactory.ConnectionFactory;
-import com.pensumorganizer.entities.PensumEntity;
+import com.pensumorganizer.util.ConnectionFactory;
+import com.pensumorganizer.util.structures.Course;
 
-public class PensumDao {
+public class PensumsDAO {
 	
 	Connection connection = null;
 	PreparedStatement ptmt = null;
@@ -201,7 +201,7 @@ public class PensumDao {
 	}
 	
 	
-	public ArrayList<String> getCourseCode(String programCode){
+	public ArrayList<String> getCoursesCodes(String programCode){
 		/*Returns all courses codes*/
 		ArrayList<String> listOfAllCourseCodes = new ArrayList<String>();
 		try{
@@ -385,8 +385,7 @@ public class PensumDao {
 		ArrayList<Course> pensum = new ArrayList<Course>();
 		ArrayList<String> corequisites=new ArrayList<String>();
 		PrerrequisitoDao prereqDao=new PrerrequisitoDao();
-		ArrayList<Prerrequisito>prerequisiteList=prereqDao.getAllPreRequisitesByProgram(programCode, version);
-		AsignaturasDao asigDao=new AsignaturasDao();
+		CoursesDAO asigDao=new CoursesDAO();
 		try{
 			String queryString = "SELECT AsignaturaCodigo, Trimestre, RequisitosCreditos, CoRequisito, Version FROM Pensum WHERE ProgramaCodigo=? AND Version=? ORDER BY Trimestre, AsignaturaCodigo;";
 			connection = getConnection();
@@ -405,7 +404,7 @@ public class PensumDao {
 				course.setCreditsReq(resultSet.getInt("RequisitosCreditos"));
 				corequisites.add(resultSet.getString("CoRequisito"));
 				course.setCoReqID(corequisites);
-				String id=course.getId();
+				course.getId();
 				pensum.add(course);
 				
 		}
@@ -452,7 +451,7 @@ public class PensumDao {
 	
 	public static void main(String [] args){
 		//For testing, to be deleted
-		PensumDao psm = new PensumDao();
+		PensumsDAO psm = new PensumsDAO();
 		//psm.show(pensum);
 		//psm.getVersion("IDS");
 		//psm.getProgramCredits("IDS");

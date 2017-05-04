@@ -1,18 +1,13 @@
 package com.pensumorganizer.dao;
 
-import java.sql.SQLException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.ArrayList;
+import java.sql.SQLException;
 
-import com.pensumorganizer.entities.*;
+import com.pensumorganizer.util.ConnectionFactory;
 
-import com.pensumorganizer.connectionfactory.*;
-
-public class AsignaturasDao {
+public class CoursesDAO {
 	
 	Connection connection = null;
 	PreparedStatement ptmt = null;
@@ -100,7 +95,7 @@ public class AsignaturasDao {
 	public static void main(String[] args) {
 		/*For testing, to be deleted*/
 		// TODO Auto-generated method stub
-		AsignaturasDao ad=new AsignaturasDao();
+		CoursesDAO ad=new CoursesDAO();
 		ad.getDescription("IDS316");
 		ad.getCredits("IDS316");
 

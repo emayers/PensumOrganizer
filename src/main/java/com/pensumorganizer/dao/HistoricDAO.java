@@ -6,12 +6,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import com.pensumorganizer.connectionfactory.ConnectionFactory;
-import com.pensumorganizer.entities.HistoricoCursadasEntity;
+import com.pensumorganizer.util.ConnectionFactory;
+import com.pensumorganizer.util.structures.Course;
 
 
 
-public class HistoricoCursadasDao {
+public class HistoricDAO {
 	
 	Connection connection = null;
 	PreparedStatement ptmt = null;
@@ -282,11 +282,11 @@ public class HistoricoCursadasDao {
 	/*Add method that returns an array of History objects, similar to the Courses structure*/
 	public ArrayList<Course> getHistory(int id){
 		ArrayList<Course> history= new ArrayList<Course>();
-		EstudianteProgramaDao student=new EstudianteProgramaDao();
+		StudentsDAO student=new StudentsDAO();
 		String program= student.getProgramCode(id);
-		int version=student.getVersion(id);
-		PensumDao pensum=new PensumDao();
-		AsignaturasDao asigDao=new AsignaturasDao();
+		int version=student.getProgramVersion(id);
+		PensumsDAO pensum=new PensumsDAO();
+		CoursesDAO asigDao=new CoursesDAO();
 		PrerrequisitoDao prereqDao=new PrerrequisitoDao();
 		try{
 			
@@ -355,7 +355,7 @@ public class HistoricoCursadasDao {
 	
 	public static void main(String [] args){
 		/*For testing, to be deleted*/
-		HistoricoCursadasDao hist=new HistoricoCursadasDao();
+		HistoricDAO hist=new HistoricDAO();
 		//HistoricoCursadasEntity std= new HistoricoCursadasEntity();
 		//std.setIdEstudiante(1058691);
 		//hist.getYear(1058691);

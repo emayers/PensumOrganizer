@@ -5,9 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.pensumorganizer.connectionfactory.ConnectionFactory;
+import com.pensumorganizer.util.ConnectionFactory;
 
-public class TrimestresDao {
+public class ScoresDAO {
 	Connection connection = null;
 	PreparedStatement ptmt = null;
 	ResultSet resultSet = null;
@@ -19,20 +19,20 @@ public class TrimestresDao {
 	}
 	
 	
-	
-	public String getDescription(int year, int term){
-		/*Returns the description of the trimester, example: AGOSTO-OCTUBRE 2013, includes the year*/
-		String description=null;
-		try{
-			String queryString = "SELECT Descripcion FROM Trimestres WHERE (Año=? AND Termino=?);";
+	public double getPoints(String gradeCode){
+		/*Returns the points associated with the letter, for example, A returns 4.00*/
+		double points=0;
+        try{
+			
+			String queryString = "SELECT Puntos FROM Calificaciones WHERE CalificacionCodigo=?;";
 			connection = getConnection();
 			ptmt = connection.prepareStatement(queryString);
-			ptmt.setInt(1, year);
-			ptmt.setInt(2, term);
+			ptmt.setString(1, gradeCode);
 			resultSet=ptmt.executeQuery();
 			if(resultSet.next()){ 
-//				System.out.println(resultSet.getString("Descripcion"));
-				description=resultSet.getString("Descripcion");			  
+//				System.out.println(resultSet.getDouble("Puntos"));
+				points=resultSet.getDouble("Puntos");
+			  
 		}
 		}
 		catch (SQLException e) {
@@ -52,16 +52,17 @@ public class TrimestresDao {
 			}
 
 		}
-		return description;
+        return points;
+		
 	}
-	
-	
-	
 
+	
 	public static void main(String[] args) {
 		/*For testing, to be deleted*/
 		// TODO Auto-generated method stub
-		TrimestresDao trm=new TrimestresDao();
-		trm.getDescription(2013, 3);
+		ScoresDAO cd=new ScoresDAO();
+		cd.getPoints("A");
+
 	}
+
 }

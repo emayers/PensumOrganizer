@@ -1,10 +1,10 @@
-package com.pensumorganizer.dao;
+package com.pensumorganizer.util.structures;
 
 import java.util.ArrayList;
 
 public class Prerrequisito {
 	String subject; 
-	ArrayList<String> preReq=new ArrayList<String>();
+	public ArrayList<String> preReq=new ArrayList<String>();
 
 	public String getSubject() {
 		return subject;

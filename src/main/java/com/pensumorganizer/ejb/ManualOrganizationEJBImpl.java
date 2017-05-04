@@ -8,9 +8,9 @@ import java.util.Map;
 
 import javax.ejb.Singleton;
 
-import com.pensumorganizer.dao.Course;
 import com.pensumorganizer.ejb.interfaces.ManualOrganizationEJBInterface;
 import com.pensumorganizer.managedbeans.AutoPrioritizerBean;
+import com.pensumorganizer.util.structures.Course;
 
 @Singleton
 public class ManualOrganizationEJBImpl implements ManualOrganizationEJBInterface {

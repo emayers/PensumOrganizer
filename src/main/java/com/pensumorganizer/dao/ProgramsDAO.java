@@ -1,14 +1,12 @@
 package com.pensumorganizer.dao;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
-import com.pensumorganizer.connectionfactory.ConnectionFactory;
+import com.pensumorganizer.util.ConnectionFactory;
 
-public class ElectivasDao {
+public class ProgramsDAO {
 	Connection connection = null;
 	PreparedStatement ptmt = null;
 	ResultSet resultSet = null;
@@ -20,22 +18,19 @@ public class ElectivasDao {
 	}
 	
 	
-	
-	public ArrayList<String> getAllElectives(String programCode, String subjectCode){
-		/*returns all possible electives according to general code, for example, all electives for SH1X1 (Socio-Historica)*/
-		ArrayList<String> listOfAllElectives=new ArrayList<String>();
+	public String getProgramName(String programCode){
+		/*Returns the program description, example: INGENIERIA DE SOFTWARE*/
+		String description=null;
 		try{
-			String queryString = "SELECT Electiva FROM Electivas WHERE ProgramaCodigo=? AND AsignaturaCodigo=?;";
+			String queryString = "SELECT Descripcion FROM Programas WHERE ProgramaCodigo=?;";
 			connection = getConnection();
 			ptmt = connection.prepareStatement(queryString);
 			ptmt.setString(1, programCode);
-			ptmt.setString(2, subjectCode);
 			resultSet=ptmt.executeQuery();
-			while(resultSet.next()){
-//				System.out.println(resultSet.getString("Electiva"));
-				listOfAllElectives.add(resultSet.getString("Electiva"));
+			if(resultSet.next()){ 
+//				System.out.println(resultSet.getString("Descripcion"));
+				description=resultSet.getString("Descripcion");			  
 		}
-		    
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
@@ -54,28 +49,23 @@ public class ElectivasDao {
 			}
 
 		}
-		return listOfAllElectives;
+		return description;
 	}
 	
 	
-	public boolean isElective(String programCode, String generalSubjectCode, String subjectCode){
-		/*Returns true if the subject is an elective, false if it isn't*/
-		boolean isElective=false;
+	public int getTotalTrimesters(String programCode){
+		/*Returns the total trimesters of the program, for example, IDS-2010 has 14 trimesters*/
+		int totalTrimesters=0;
 		try{
-			String queryString = "SELECT Electiva FROM Electivas WHERE ProgramaCodigo=? AND AsignaturaCodigo=? AND Electiva=?;";
+			String queryString = "SELECT TotalTrimestres FROM Programas WHERE ProgramaCodigo=?;";
 			connection = getConnection();
 			ptmt = connection.prepareStatement(queryString);
 			ptmt.setString(1, programCode);
-			ptmt.setString(2, generalSubjectCode);
-			ptmt.setString(3, subjectCode);
 			resultSet=ptmt.executeQuery();
-			if(resultSet.next()){
-					isElective=true;
-					System.out.println("I've found it" +" "+resultSet.getString("Electiva"));
-					
-				}
-				
-		    
+			if(resultSet.next()){ 
+//				System.out.println(resultSet.getInt("TotalTrimestres"));
+				totalTrimesters=resultSet.getInt("TotalTrimestres");			  
+		}
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
@@ -94,18 +84,16 @@ public class ElectivasDao {
 			}
 
 		}
-		return isElective;
-		
+		return totalTrimesters;
 	}
 
 	
 	public static void main(String[] args) {
 		/*For testing, to be deleted*/
 		// TODO Auto-generated method stub
-		ElectivasDao ed= new ElectivasDao();
-		ed.getAllElectives("IDS", "ASH1X1");
-		ed.isElective("IDS","ASH1X1","SHG101");
-		//ed.findElective("IDS","ASH1X1","ING210");
+		ProgramsDAO prg=new ProgramsDAO();
+		prg.getProgramName("SIS");
+		prg.getTotalTrimesters("SIS");
 
 	}
 

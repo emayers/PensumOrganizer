@@ -6,15 +6,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import com.pensumorganizer.connectionfactory.ConnectionFactory;
+import com.pensumorganizer.util.ConnectionFactory;
 
-public class EstudianteProgramaDao {
+public class StudentsDAO {
 	
 	Connection connection = null;
 	PreparedStatement ptmt = null;
 	ResultSet resultSet = null;
 	
-	public EstudianteProgramaDao() {
+	public StudentsDAO() {
 		super();
 	}
 
@@ -135,9 +135,9 @@ public class EstudianteProgramaDao {
 
 	
 	
-	public Integer getVersion(Integer id){
+	public Integer getProgramVersion(Integer id){
 		/*Returns year of approval of Pensum, for example, our pensum is the 2010 version*/
-		Integer version=0;
+		Integer programVersion = 0;
 
 		 try {				    
 				String queryString = "SELECT Version FROM EstudiantePrograma WHERE IdEstudiante=?;";
@@ -148,7 +148,7 @@ public class EstudianteProgramaDao {
 				if(resultSet.next())
 				  { 
 //					System.out.println(resultSet.getInt("Version"));
-					version=resultSet.getInt("Version");
+					programVersion=resultSet.getInt("Version");
 				  }
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -167,7 +167,7 @@ public class EstudianteProgramaDao {
 				}
 
 			}
-		return version;
+		return programVersion;
 	}
 
 	
@@ -497,7 +497,7 @@ public class EstudianteProgramaDao {
 	public static void main(String[] args) {
 		/*For testing, to be deleted*/
 		// TODO Auto-generated method stub
-		EstudianteProgramaDao Estudiante = new EstudianteProgramaDao();
+		StudentsDAO Estudiante = new StudentsDAO();
 		//Estudiante.add();
 		 //EstudianteProgramaEntity ent = new EstudianteProgramaEntity();
 		 //ent.setIdEstudiante(1056025);

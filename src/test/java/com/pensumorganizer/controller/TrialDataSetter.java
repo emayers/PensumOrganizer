@@ -1,10 +1,10 @@
-package com.pensumorganizer.util;
+package com.pensumorganizer.controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.pensumorganizer.dao.Course;
+import com.pensumorganizer.util.structures.Course;
 
 public class TrialDataSetter {
 	private static List<Course> coursesProgram;

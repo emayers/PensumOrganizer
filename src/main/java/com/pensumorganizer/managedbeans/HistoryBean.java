@@ -9,8 +9,8 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
-import com.pensumorganizer.dao.Course;
 import com.pensumorganizer.ejb.HistoryEJBImpl;
+import com.pensumorganizer.util.structures.Course;
 
 @ManagedBean
 @SessionScoped
