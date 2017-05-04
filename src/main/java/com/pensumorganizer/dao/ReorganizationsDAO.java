@@ -9,9 +9,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.pensumorganizer.connectionfactory.ConnectionFactory;
+import com.pensumorganizer.util.ConnectionFactory;
+import com.pensumorganizer.util.structures.Course;
 
-public class EstudianteReorganizacionDao {
+public class ReorganizationsDAO {
 	Connection connection = null;
 	PreparedStatement ptmt = null;
 	ResultSet resultSet = null;
@@ -227,7 +228,7 @@ public class EstudianteReorganizacionDao {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		EstudianteReorganizacionDao erd=new EstudianteReorganizacionDao();
+		ReorganizationsDAO erd=new ReorganizationsDAO();
 		Map<Integer, List<Course>> map=new HashMap<Integer, List<Course>>();
 		map=erd.getOrganization(1058691);
 		erd.setReorganization(map, 2033505);

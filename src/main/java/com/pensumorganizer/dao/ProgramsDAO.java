@@ -4,9 +4,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.pensumorganizer.connectionfactory.ConnectionFactory;
+import com.pensumorganizer.util.ConnectionFactory;
 
-public class ProgramasDao {
+public class ProgramsDAO {
 	Connection connection = null;
 	PreparedStatement ptmt = null;
 	ResultSet resultSet = null;
@@ -137,10 +137,6 @@ public class ProgramasDao {
 	
 	public static void main(String[] args) {
 		/*For testing, to be deleted*/
-		// TODO Auto-generated method stub
-		ProgramasDao prg=new ProgramasDao();
-		prg.getProgramName("SIS");
-		//prg.getTotalTrimesters("SIS");
 
 	}
 

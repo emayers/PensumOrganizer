@@ -6,9 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import com.pensumorganizer.connectionfactory.ConnectionFactory;
+import com.pensumorganizer.util.ConnectionFactory;
 
-public class ElectivasDao {
+public class ElectivesDAO {
 	Connection connection = null;
 	PreparedStatement ptmt = null;
 	ResultSet resultSet = null;
@@ -102,7 +102,7 @@ public class ElectivasDao {
 	public static void main(String[] args) {
 		/*For testing, to be deleted*/
 		// TODO Auto-generated method stub
-		ElectivasDao ed= new ElectivasDao();
+		ElectivesDAO ed= new ElectivesDAO();
 		ed.getAllElectives("IDS", "ASH1X1");
 		ed.isElective("IDS","ASH1X1","SHG101");
 		//ed.findElective("IDS","ASH1X1","ING210");

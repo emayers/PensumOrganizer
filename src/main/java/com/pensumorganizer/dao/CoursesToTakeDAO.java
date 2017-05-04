@@ -6,9 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import com.pensumorganizer.connectionfactory.ConnectionFactory;
+import com.pensumorganizer.util.ConnectionFactory;
+import com.pensumorganizer.util.structures.Course;
 
-public class AsignaturasPorDarDao {
+public class CoursesToTakeDAO {
 	Connection connection = null;
 	PreparedStatement ptmt = null;
 	ResultSet resultSet = null;
@@ -60,8 +61,8 @@ public class AsignaturasPorDarDao {
 		/*Returns an ArrayList of Course objects*/
 		ArrayList<Course> subjectsToTake = new ArrayList<Course>();
 		ArrayList<String> corequisites=new ArrayList<String>();
-		EstudianteProgramaDao student=new EstudianteProgramaDao();
-		PensumDao pensum=new PensumDao();
+		StudentsDAO student=new StudentsDAO();
+		PensumsDAO pensum=new PensumsDAO();
 		try{
 			String queryString = "SELECT AsignaturaCodigo, Descripcion, Prerequisito, CoRequisito FROM AsignaturasPorDar WHERE IdEstudiante=?;";
 			connection = getConnection();
@@ -113,7 +114,7 @@ public class AsignaturasPorDarDao {
 	public static void main(String[] args) {
 		/*For testing, to be deleted*/
 		// TODO Auto-generated method stub
-		AsignaturasPorDarDao apdd=new AsignaturasPorDarDao();
+		CoursesToTakeDAO apdd=new CoursesToTakeDAO();
 		//apdd.getCourseCode(1058691);
 		apdd.getSubjectsToTake(1058691);
 

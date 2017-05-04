@@ -5,7 +5,7 @@ import java.util.Map;
 
 import javax.ejb.Remote;
 
-import com.pensumorganizer.dao.Course;
+import com.pensumorganizer.util.structures.Course;
 
 @Remote
 public interface HistoryEJBInterface {

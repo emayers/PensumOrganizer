@@ -2,7 +2,7 @@ package com.pensumorganizer.util;
 
 import java.util.Comparator;
 
-import com.pensumorganizer.dao.Course;
+import com.pensumorganizer.util.structures.Course;
 
 public class CourseComparator implements Comparator<Course> {
 
