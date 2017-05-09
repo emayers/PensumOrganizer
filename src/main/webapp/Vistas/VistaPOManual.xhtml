@@ -33,7 +33,7 @@
 				<li><h:link onclick="getLinkValue(this); PF('dialogToExit').show(); return false;" value="Ayuda" outcome="VistaHelp"></h:link></li>
 				<li id="user">
 					<a class="dropdownTrigger"  onclick="dropList()" href="#">
-						#{studentBean.student.name} #{studentBean.student.last_name}
+						#{studentBean.studentName}
 					</a>
 					<h:panelGroup layout="block" id="dropdownContent" class="dropdownClass">
 	    					<h:link onclick="getLinkValue(this); PF('dialogToExit').show(); return false;" value="Log Out" outcome="VistaLogin"></h:link>
@@ -162,6 +162,7 @@
 				 		<p:dialog id="dialog" widgetVar="dialogToAdd" closeOnEscape="true" 
 				  			  header="Añadir a Trimestre" closable="false" resizable="false" dynamic="true" >
 							<p id="formText">#{manualOrganizationBean.clickedCourse.name} al Trimestre :</p>
+							<p:messages showDetail="false" showIcon="false" redisplay="false"/>
 					   		<p:selectOneMenu
 					   				
 					   				value="#{manualOrganizationBean.selectedTrimester}"	
