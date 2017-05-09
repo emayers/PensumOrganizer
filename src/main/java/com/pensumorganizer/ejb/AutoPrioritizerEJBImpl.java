@@ -21,7 +21,7 @@ import com.pensumorganizer.util.structures.Course;
 public class AutoPrioritizerEJBImpl implements AutoPrioritizerEJBInterface {
 	private static CoursesToTakeDAO notTakenCourses = new CoursesToTakeDAO();
 	private static ReorganizationsDAO studentsOrganizations = new ReorganizationsDAO();
-	private static Integer studentId = AuthenticationBean.aEJB.getUserName();
+	private static int studentId = AuthenticationBean.aEJB.getUserName();
 	final private static int IDEAL_TOTAL_TRIMESTERS = PensumBean.pEJB.getPensumTotalTrimesters(),
 							 MAX_CREDITS_PER_TRIMESTER = getMaxCreditsPerTrimester(),
 							 HIGH_PRIORITY_WEIGHT = 10,

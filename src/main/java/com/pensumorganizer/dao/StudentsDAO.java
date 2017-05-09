@@ -32,7 +32,7 @@ public class StudentsDAO {
 				String queryString = "SELECT Nombre FROM EstudiantePrograma WHERE IdEstudiante=?;";
 				connection = getConnection();
 				ptmt = connection.prepareStatement(queryString);
-				ptmt.setInt(1, id);
+				ptmt.setObject(1, id);
 				resultSet=ptmt.executeQuery();
 				if(resultSet.next())
 				  { 
@@ -70,7 +70,7 @@ public class StudentsDAO {
 				String queryString = "SELECT IdEstudiante FROM EstudiantePrograma WHERE IdEstudiante=?;";
 				connection = getConnection();
 				ptmt = connection.prepareStatement(queryString);
-				ptmt.setInt(1, id);
+				ptmt.setObject(1, id);
 				resultSet=ptmt.executeQuery();
 				if(resultSet.next())
 				  { 
@@ -106,7 +106,7 @@ public class StudentsDAO {
 				String queryString = "SELECT ProgramaCodigo FROM EstudiantePrograma WHERE IdEstudiante=?;";
 				connection = getConnection();
 				ptmt = connection.prepareStatement(queryString);
-				ptmt.setInt(1, id);
+				ptmt.setObject(1, id);
 				resultSet=ptmt.executeQuery();
 				if(resultSet.next())
 				  { 
@@ -143,7 +143,7 @@ public class StudentsDAO {
 				String queryString = "SELECT Version FROM EstudiantePrograma WHERE IdEstudiante=?;";
 				connection = getConnection();
 				ptmt = connection.prepareStatement(queryString);
-				ptmt.setInt(1, id);
+				ptmt.setObject(1, id);
 				resultSet=ptmt.executeQuery();
 				if(resultSet.next())
 				  { 
@@ -179,7 +179,7 @@ public class StudentsDAO {
 				String queryString = "SELECT AñoIngreso FROM EstudiantePrograma WHERE IdEstudiante=?;";
 				connection = getConnection();
 				ptmt = connection.prepareStatement(queryString);
-				ptmt.setInt(1, id);
+				ptmt.setObject(1, id);
 				resultSet=ptmt.executeQuery();
 				if(resultSet.next())
 				  { 
@@ -219,7 +219,7 @@ public class StudentsDAO {
 				String queryString = "SELECT TerminoIngreso FROM EstudiantePrograma WHERE IdEstudiante=?;";
 				connection = getConnection();
 				ptmt = connection.prepareStatement(queryString);
-				ptmt.setInt(1, id);
+				ptmt.setObject(1, id);
 				resultSet=ptmt.executeQuery();
 				if(resultSet.next())
 				  { 
@@ -255,7 +255,7 @@ public class StudentsDAO {
 				String queryString = "SELECT AñoLimitePermanencia FROM EstudiantePrograma WHERE IdEstudiante=?;";
 				connection = getConnection();
 				ptmt = connection.prepareStatement(queryString);
-				ptmt.setInt(1, id);
+				ptmt.setObject(1, id);
 				resultSet=ptmt.executeQuery();
 				if(resultSet.next())
 				  { 
@@ -294,7 +294,7 @@ public class StudentsDAO {
 				String queryString = "SELECT TerminoLimitePermanencia FROM EstudiantePrograma WHERE IdEstudiante=?;";
 				connection = getConnection();
 				ptmt = connection.prepareStatement(queryString);
-				ptmt.setInt(1, id);
+				ptmt.setObject(1, id);
 				resultSet=ptmt.executeQuery();
 				if(resultSet.next())
 				  { 
@@ -330,7 +330,7 @@ public class StudentsDAO {
 				String queryString = "SELECT TrimestresCursados FROM EstudiantePrograma WHERE IdEstudiante=?;";
 				connection = getConnection();
 				ptmt = connection.prepareStatement(queryString);
-				ptmt.setInt(1, id);
+				ptmt.setObject(1, id);
 				resultSet=ptmt.executeQuery();
 				if(resultSet.next())
 				  { 
@@ -364,7 +364,7 @@ public class StudentsDAO {
 				String queryString = "SELECT IndiceAcumulado FROM EstudiantePrograma WHERE IdEstudiante=?;";
 				connection = getConnection();
 				ptmt = connection.prepareStatement(queryString);
-				ptmt.setInt(1,id);
+				ptmt.setObject(1,id);
 				resultSet=ptmt.executeQuery();
 				if(resultSet.next())
 				  { 
@@ -399,7 +399,7 @@ public class StudentsDAO {
 				String queryString = "SELECT Password FROM EstudiantePrograma WHERE IdEstudiante=?;";
 				connection = getConnection();
 				ptmt = connection.prepareStatement(queryString);
-				ptmt.setInt(1, id);
+				ptmt.setObject(1, id);
 				resultSet=ptmt.executeQuery();
 				if(resultSet.next())
 				  { 
@@ -435,8 +435,8 @@ public class StudentsDAO {
 			String queryString = "UPDATE EstudiantePrograma SET Password=? WHERE IdEstudiante=?;";
 			connection = getConnection();
 			ptmt = connection.prepareStatement(queryString);
-			ptmt.setInt(1, password);
-			ptmt.setInt(2, id);
+			ptmt.setObject(1, password);
+			ptmt.setObject(2, id);
 			ptmt.executeUpdate();
 			
 		} catch (SQLException e) {
