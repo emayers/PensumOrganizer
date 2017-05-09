@@ -74,6 +74,7 @@ public class AutoPrioritizerEJBImpl implements AutoPrioritizerEJBInterface {
 		
 		int trimesterCount = 0;
 		int creditCount = 0;
+		int totalCredits = 0;
 
 		while(!prioritizedCourses.isEmpty()){
 			Course currentCourse = 
@@ -81,7 +82,7 @@ public class AutoPrioritizerEJBImpl implements AutoPrioritizerEJBInterface {
 			
 			if(currentCourse == null){
 				trimesters.put(Integer.valueOf(trimesterCount), currentTrimester);
-				updatePrerrequisitesStatus(prioritizedCourses, currentTrimester);
+				updatePrerrequisitesStatus(prioritizedCourses, currentTrimester, totalCredits);
 				currentTrimester = new ArrayList<Course>();
 				creditCount = 0;
 				trimesterCount++;
@@ -89,7 +90,8 @@ public class AutoPrioritizerEJBImpl implements AutoPrioritizerEJBInterface {
 			else{
 				currentTrimester.add(currentCourse);
 				prioritizedCourses.remove(currentCourse);
-				creditCount += currentCourse.getCredits();			
+				creditCount += currentCourse.getCredits();
+				totalCredits += currentCourse.getCredits();
 			}	
 		}
 		
@@ -99,10 +101,13 @@ public class AutoPrioritizerEJBImpl implements AutoPrioritizerEJBInterface {
 	}
 	
 	private static void updatePrerrequisitesStatus(PriorityQueue<Course> prioritizedCourses,
-			List<Course> currentTrimester){
+			List<Course> currentTrimester, int totalCredits){
 
 		for (Course takenCourse : currentTrimester) {
 			for (Course course : prioritizedCourses) {
+				if(course.getCreditsReq() == totalCredits){
+					course.setCreditsReqReached(true);
+				}
 				if(course.getPreqID().contains(takenCourse.getId())){
 					course.setPreqTaken(true);
 				}
@@ -118,7 +123,10 @@ public class AutoPrioritizerEJBImpl implements AutoPrioritizerEJBInterface {
 		while(!temporalQueue.isEmpty()){
 			currentCourse = temporalQueue.remove();
 			
-			if(currentCourse.isPreqTaken()){
+			if(currentCourse.isCreditsReqReached()){
+				break;
+			} 
+			else if(currentCourse.isPreqTaken()){
 				
 				if((creditCount + currentCourse.getCredits()) <= 
 						MAX_CREDITS_PER_TRIMESTER){

@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 import javax.ejb.Singleton;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 
 import com.pensumorganizer.ejb.interfaces.ManualOrganizationEJBInterface;
 import com.pensumorganizer.managedbeans.AutoPrioritizerBean;
@@ -42,6 +44,11 @@ public class ManualOrganizationEJBImpl implements ManualOrganizationEJBInterface
 		}
 		else{
 			//TODO ERROR
+			FacesContext.getCurrentInstance().addMessage
+			(null, new FacesMessage
+					(FacesMessage.SEVERITY_ERROR, 
+							"No puede mover " +clickedCourse.getName()+ "al trimestre "+selectedTrimester,
+							""));
 		}
     }
     
