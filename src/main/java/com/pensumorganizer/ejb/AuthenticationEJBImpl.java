@@ -15,8 +15,8 @@ public class AuthenticationEJBImpl implements AuthenticationEJBInterface {
 	private static StudentsDAO students = new StudentsDAO();
 	private static List<Integer> validUserNames = students.getAllIds();
 	
-	private Integer userName;
-    private Integer password;
+	private int userName;
+    private int password;
     private String outPut;
     		
     public String submit() {	
@@ -32,19 +32,19 @@ public class AuthenticationEJBImpl implements AuthenticationEJBInterface {
     	return outPut;
     }
 
-	public Integer getUserName() {
+	public int getUserName() {
 		return userName;
 	}
 
-	public void setUserName(Integer userName) {
+	public void setUserName(int userName) {
 		this.userName = userName;
 	}
 
-	public Integer getPassword() {
+	public int getPassword() {
 		return password;
 	}
 
-	public void setPassword(Integer passWord) {
+	public void setPassword(int passWord) {
 		this.password = passWord;
 	}
 

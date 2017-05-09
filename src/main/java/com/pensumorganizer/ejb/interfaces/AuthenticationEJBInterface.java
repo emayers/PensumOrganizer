@@ -7,11 +7,11 @@ public interface AuthenticationEJBInterface {
 
 	public String submit();
 
-	public Integer getUserName();
+	public int getUserName();
 
-	public Integer getPassword();
+	public int getPassword();
 	
-	public void setUserName(Integer userName);
+	public void setUserName(int userName);
 
-	public void setPassword(Integer password);
+	public void setPassword(int password);
 }
