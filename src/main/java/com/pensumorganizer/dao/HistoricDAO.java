@@ -283,9 +283,9 @@ public class HistoricDAO {
 	/*Add method that returns an array of History objects, similar to the Courses structure*/
 	public ArrayList<Course> getHistory(int studentId){
 		ArrayList<Course> history= new ArrayList<Course>();
+		ArrayList<String> prerequisites=new ArrayList<String>();
+		ArrayList<String> corequisites=new ArrayList<String>();
 		StudentsDAO student=new StudentsDAO();
-		String program= student.getProgramCode(studentId);
-		PensumsDAO pensum=new PensumsDAO();
 		int trimester=1, admYear=student.getAdmissionYear(studentId), admTerm=student.getAdmissionTerm(studentId);
 		try{
 			
@@ -309,6 +309,12 @@ public class HistoricDAO {
 				takenCourse.setId(resultSet.getString("AsignaturaCodigo"));
 				takenCourse.setGrade(resultSet.getString("CalificacionCodigo"));
 				takenCourse.setTrimesterTaken(trimester);
+				takenCourse.setName(resultSet.getString("Nombre"));
+				takenCourse.setCredits(resultSet.getInt("Creditos"));
+				prerequisites.add(resultSet.getString("Prerrequisitos"));
+				takenCourse.setPreqID(prerequisites);
+				corequisites.add(resultSet.getString("Corequisitos"));
+				takenCourse.setCoReqID(corequisites);
 				System.out.println(trimester);
 				history.add(takenCourse);
 			  
@@ -330,17 +336,6 @@ public class HistoricDAO {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-
-		}
-		for(int i=0;i<history.size();i++){
-			history.get(i).setName(pensum.getCourseName(program, history.get(i).getId()));
-			System.out.println(history.get(i).getName());
-			history.get(i).setCredits(pensum.getCredits(program,history.get(i).getId()));
-			System.out.println(history.get(i).getCredits());
-			history.get(i).setCoReqID(pensum.getCoRequisites(program, history.get(i).getId()));
-			System.out.println(history.get(i).getCoReqID());
-			history.get(i).setPreqID(pensum.getPrerequisites(program, history.get(i).getId()));
-			System.out.println(history.get(i).getPreqID());
 
 		}
 
@@ -386,9 +381,8 @@ public class HistoricDAO {
 	
 	public List<Course> getApprovedCourses(int studentId){
 		List<Course>approvedCourses=new ArrayList<Course>();
-		StudentsDAO student=new StudentsDAO();
-		String program=student.getProgramCode(studentId);
-		PensumsDAO pensum=new PensumsDAO();
+		ArrayList<String> prerequisites=new ArrayList<String>();
+		ArrayList<String> corequisites=new ArrayList<String>();
 		try{
 			String queryString = "SELECT * FROM HistoricoCursadas WHERE IdEstudiante=?;";
 			connection = getConnection();
@@ -403,6 +397,12 @@ public class HistoricDAO {
 					takenCourse.setTerm(resultSet.getInt("Termino"));
 					takenCourse.setId(resultSet.getString("AsignaturaCodigo"));
 					takenCourse.setGrade(resultSet.getString("CalificacionCodigo"));
+					takenCourse.setName(resultSet.getString("Nombre"));
+					takenCourse.setCredits(resultSet.getInt("Creditos"));
+					prerequisites.add(resultSet.getString("Prerrequisitos"));
+					takenCourse.setPreqID(prerequisites);
+					corequisites.add(resultSet.getString("Corequisitos"));
+					takenCourse.setCoReqID(corequisites);
 				}					  
 		}
 		}
@@ -421,13 +421,6 @@ public class HistoricDAO {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-
-		}
-		for(int i=0;i<approvedCourses.size();i++){
-			approvedCourses.get(i).setName(pensum.getCourseName(program, approvedCourses.get(i).getId()));
-			approvedCourses.get(i).setCredits(pensum.getCredits(program,approvedCourses.get(i).getId()));
-			approvedCourses.get(i).setCoReqID(pensum.getCoRequisites(program, approvedCourses.get(i).getId()));
-			approvedCourses.get(i).setPreqID(pensum.getPrerequisites(program, approvedCourses.get(i).getId()));
 
 		}
 		return approvedCourses;
