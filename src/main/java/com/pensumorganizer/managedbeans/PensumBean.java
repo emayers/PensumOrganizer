@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -20,11 +19,6 @@ public class PensumBean implements Serializable {
 	
 	@EJB
 	public static PensumEJBImpl pEJB = new PensumEJBImpl();
-	
-	@PostConstruct
-	private void prepare(){
-		pEJB.recreatePensum();
-	}
 	
 	public Map<Integer, List<Course>> getPensum() {		
 		return pEJB.getPensum();
