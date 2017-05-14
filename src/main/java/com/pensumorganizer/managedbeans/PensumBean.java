@@ -6,13 +6,13 @@ import java.util.Map;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.RequestScoped;
 
 import com.pensumorganizer.ejb.PensumEJBImpl;
 import com.pensumorganizer.util.structures.Course;
 
 @ManagedBean
-@SessionScoped
+@RequestScoped
 public class PensumBean implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
