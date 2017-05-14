@@ -47,7 +47,7 @@ public class ManualOrganizationEJBImpl implements ManualOrganizationEJBInterface
 			FacesContext.getCurrentInstance().addMessage
 			(null, new FacesMessage
 					(FacesMessage.SEVERITY_ERROR, 
-							"No puede mover " +clickedCourse.getName()+ "al trimestre "+selectedTrimester,
+							"No puede mover " + clickedCourse.getName() + "al trimestre " + selectedTrimester,
 							""));
 		}
     }
