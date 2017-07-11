@@ -528,9 +528,9 @@ public class PensumsDAO {
 	}
 	
 	
-	
+	/**Returns the Pensum in Courses objects*/
 	public ArrayList<Course> getCourses(String programCode){
-		/*Returns the Pensum in Courses objects*/
+		System.out.println(programCode +" PensumsDAO");
 		ArrayList<Course> pensum = new ArrayList<Course>();
 		ArrayList<String> corequisites=new ArrayList<String>();
 		ArrayList<String> prerequisites=new ArrayList<String>();
@@ -542,13 +542,13 @@ public class PensumsDAO {
 			resultSet=ptmt.executeQuery();
 			while(resultSet.next()){
 				Course course=new Course();
-				System.out.println(resultSet.getString("AsignaturaCodigo")
-						           +" "+resultSet.getInt("Trimestre")+
-						           " "+resultSet.getInt("RequisitosCreditos")
-						           +" "+resultSet.getString("CoRequisito")
-						           +" "+resultSet.getString("Prerrequisitos")
-						           +" "+resultSet.getString("Nombre")
-						           +" "+resultSet.getInt("Creditos"));
+//				System.out.println(resultSet.getString("AsignaturaCodigo")
+//						           +" "+resultSet.getInt("Trimestre")+
+//						           " "+resultSet.getInt("RequisitosCreditos")
+//						           +" "+resultSet.getString("CoRequisito")
+//						           +" "+resultSet.getString("Prerrequisitos")
+//						           +" "+resultSet.getString("Nombre")
+//						           +" "+resultSet.getInt("Creditos"));
 				course.setId(resultSet.getString("AsignaturaCodigo"));
 				course.setIdealTrimestrer(resultSet.getInt("Trimestre"));
 				course.setCreditsReq(resultSet.getInt("RequisitosCreditos"));
@@ -558,6 +558,7 @@ public class PensumsDAO {
 				course.setPreqID(prerequisites);
 				course.setName(resultSet.getString("Nombre"));
 				course.setCredits(resultSet.getInt("Creditos"));
+				System.out.println(course.getId() +" "+ course.getName()+" HEy");
 				pensum.add(course);
 				
 		}
@@ -580,6 +581,9 @@ public class PensumsDAO {
 			}
 
 		}
+		if(pensum.size()==0){
+			System.out.println("null-PensumsDAO");
+		}
 
 		return pensum;
 		
@@ -598,7 +602,8 @@ public class PensumsDAO {
 		//psm.getCourseCode("IDS");
 		//psm.getCreditsRequirements("IDS");
 		//psm.getCoRequisites("IDS");
-		psm.getCourses("IDS-2010");
+		StudentsDAO student=new StudentsDAO();
+		psm.getCourses(student.getProgramCode(1058691));
 	}
 	
 
