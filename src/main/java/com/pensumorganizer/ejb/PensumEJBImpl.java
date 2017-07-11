@@ -31,7 +31,7 @@ public class PensumEJBImpl implements PensumEJBInterface {
 	}
 	
 	public void recreatePensum(){
-//		List<Course> coursesProgram = TrialDataSetter.getCoursesProgram();
+    	System.out.println(studentId.toString()+" pensumEJB");
 		List<Course> coursesProgram = pensums.getCourses(students.getProgramCode(studentId));
 		
 		for (Course course : coursesProgram) {

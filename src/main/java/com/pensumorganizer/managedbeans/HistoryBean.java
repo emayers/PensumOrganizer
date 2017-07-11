@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -20,11 +19,6 @@ public class HistoryBean implements Serializable {
 	
 	@EJB
 	public static HistoryEJBImpl hEJB = new HistoryEJBImpl();
-	
-	@PostConstruct
-	private void prepare(){
-		hEJB.recreateHistory();
-	}
 	
 	public Map<Integer, List<Course>> getTrimester() {
 		return hEJB.getHistory();

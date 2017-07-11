@@ -8,6 +8,9 @@ import javax.faces.context.FacesContext;
 
 import com.pensumorganizer.dao.StudentsDAO;
 import com.pensumorganizer.ejb.interfaces.AuthenticationEJBInterface;
+import com.pensumorganizer.managedbeans.AutoPrioritizerBean;
+import com.pensumorganizer.managedbeans.HistoryBean;
+import com.pensumorganizer.managedbeans.PensumBean;
 
 @Stateless
 public class AuthenticationEJBImpl implements AuthenticationEJBInterface {
@@ -25,7 +28,9 @@ public class AuthenticationEJBImpl implements AuthenticationEJBInterface {
     		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ID o Contraseña incorecta, intente de nuevo", ""));
     	}
     	else{
-    		System.out.println("hey!");
+    		AutoPrioritizerBean.apEJB.organizePensum();
+    		HistoryBean.hEJB.recreateHistory();
+    		PensumBean.pEJB.recreatePensum();
     		outPut = "VistaDashboard";
     	}
     	

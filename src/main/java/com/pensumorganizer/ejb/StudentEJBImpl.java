@@ -13,6 +13,7 @@ public class StudentEJBImpl implements StudentEJBInterface {
 	private static Integer studentId = AuthenticationBean.aEJB.getUserName();
 
     public String getStudentName() {
+    	System.out.println(studentId.toString()+" studentEJB");
     	return students.getName(studentId);
     }
 }

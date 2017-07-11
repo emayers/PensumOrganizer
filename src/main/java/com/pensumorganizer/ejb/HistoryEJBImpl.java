@@ -49,8 +49,7 @@ public class HistoryEJBImpl implements HistoryEJBInterface{
 	}
 	
 	public List<Course> getApprovedCourses(){
-		//TODO
-		return new ArrayList<Course>();
+		return studentHistory.getApprovedCourses(studentId);
 	}
 
 }
