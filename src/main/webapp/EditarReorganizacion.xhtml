@@ -31,31 +31,51 @@
 	<nav id="navigationMenuTag">
 		<h:panelGroup layout="block" id="menu" styleClass="nav-wrapper">
 			<ul id="navigationBar">
-				<li><h:link
+				<li>
+					<h:form>
+						<h:commandLink value="Página Principal" 
 						onclick="getLinkValue(this); PF('dialogToExit').show(); return false;"
-						value="Página Principal" outcome="VistaDashboard">
-					</h:link></li>
-				<li><h:link
+						action="#{authenticationBean.redirectDashboard()}"/>
+					</h:form>
+				</li>
+				<li>
+					<h:form>
+						<h:commandLink value="Historial" 
+						action="#{historyBean.recreateHistory(authenticationBean.userName)}"/>
+					</h:form>
+				</li>
+				<li>
+					<h:form>
+						<h:commandLink value="Programa de la Carrera" 
 						onclick="getLinkValue(this); PF('dialogToExit').show(); return false;"
-						value="Ver Historial" outcome="VistaHistorial"></h:link></li>
-				<li><h:link
+						action="#{pensumBean.recreatePensum(authenticationBean.userName)}"/>
+					</h:form>
+				</li>
+				<li>				
+					<h:form>
+						<h:commandLink value="Reorganizar Pensum"
+						id="currentPageMarker"
 						onclick="getLinkValue(this); PF('dialogToExit').show(); return false;"
-						value="Programa de la Carrera" outcome="VistaPrograma">
-					</h:link></li>
-				<li><h:link
+						action="#{autoPrioritizerBean.recreateOrganizedPensum(authenticationBean.userName)}"/>
+					</h:form>
+				</li>
+				<li>
+					<h:form>
+						<h:commandLink value="Ayuda" 
 						onclick="getLinkValue(this); PF('dialogToExit').show(); return false;"
-						id="currentPageMarker" value="Reorganizar Pensum"
-						outcome="VistaPOAuto"></h:link></li>
-				<li><h:link
-						onclick="getLinkValue(this); PF('dialogToExit').show(); return false;"
-						value="Ayuda" outcome="VistaHelp"></h:link></li>
-				<li id="user"><a class="dropdownTrigger" onclick="dropList()"
-					href="#"> #{studentBean.studentName} </a> <h:panelGroup
-						layout="block" id="dropdownContent" class="dropdownClass">
-						<h:link
+						action="#{authenticationBean.redirectHelp()}"/>
+					</h:form>
+				</li>
+				<li id="user">
+					<a class="dropdownTrigger" onclick="dropList()" href="#"> #{authenticationBean.name} </a>
+					<h:panelGroup layout="block" id="dropdownContent" class="dropdownClass">
+						<h:form>
+							<h:commandLink action="#{authenticationBean.logOut()}" 
 							onclick="getLinkValue(this); PF('dialogToExit').show(); return false;"
-							value="Log Out" outcome="VistaLogin"></h:link>
-					</h:panelGroup></li>
+							value="Log Out" />
+						</h:form>
+					</h:panelGroup>
+				</li>
 			</ul>
 		</h:panelGroup>
 	</nav>
