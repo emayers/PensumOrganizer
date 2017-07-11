@@ -1,37 +1,59 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
-	
-  <h:head>
-  	<link rel="Stylesheet" type="text/css" href="./Style/Program.css?verison=6.0"/>
-  	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,800,600"></link>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css"></link>
-  	
-  	
-  	<script type="text/javascript" src="Scripts/DropdownList.js?version=1"></script>
-  </h:head>
-  
-  <h:body>
-    <nav id="navigationMenuTag">
+
+<h:head>
+	<link rel="Stylesheet" type="text/css"
+		href="./Style/Program.css?verison=6.0" />
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,800,600"></link>
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css"></link>
+
+
+	<script type="text/javascript" src="Scripts/DropdownList.js?version=1"></script>
+</h:head>
+
+<h:body>
+	<nav id="navigationMenuTag">
 		<h:panelGroup layout="block" id="menu" styleClass="nav-wrapper">
 			<ul id="navigationBar">
-				<li><h:link value="Página Principal" outcome="Dashboard">
-					</h:link></li>
-				<li><h:link value="Ver Historial" outcome="Historial"></h:link></li>
-				<li><h:link id="currentPageMarker" value="Programa de la Carrera">
-					</h:link></li>
-				<li><h:link value="Reorganizar Pensum" outcome="ReorganizarPensum"></h:link></li>
-				<li><h:link value="Ayuda" outcome="Help"></h:link></li>
-				<li id="user"><a class="dropdownTrigger" onclick="dropList()"
-					href="#"> #{authenticationBean.studentName} </a> <h:panelGroup
-						layout="block" id="dropdownContent" class="dropdownClass">
+				<li>
+					<h:form>
+						<h:commandLink value="Página Principal" 
+						action="#{authenticationBean.redirectDashboard()}"/>
+					</h:form>
+				</li>
+				<li>
+					<h:form>
+						<h:commandLink value="Historial" 
+						action="#{historyBean.recreateHistory(authenticationBean.userName)}"/>
+					</h:form>
+				</li>
+				<li>
+					<h:link id="currentPageMarker" value="Programa de la Carrera"/>
+				</li>
+				<li>
+					<h:form>
+						<h:commandLink value="Reorganizar Pensum" 
+						action="#{autoPrioritizerBean.recreateOrganizedPensum(authenticationBean.userName)}"/>
+					</h:form>
+				</li>
+				<li>
+					<h:form>
+						<h:commandLink value="Ayuda" 
+						action="#{authenticationBean.redirectHelp()}"/>
+					</h:form>
+				</li>
+				<li id="user">
+					<a class="dropdownTrigger" onclick="dropList()" href="#"> #{authenticationBean.name} </a>
+					<h:panelGroup layout="block" id="dropdownContent" class="dropdownClass">
 						<h:form>
-							<h:commandLink action="#{authenticationBean.logOut()}"
-								value="Log Out" />
+							<h:commandLink action="#{authenticationBean.logOut()}" value="Log Out" />
 						</h:form>
 					</h:panelGroup>
 				</li>
@@ -39,22 +61,23 @@
 		</h:panelGroup>
 	</nav>
 		
-		<h:panelGroup layout="block" id="titleBar">
-			<p>
-				<h:graphicImage id="titleBarImage" value="/Images/Target-White.png" />
-				Programa de Ingeniería de Software 
-			</p>
-		</h:panelGroup>
+	<h:panelGroup layout="block" id="titleBar">
+		<p>
+			<h:graphicImage id="titleBarImage" value="/Images/Target-White.png" />
+			Programa de Ingeniería de Software 
+		</p>
+	</h:panelGroup>
 		
-		<h:panelGroup layout="block" id="containerOfPensumTable" >
+	<h:panelGroup layout="block" id="containerOfPensumTable" >
 		<c:forEach items="#{pensumBean.pensum}" var="entry">
 			<c:set var="trimesterCuantity" value="#{trimesterCuantity}"></c:set>
-			<h:dataTable styleClass="highlight centered bordered" value="#{entry.value}" var="list">
-					<c:set var="trimesterCuantity" value="#{trimesterCuantity + 1}"></c:set>
-					<f:facet name="header">
-						<p id="tableBar"></p>
-						<p id="tableHead">Trimestre #{trimesterCuantity}</p> 
-					</f:facet>
+			<h:dataTable styleClass="highlight centered bordered"
+				value="#{entry.value}" var="list">
+				<c:set var="trimesterCuantity" value="#{trimesterCuantity + 1}"></c:set>
+				<f:facet name="header">
+					<p id="tableBar"></p>
+					<p id="tableHead">Trimestre #{trimesterCuantity}</p>
+				</f:facet>
 				<h:column>
 					<f:facet name="header">
 						Clave
@@ -74,9 +97,9 @@
 					#{list.credits}
 					<f:facet name="footer">
 						<c:forEach items="#{entry.value}" var="ls">
-							<c:set var="crdTotal" value="#{crdTotal + ls.credits}"></c:set>	
+							<c:set var="crdTotal" value="#{crdTotal + ls.credits}"></c:set>
 						</c:forEach>
-							<p>#{crdTotal}</p>
+						<p>#{crdTotal}</p>
 						<c:set var="crdTotal" value="0"></c:set>
 					</f:facet>
 				</h:column>
@@ -84,34 +107,57 @@
 					<f:facet name="header">
 						Pre-Requisito
 					</f:facet>
-						<h:outputText rendered="${fn:length(list.preqID) == '0'}" value="-" />
-						<h:outputText rendered="${fn:length(list.preqID) != '0'}" value="#{list.preqID}"/>
+					<c:choose>
+						<c:when test="${fn:length(list.preqID) le 1}">
+							<ui:repeat var="preq" value="#{list.preqID}">
+								<h:outputText rendered="#{preq eq null}" value="-" />
+								<h:outputText rendered="#{preq ne null}" value="#{preq}" />
+							</ui:repeat>
+						</c:when>
+						<c:otherwise>
+							<ui:repeat var="perq" value="#{list.preqID}">
+								<h:outputText value="#{perq}" />
+							</ui:repeat>
+						</c:otherwise>
+					</c:choose>
 				</h:column>
 				<h:column>
 					<f:facet name="header">
 						Co-Requisito
 					</f:facet>
-						<h:outputText rendered="${fn:length(list.coReqID) == '0'}" value="-" />
-						<h:outputText rendered="${fn:length(list.coReqID) != '0'}" value="#{list.preqID}"/>
+					<c:choose>
+						<c:when test="${fn:length(list.coReqID) le 1}">
+							<ui:repeat var="coReq" value="#{list.coReqID}">
+								<h:outputText rendered="#{coReq eq null}" value="-" />
+								<h:outputText rendered="#{coReq ne null}" value="#{coReq}" />
+							</ui:repeat>
+						</c:when>
+						<c:otherwise>
+							<ui:repeat var="coRerq" value="#{list.coReqID}">
+								<h:outputText value="#{coRerq}" />
+							</ui:repeat>
+						</c:otherwise>
+					</c:choose>
 				</h:column>
 				<h:column>
 					<f:facet name="header">
 						Créditos Requeridos
 					</f:facet>
-					<h:outputText rendered="#{list.creditsReq != '0'}" value="#{list.creditsReq}" />
+					<h:outputText rendered="#{list.creditsReq != '0'}"
+						value="#{list.creditsReq}" />
 					<h:outputText rendered="#{list.creditsReq == '0'}" value="-" />
 				</h:column>
-			</h:dataTable>	
+			</h:dataTable>
 		</c:forEach>
 	</h:panelGroup>
-	
+
 	<footer id="footer" class="page-footer">
-       <h:panelGroup id="copyright" layout="block" class="footer-copyright">
-         <h:panelGroup layout="block" id="copyrightContainer">
+		<h:panelGroup id="copyright" layout="block" class="footer-copyright">
+			<h:panelGroup layout="block" id="copyrightContainer">
          HANDS © 2017
          </h:panelGroup>
-       </h:panelGroup>
-		
+		</h:panelGroup>
+
 		<h:panelGroup layout="block" id="logoDiv">
 			<h:graphicImage id="logo" value="/Images/Logo.png" />
 		</h:panelGroup>

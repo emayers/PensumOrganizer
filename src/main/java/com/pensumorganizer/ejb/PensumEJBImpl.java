@@ -32,7 +32,7 @@ public class PensumEJBImpl implements PensumEJBInterface {
 	
 	public void recreatePensum(int studentId){
 		actualPensum.clear();
-		
+
 		List<Course> coursesProgram = pensums.getCourses(students.getProgramCode(studentId));
 		
 		for (Course course : coursesProgram) {

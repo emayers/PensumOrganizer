@@ -16,7 +16,7 @@ public class AuthenticationBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@EJB
-	public static AuthenticationEJBImpl aEJB = new AuthenticationEJBImpl();
+	public static AuthenticationEJBImpl aEJB= new AuthenticationEJBImpl();
 
     public void submit() {    	
     	aEJB.submit();

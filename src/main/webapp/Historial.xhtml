@@ -6,18 +6,22 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
-	 
-	
-  <meta name="viewport" content="width=device-width, initial-scale=1.1"></meta>
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1.1"></meta>
 <h:head>
-  	<link rel="Stylesheet" type="text/css" href="./Style/Historial.css?version=6.1"></link>
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,800,600"></link>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css"></link>
-  	
-  	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
-  	<script type="text/javascript" src="Scripts/DropdownList.js?version=1"></script>
+	<link rel="Stylesheet" type="text/css"
+		href="./Style/Historial.css?version=6.1"></link>
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,800,600"></link>
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css"></link>
+
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+	<script type="text/javascript" src="Scripts/DropdownList.js?version=1"></script>
 </h:head>
-  
+
 <h:body>
 	<nav id="navigationMenuTag">
 		<h:panelGroup layout="block" id="menu" styleClass="nav-wrapper">
@@ -68,17 +72,20 @@
 			</p>
 			<p id="indice">Índice General #{authenticationBean.GPA}</p>
 		</h:panelGroup>
-	
-	<h:panelGroup layout="block" id="cointainerOfHistoric" >
+
+	<h:panelGroup layout="block" id="cointainerOfHistoric">
 		<c:forEach items="#{historyBean.trimester}" var="entry">
 			<c:set var="trimesterCuantity" value="#{trimesterCuantity}"></c:set>
-			<h:dataTable styleClass="highlight centered bordered" value="#{entry.value}" var="list">
-					<c:set var="trimesterCuantity" value="#{trimesterCuantity + 1}"></c:set>
-					<f:facet name="header">
-						<p id="tableHead">Trimestre #{trimesterCuantity} 
-						<span style="display:inline-block; width:350px;"></span> 
-						Índice Trimestral 4.00 &nbsp;</p>
-					</f:facet>
+			<h:dataTable styleClass="highlight centered bordered"
+				value="#{entry.value}" var="list">
+				<c:set var="trimesterCuantity" value="#{trimesterCuantity + 1}"></c:set>
+				<f:facet name="header">
+					<p id="tableHead">
+						Trimestre #{trimesterCuantity} 
+						<span style="display: inline-block; width: 350px;"/> 
+						Índice Trimestral 4.00 &nbsp;
+					</p>
+				</f:facet>
 				<h:column>
 					<f:facet name="header">
 						Clave
@@ -98,7 +105,7 @@
 					#{list.credits}
 					<f:facet name="footer">
 						<c:forEach items="#{entry.value}" var="ls">
-							<c:set var="crdTotal" value="#{crdTotal + ls.credits}"></c:set>	
+							<c:set var="crdTotal" value="#{crdTotal + ls.credits}"></c:set>
 						</c:forEach>
 						<p>#{crdTotal}</p>
 						<c:set var="crdTotal" value="0"></c:set>
@@ -108,33 +115,44 @@
 					<f:facet name="header">
 						Pre-Requisito
 					</f:facet>
-					<c:when test="${fn:length(list.preqID) == '0'}">
-						<h:outputText value="-" />
-					</c:when>
-					<c:otherwise test="${fn:length(list.preqID) != '0'}">
-						<c:forEach items="#{list.preqID}" var="preq">
-							<h:outputText rendered="preq != null"  value="#{preq}"/>
-						</c:forEach>
-					</c:otherwise>
+					<c:choose>
+						<c:when test="${fn:length(list.preqID) le 1}">
+							<ui:repeat var="preq" value="#{list.preqID}">
+								<h:outputText rendered="#{preq eq null}" value="-" />
+								<h:outputText rendered="#{preq ne null}" value="#{preq}" />
+							</ui:repeat>
+						</c:when>
+						<c:otherwise>
+							<ui:repeat var="perq" value="#{list.preqID}">
+								<h:outputText value="#{perq}" />
+							</ui:repeat>
+						</c:otherwise>
+					</c:choose>
 				</h:column>
 				<h:column>
 					<f:facet name="header">
 						Co-Requisito
 					</f:facet>
-					<c:when test="${fn:length(list.coReqID) == '0'}">
-						<h:outputText value="-" />
-					</c:when>
-					<c:otherwise test="${fn:length(list.coReqID) != '0'}">
-						<c:forEach items="#{list.coReqID}" var="coReq">
-							<h:outputText rendered="coReq != null"  value="#{coReq}"/>
-						</c:forEach>
-					</c:otherwise>
+					<c:choose>
+						<c:when test="${fn:length(list.coReqID) le 1}">
+							<ui:repeat var="coReq" value="#{list.coReqID}">
+								<h:outputText rendered="#{coReq eq null}" value="-" />
+								<h:outputText rendered="#{coReq ne null}" value="#{coReq}" />
+							</ui:repeat>
+						</c:when>
+						<c:otherwise>
+							<ui:repeat var="coRerq" value="#{list.coReqID}">
+								<h:outputText value="#{coRerq}" />
+							</ui:repeat>
+						</c:otherwise>
+					</c:choose>
 				</h:column>
 				<h:column>
 					<f:facet name="header">
 						Créditos Requeridos
 					</f:facet>
-					<h:outputText rendered="#{list.creditsReq != '0'}" value="#{list.creditsReq}" />
+					<h:outputText rendered="#{list.creditsReq != '0'}"
+						value="#{list.creditsReq}" />
 					<h:outputText rendered="#{list.creditsReq == '0'}" value="-" />
 				</h:column>
 				<h:column>
@@ -143,17 +161,17 @@
 					</f:facet>
 						#{list.grade}
 				</h:column>
-				
-			</h:dataTable>	
+
+			</h:dataTable>
 		</c:forEach>
 	</h:panelGroup>
 	<footer id="footer" class="page-footer">
-       <h:panelGroup id="copyright" layout="block" class="footer-copyright">
-         <h:panelGroup layout="block" id="copyrightContainer">
+		<h:panelGroup id="copyright" layout="block" class="footer-copyright">
+			<h:panelGroup layout="block" id="copyrightContainer">
          HANDS © 2017
          </h:panelGroup>
-       </h:panelGroup>
-		
+		</h:panelGroup>
+
 		<h:panelGroup layout="block" id="logoDiv">
 			<h:graphicImage id="logo" value="/Images/Logo.png" />
 		</h:panelGroup>
@@ -162,5 +180,5 @@
 			<h:graphicImage id="intec" value="/Images/Logo-intec.png" />
 		</h:panelGroup>
 	</footer>
-  </h:body>
+</h:body>
 </html>

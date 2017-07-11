@@ -1,49 +1,65 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
-	
-  <h:head>
-  	<link rel="Stylesheet" type="text/css" href="./Style/manual.css?verison=6.2"/>
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,800,600"></link>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css"></link>
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"></link>
-	<link rel="stylesheet" href="bower_components/sweetalert2/dist/sweetalert2.min.css"></link>
-  	
-  	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
-  	<script src="https://cdn.jsdelivr.net/sweetalert2/6.5.5/sweetalert2.min.js"></script>
-  	<script type="text/javascript" src="Scripts/DropdownList.js?version=1"></script>
-  	<script type="text/javascript" src="Scripts/OutcomeLink.js?version=1"></script>
-  </h:head>
-  
-  <h:body>
-    <nav id="navigationMenuTag">
+
+<h:head>
+	<link rel="Stylesheet" type="text/css"
+		href="./Style/manual.css?verison=6.2" />
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,800,600"></link>
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css"></link>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+		rel="stylesheet"></link>
+	<link rel="stylesheet"
+		href="bower_components/sweetalert2/dist/sweetalert2.min.css"></link>
+
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/sweetalert2/6.5.5/sweetalert2.min.js"></script>
+	<script type="text/javascript" src="Scripts/DropdownList.js?version=1"></script>
+	<script type="text/javascript" src="Scripts/OutcomeLink.js?version=1"></script>
+</h:head>
+
+<h:body>
+	<nav id="navigationMenuTag">
 		<h:panelGroup layout="block" id="menu" styleClass="nav-wrapper">
-			<ul id="navigationBar"> 
-				<li><h:link onclick="getLinkValue(this); PF('dialogToExit').show(); return false;" value="Página Principal" outcome="Dashboard">
+			<ul id="navigationBar">
+				<li><h:link
+						onclick="getLinkValue(this); PF('dialogToExit').show(); return false;"
+						value="Página Principal" outcome="VistaDashboard">
 					</h:link></li>
-				<li><h:link onclick="getLinkValue(this); PF('dialogToExit').show(); return false;" value="Ver Historial" outcome="Historial"></h:link></li>
-				<li><h:link onclick="getLinkValue(this); PF('dialogToExit').show(); return false;" value="Programa de la Carrera" outcome="ProgramaCarrera">
+				<li><h:link
+						onclick="getLinkValue(this); PF('dialogToExit').show(); return false;"
+						value="Ver Historial" outcome="VistaHistorial"></h:link></li>
+				<li><h:link
+						onclick="getLinkValue(this); PF('dialogToExit').show(); return false;"
+						value="Programa de la Carrera" outcome="VistaPrograma">
 					</h:link></li>
-				<li><h:link onclick="getLinkValue(this); PF('dialogToExit').show(); return false;" id="currentPageMarker" value="Reorganizar Pensum" outcome="ReorganizarPensum"></h:link></li>
-				<li><h:link onclick="getLinkValue(this); PF('dialogToExit').show(); return false;" value="Ayuda" outcome="Help"></h:link></li>
+				<li><h:link
+						onclick="getLinkValue(this); PF('dialogToExit').show(); return false;"
+						id="currentPageMarker" value="Reorganizar Pensum"
+						outcome="VistaPOAuto"></h:link></li>
+				<li><h:link
+						onclick="getLinkValue(this); PF('dialogToExit').show(); return false;"
+						value="Ayuda" outcome="VistaHelp"></h:link></li>
 				<li id="user"><a class="dropdownTrigger" onclick="dropList()"
-					href="#"> #{authenticationBean.studentName} </a> <h:panelGroup
+					href="#"> #{studentBean.studentName} </a> <h:panelGroup
 						layout="block" id="dropdownContent" class="dropdownClass">
-						<h:form>
-							<h:commandLink action="#{authenticationBean.logOut()}"
-								value="Log Out" />
-						</h:form>
-					</h:panelGroup>
-				</li>
+						<h:link
+							onclick="getLinkValue(this); PF('dialogToExit').show(); return false;"
+							value="Log Out" outcome="VistaLogin"></h:link>
+					</h:panelGroup></li>
 			</ul>
 		</h:panelGroup>
 	</nav>
-	
+
 	<h:panelGroup layout="block" id="titleBarMini">
 		<p>
 			<h:graphicImage id="titleBarImageMini" value="/Images/Target-White.png" />
@@ -57,60 +73,86 @@
 		</p>
 		<p id="Duration"> 
 			Duración del Pensum: #{manualOrganizationBean.reorganizedPensum.size()} Trimestres
+			<h:graphicImage id="titleBarImage" value="/Vistas/Images/Target-White.png" />
 		</p>
 	</h:panelGroup>
-	
-	<h:panelGroup layout="block" id="containerOfPensumTable" >
-	<h:form>
-		<c:forEach items="#{manualOrganizationBean.reorganizedPensum}" var="entry">
-			<c:set var="trimesterCuantity" value="#{trimesterCuantity}"></c:set>
-			<h:dataTable styleClass="highlight centered bordered" value="#{entry.value}" var="list" >
+
+	<h:panelGroup layout="block" id="containerOfPensumTable">
+		<h:form>
+			<c:forEach items="#{manualOrganizationBean.reorganizedPensum}"
+				var="entry">
+				<c:set var="trimesterCuantity" value="#{trimesterCuantity}"></c:set>
+				<h:dataTable styleClass="highlight centered bordered"
+					value="#{entry.value}" var="list">
 					<c:set var="materia" value="#{list}"></c:set>
 					<c:set var="trimesterCuantity" value="#{trimesterCuantity + 1}"></c:set>
 					<f:facet name="header">
-						<p id="tableHead">Trimestre #{trimesterCuantity}</p> 
+						<p id="tableHead">Trimestre #{trimesterCuantity}</p>
 					</f:facet>
-				<h:column>
-					<f:facet name="header">
+					<h:column>
+						<f:facet name="header">
 						Clave
 					</f:facet>
 					#{list.id}
 				</h:column>
-				<h:column>
-					<f:facet name="header">
+					<h:column>
+						<f:facet name="header">
 						Asignatura
 					</f:facet>
 					#{list.name}
 				</h:column>
-				<h:column>
-					<f:facet name="header">
+					<h:column>
+						<f:facet name="header">
 						Créditos
 					</f:facet>
 					#{list.credits}
 					<f:facet name="footer">
-						<c:forEach items="#{entry.value}" var="ls">
-							<c:set var="crdTotal" value="#{crdTotal + ls.credits}"></c:set>	
-						</c:forEach>
+							<c:forEach items="#{entry.value}" var="ls">
+								<c:set var="crdTotal" value="#{crdTotal + ls.credits}"></c:set>
+							</c:forEach>
 							<p id="totalCreditos">#{crdTotal}</p>
-						<c:set var="crdTotal" value="0"></c:set>
-					</f:facet>
-				</h:column>
-				<h:column>
-					<f:facet name="header">
+							<c:set var="crdTotal" value="0"></c:set>
+						</f:facet>
+					</h:column>
+					<h:column>
+						<f:facet name="header">
 						Pre-Requisito
 					</f:facet>
-						<h:outputText rendered="${fn:length(list.preqID) == '0'}" value="-" />
-						<h:outputText rendered="${fn:length(list.preqID) != '0'}" value="#{list.preqID}"/>
-				</h:column>
-				<h:column>
-					<f:facet name="header">
+						<c:choose>
+							<c:when test="${fn:length(list.preqID) le 1}">
+								<ui:repeat var="preq" value="#{list.preqID}">
+									<h:outputText rendered="#{preq eq null}" value="-" />
+									<h:outputText rendered="#{preq ne null}" value="#{preq}" />
+								</ui:repeat>
+							</c:when>
+							<c:otherwise>
+								<ui:repeat var="perq" value="#{list.preqID}">
+									<h:outputText value="#{perq}" />
+								</ui:repeat>
+							</c:otherwise>
+						</c:choose>
+					</h:column>
+					<h:column>
+						<f:facet name="header">
 						Co-Requisito
 					</f:facet>
-						<h:outputText rendered="${fn:length(list.coReqID) == '0'}" value="-" />
-						<h:outputText rendered="${fn:length(list.coReqID) != '0'}" value="#{list.preqID}"/>
-				</h:column>
-				<h:column>
-					<f:facet name="header">
+						<c:choose>
+							<c:when test="${fn:length(list.coReqID) le 1}">
+								<ui:repeat var="coReq" value="#{list.coReqID}">
+									<h:outputText rendered="#{coReq eq null}" value="-" />
+									<h:outputText rendered="#{coReq ne null}" value="#{coReq}" />
+								</ui:repeat>
+							</c:when>
+							<c:otherwise>
+								<ui:repeat var="coRerq" value="#{list.coReqID}">
+									<h:outputText value="#{coRerq}" />
+								</ui:repeat>
+							</c:otherwise>
+						</c:choose>
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">
 						Créditos Requeridos
 					</f:facet>
 					<h:outputText rendered="#{list.creditsReq != '0'}" value="#{list.creditsReq}" />
@@ -125,100 +167,116 @@
 		</c:forEach>
 	</h:form>
 	</h:panelGroup>
-	
+
 	<h:panelGroup layout="block" id="InformationBotonsSubbox">
 		<h:panelGroup layout="block" id="subjectsBlock">
 			<h:form>
-			<h:dataTable id="boxElements" styleClass="highlight centered bordered" 
-					value="#{manualOrganizationBean.notSelectedCourses}"
-					var="subject" >
-				<h:column>
-					<f:facet name="header">
+				<h:dataTable id="boxElements"
+					styleClass="highlight centered bordered"
+					value="#{manualOrganizationBean.notSelectedCourses}" var="subject">
+					<h:column>
+						<f:facet name="header">
 						Asignatura
 					</f:facet>		
 					#{subject.name}
 				</h:column>
-				<h:column>
-					<f:facet name="header">
+					<h:column>
+						<f:facet name="header">
 						Pre-Requisito
 					</f:facet>
-						<h:outputText rendered="${fn:length(subject.preqID) == '0'}" value="-" />
-						<h:outputText rendered="${fn:length(subject.preqID) != '0'}" value="#{subject.preqID}"/>
-				</h:column>
-				<h:column>
-					<f:facet name="header">
+						<c:choose>
+							<c:when test="${fn:length(subject.preqID) le 1}">
+								<ui:repeat var="preq" value="#{subject.preqID}">
+									<h:outputText rendered="#{preq eq null}" value="-" />
+									<h:outputText rendered="#{preq ne null}" value="#{preq}" />
+								</ui:repeat>
+							</c:when>
+							<c:otherwise>
+								<ui:repeat var="perq" value="#{subject.preqID}">
+									<h:outputText value="#{perq}" />
+								</ui:repeat>
+							</c:otherwise>
+						</c:choose>
+					</h:column>
+					<h:column>
+						<f:facet name="header">
 						Créditos
 					</f:facet>
 					#{subject.credits}
 				</h:column>
-				<h:column>
-					<f:facet name="header">
-					</f:facet>
-					
-					<p:commandLink oncomplete="PF('dialogToAdd').show(); return false;">
-							<h:graphicImage value="/Images/add-circle-1.png" />		 
-							<f:setPropertyActionListener target="#{manualOrganizationBean.clickedCourse}" value="#{subject}" />	
-					</p:commandLink>
-					
-				 		<p:dialog id="dialog" widgetVar="dialogToAdd" closeOnEscape="true" 
-				  			  header="Añadir a Trimestre" closable="false" resizable="false" dynamic="true" >
-							<p id="formText">#{manualOrganizationBean.clickedCourse.name} al Trimestre :</p>
-							<p:messages showDetail="false" showIcon="false" redisplay="false"/>
-					   		<p:selectOneMenu
-					   				
-					   				value="#{manualOrganizationBean.selectedTrimester}"	
-					   				
-					   				class="DropdownTri" 
-					   		
-					   				style="width: 125px;position: relative;bottom: 35px;left: 136px;"
-					   			
-					   				>
-						   		<c:forEach items="#{manualOrganizationBean.reorganizedPensum}">
-					   				<c:set var="trimesterPos" value="#{trimesterPos+1}"></c:set>
-					   				<f:selectItem  itemValue="#{trimesterPos}" itemLabel="Trimester #{trimesterPos}"/>
-					   				<c:set var="trimesterPos" value="#{trimesterPos}"></c:set>
-					   			</c:forEach>
-						   		</p:selectOneMenu>
-								<h:commandButton action="#{manualOrganizationBean.add()}"  value="Aceptar"  />
-								<h:commandButton value="Cancelar" />
+					<h:column>
+						<f:facet name="header">
+						</f:facet>
+
+						<p:commandLink
+							oncomplete="PF('dialogToAdd').show(); return false;">
+							<h:graphicImage value="/Vistas/Images/add-circle-1.png" />
+							<f:setPropertyActionListener
+								target="#{manualOrganizationBean.clickedCourse}"
+								value="#{subject}" />
+						</p:commandLink>
+
+						<p:dialog id="dialog" widgetVar="dialogToAdd" closeOnEscape="true"
+							header="Añadir a Trimestre" closable="false" resizable="false"
+							dynamic="true">
+							<p id="formText">#{manualOrganizationBean.clickedCourse.name}
+								al Trimestre :</p>
+							<p:messages showDetail="false" showIcon="false" redisplay="false" />
+							<p:selectOneMenu
+								value="#{manualOrganizationBean.selectedTrimester}"
+								class="DropdownTri"
+								style="width: 125px;position: relative;bottom: 35px;left: 136px;">
+								<c:forEach items="#{manualOrganizationBean.reorganizedPensum}">
+									<c:set var="trimesterPos" value="#{trimesterPos+1}"></c:set>
+									<f:selectItem itemValue="#{trimesterPos}"
+										itemLabel="Trimester #{trimesterPos}" />
+									<c:set var="trimesterPos" value="#{trimesterPos}"></c:set>
+								</c:forEach>
+							</p:selectOneMenu>
+							<h:commandButton action="#{manualOrganizationBean.add()}"
+								value="Aceptar" />
+							<h:commandButton value="Cancelar" />
 						</p:dialog>
-					
-				</h:column>
-			</h:dataTable>
+					</h:column>
+				</h:dataTable>
 			</h:form>
 		</h:panelGroup>
-		
+
 		<h:panelGroup layout="block" id="Botons">
 			<h:form>
 				<h:panelGroup layout="block" id="Guardar">
-					<h:commandLink class="waves-effect waves-light btn" value="Guardar" action="#{manualOrganizationBean.saveReorganization()}"></h:commandLink>
+					<h:commandLink class="waves-effect waves-light btn" value="Guardar"
+						action="#{manualOrganizationBean.saveReorganization()}"></h:commandLink>
 				</h:panelGroup>
-	         	<h:panelGroup layout="block" id="Cancelar">
-	         		<h:commandLink onclick="PF('dialogToExit').show(); return false;" class="waves-effect waves-light btn" style="position: relative; bottom: 35px; left: 190px;" action="ReorganizarPensum" value="Cancelar"></h:commandLink>
-	         	</h:panelGroup>
-         	</h:form>
+				<h:panelGroup layout="block" id="Cancelar">
+					<h:commandLink onclick="PF('dialogToExit').show(); return false;"
+						class="waves-effect waves-light btn"
+						style="position: relative; bottom: 35px; left: 190px;"
+						action="VistaPOAuto" value="Cancelar"></h:commandLink>
+				</h:panelGroup>
+			</h:form>
 		</h:panelGroup>
 	</h:panelGroup>
-	
-     <p:dialog widgetVar="dialogToExit" closeOnEscape="true" 
-			  header="Cancelar cambios" closable="false" resizable="false">
-			  
+
+	<p:dialog widgetVar="dialogToExit" closeOnEscape="true"
+		header="Cancelar cambios" closable="false" resizable="false">
+
 		<form>
-			<p id="formTextExit" >Pueden existir cambios no guardados</p>
+			<p id="formTextExit">Pueden existir cambios no guardados</p>
 			<p id="formTextExit">¿Desea salir?</p>
 			<h:button value="Si" type="submit" onclick="return outcomeSwich();"></h:button>
-			<h:button value="No" type="submit" ></h:button>
+			<h:button value="No" type="submit"></h:button>
 		</form>
-		
+
 	</p:dialog>
-	
+
 	<footer id="footer" class="page-footer">
-       <h:panelGroup id="copyright" layout="block" class="footer-copyright">
-         <h:panelGroup layout="block" id="copyrightContainer">
+		<h:panelGroup id="copyright" layout="block" class="footer-copyright">
+			<h:panelGroup layout="block" id="copyrightContainer">
           HANDS © 2017
          </h:panelGroup>
-       </h:panelGroup>
-		
+		</h:panelGroup>
+
 		<h:panelGroup layout="block" id="logoDiv">
 			<h:graphicImage id="logo" value="/Images/Logo.png" />
 		</h:panelGroup>
@@ -227,5 +285,5 @@
 			<h:graphicImage id="intec" value="/Images/Logo-intec.png" />
 		</h:panelGroup>
 	</footer>
-  </h:body>
+</h:body>
 </html>

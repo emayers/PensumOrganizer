@@ -209,7 +209,7 @@ public class StudentsDAO {
 
 	
 	public Integer getAdmissionTerm(Integer id){
-		/*Returns term of admission, remembering that:
+		/**Returns term of admission, remembering that:
 		 * 1 stands for AGOSTO-OCTUBRE
 		 * 2 stands for FEBRERO-ABRIL
 		 * 3 stands for MARZO-ABRIL
