@@ -14,7 +14,7 @@ public class ConnectionFactory {
 			+"database=PODB2;user=usuario@podb2;password=1234qweR;"
     		+"encrypt=true;trustServerCertificate=false;"
 			+"hostNameInCertificate=*.database.windows.net;"
-    		+"loginTimeout=30;"; 
+    		+"loginTimeout=30;";
 	
 	String driverClassName="com.sqlserver.jdbc.Driver";
 	private static ConnectionFactory connectionFactory = null;

@@ -22,9 +22,9 @@ public class PrerrequisitoDao {
 	}
 
 	
-	
+	/**Returns course sequence, not sure what that means, all i know is that in IDS is always 1*/
 	public int getCourseSequence(String programCode, String courseCode, int version){
-		/*Returns course sequence, not sure what that means, all i know is that in IDS is always 1*/
+
 		int sequence=0;
 		try{
 					
@@ -61,10 +61,10 @@ public class PrerrequisitoDao {
 				
 			}
 	
-	
+	/**Returns prerequisite sequence, if a subject has more than one prerequisite, 
+	 * it will have a register for each prerequisite, with a distinct number*/
 	public int getPrerequisiteSequence(String programCode, String prerequisite, int version){
-		/*Returns prerequisite sequence, if a subject has more than one prerequisite, 
-		 * it will have a register for each prerequisite, with a distinct number*/
+
 		int sequence=0;
 		try{
 					
@@ -101,10 +101,10 @@ public class PrerrequisitoDao {
 				
 			}
 	
-	
+	/**Returns the codes of the prerequisites of a subject, as a subject may have more than 
+	 * one prerequisite, it returns an ArrayList*/
 	public ArrayList<Prerrequisito> getAllPreRequisitesByProgram(String ProgramCode, int Version){
-		/*Returns the codes of the prerequisites of a subject, as a subject may have more than 
-		 * one prerequisite, it returns an ArrayList*/
+
 		ArrayList<Prerrequisito> listOfAllPrerequisites=new ArrayList<Prerrequisito>();
 		try{
 					
@@ -147,10 +147,10 @@ public class PrerrequisitoDao {
 				
 			}
 	
-	
+	/**Returns the codes of the prerequisites of a subject, as a subject may have more than 
+	 * one prerequisite, it returns an ArrayList*/
 	public ArrayList<String> getPreRequisite(String ProgramCode, String CourseCode){
-		/*Returns the codes of the prerequisites of a subject, as a subject may have more than 
-		 * one prerequisite, it returns an ArrayList*/
+		
 		ArrayList<String> listOfPrerequisites=new ArrayList<String>();
 		try{
 					
@@ -161,10 +161,14 @@ public class PrerrequisitoDao {
 					ptmt.setString(2, CourseCode);
 					resultSet=ptmt.executeQuery();
 					while(resultSet.next()){ 
-//						System.out.println(resultSet.getString("Prerrequisito"));
+						
 						listOfPrerequisites.add(resultSet.getString("Prerrequisito"));
+						
 					  
 				}
+					/*for(int index=0;index<listOfPrerequisites.size();index++){
+						System.out.println(listOfPrerequisites.get(index));
+						}*/
 				}
 				catch (SQLException e) {
 					e.printStackTrace();
@@ -186,10 +190,10 @@ public class PrerrequisitoDao {
 		return listOfPrerequisites;
 				
 			}
+
 	
-	
+	/**For testing, to be deleted*/
 	public static void main(String [] args){
-		/*For testing, to be deleted*/
 		PrerrequisitoDao prerre = new PrerrequisitoDao();
 		
 //		prerre.getAsignatura(ent);

@@ -26,19 +26,19 @@
 	<h:form>
 		
 		<h:panelGroup layout="block" id="logoTitleDiv">
-			<h:graphicImage class="logoTitle" value="/Vistas/Images/Logo-red.png" />
+			<h:graphicImage class="logoTitle" value="/Images/Logo-red.png" />
 		</h:panelGroup>
 		<p:messages showDetail="false" showIcon="false" redisplay="false"/>
 		<h:inputText p:placeholder="ID Institucional" id="studentId" 
 					 value="#{authenticationBean.userName}" 
 					 required="true"
-					 requiredMessage="Por favor, ingrese su ID"
+					 requiredMessage="Por favor ingrese su ID"
 					 onkeypress="inputLimit(this)">
 		</h:inputText>
 		<h:inputSecret p:placeholder="Contraseña" id="password" 
 					   value="#{authenticationBean.password}" 
 					   required="true"
-					   requiredMessage="Por favor, ingrese su contraseña"
+					   requiredMessage="Por favor ingrese su contraseña"
 					   onkeypress="inputLimit(this)">
 		</h:inputSecret>
 		<h:commandButton id="Submiting" action="#{authenticationBean.submit()}"  value="Iniciar Sesión" />
@@ -51,7 +51,7 @@
          </h:panelGroup>
        </h:panelGroup>
        	<h:panelGroup layout="block" id="intecLogo">
-			<h:graphicImage id="intec" value="/Vistas/Images/Logo-intec.png" />
+			<h:graphicImage id="intec" value="/Images/Logo-intec.png" />
 		</h:panelGroup>
 	</footer>
 	

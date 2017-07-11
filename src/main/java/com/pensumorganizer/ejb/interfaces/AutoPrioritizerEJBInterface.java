@@ -12,5 +12,7 @@ public interface AutoPrioritizerEJBInterface {
 	
 	public Map<Integer, List<Course>> getOrganizedPensum();
 	
-	public String organizePensum();
+	public void organizePensum(int studentId);
+	
+	public void recreateOrganizedPensum(int studentId);
 }

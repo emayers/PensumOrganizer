@@ -22,19 +22,39 @@
 	<nav id="navigationMenuTag">
 		<h:panelGroup layout="block" id="menu" styleClass="nav-wrapper">
 			<ul id="navigationBar">
-				<li><h:link id="currentPageMarker" value="Página Principal">
-					</h:link></li>
-				<li><h:link value="Ver Historial" outcome="VistaHistorial"></h:link></li>
-				<li><h:link value="Programa de la Carrera" outcome="VistaPrograma">
-					</h:link></li>
-				<li><h:link value="Reorganizar Pensum" outcome="VistaPOAuto"></h:link></li>
-				<li><h:link value="Ayuda" outcome="VistaHelp"></h:link></li>
+				<li>
+					<h:link id="currentPageMarker" value="Página Principal"/>
+				</li>
+				<li>
+					<h:form>
+						<h:commandLink value="Historial" 
+						action="#{historyBean.recreateHistory(authenticationBean.userName)}"/>
+					</h:form>
+				</li>
+				<li>
+					<h:form>
+						<h:commandLink value="Programa de la Carrera" 
+						action="#{pensumBean.recreatePensum(authenticationBean.userName)}"/>
+					</h:form>
+				</li>
+				<li>
+					<h:form>
+						<h:commandLink value="Reorganizar Pensum" 
+						action="#{autoPrioritizerBean.recreateOrganizedPensum(authenticationBean.userName)}"/>
+					</h:form>
+				</li>
+				<li>
+					<h:form>
+						<h:commandLink value="Ayuda" 
+						action="#{authenticationBean.redirectHelp()}"/>
+					</h:form>
+				</li>
 				<li id="user">
-					<a class="dropdownTrigger"  onclick="dropList()" href="#">
-						#{studentBean.studentName}
-					</a>
+					<a class="dropdownTrigger" onclick="dropList()" href="#"> #{authenticationBean.name} </a>
 					<h:panelGroup layout="block" id="dropdownContent" class="dropdownClass">
-	    					<h:link value="Log Out" outcome="VistaLogin"></h:link>
+						<h:form>
+							<h:commandLink action="#{authenticationBean.logOut()}" value="Log Out" />
+						</h:form>
 					</h:panelGroup>
 				</li>
 			</ul>
@@ -42,8 +62,8 @@
 	</nav>
 	<h:panelGroup layout="block" id="titleBar">
 		<p>
-			<h:graphicImage id="titleBarImage" value="/Vistas/Images/Target-White.png" />
-			Ingeniería de Software
+			<h:graphicImage id="titleBarImage" value="/Images/Target-White.png" />
+			#{pensumBean.getPensumName(authenticationBean.userName)}
 		</p>
 	</h:panelGroup>
 	
@@ -52,32 +72,48 @@
 		<h5>Aún no tienes reorganizaciones generadas</h5>
 	</h:panelGroup>
 	
-		<h:panelGroup layout="block" id="Boton">
-			<h:panelGroup layout="block" id="Reorganizar">
-				<h:link class="waves-effect waves-light btn" value="Reorganizar Mi Pensum" outcome="VistaPOAuto"></h:link>
-			</h:panelGroup>
+	<h:panelGroup layout="block" id="Boton">
+		<h:panelGroup layout="block" id="Reorganizar">
+			<h:form>
+				<h:commandLink class="waves-effect waves-light btn" value="¡Reorganizar Mi Pensum!" 
+				action="#{autoPrioritizerBean.recreateOrganizedPensum(authenticationBean.userName)}"/>
+			</h:form>
 		</h:panelGroup>
+	</h:panelGroup>
 	
 	<h:panelGroup layout="block" id="leftSideOfTheScreenData">
-		<h:panelGroup layout="block" id="chartContainer"></h:panelGroup>
-			<canvas id="dashboardChart" width="400" height="450"></canvas>
-				<script>
+		<h:panelGroup layout="block" id="chartContainer"/>
+		<h:form>
+			<c:set var="approvedCourses" value="#{historyBean.getApprovedCourses(authenticationBean.userName)}"/>
+			<c:set var="approvedCredits" value="#{historyBean.getApprovedCredits(authenticationBean.userName)}"/>
+			<c:set var="coursedTrimesters" value="#{authenticationBean.coursedTrimesters}"/>
+			<c:set var="totalCourses" value="#{pensumBean.getPensumTotalCourses(authenticationBean.userName)}"/>
+			<c:choose>
+				<c:when test="${coursedTrimesters lt pensumBean.getPensumTotalTrimesters(authenticationBean.userName)}">
+					<c:set var="totalTrimesters" value="#{pensumBean.getPensumTotalTrimesters(authenticationBean.userName)}"/>
+				</c:when>
+				<c:otherwise>
+					<c:set var="totalTrimesters" value="#{pensumBean.getPensumPermanence((authenticationBean.userName))}"/>
+				</c:otherwise>
+			</c:choose>
+			<c:set var="totalCredits" value="#{pensumBean.getPensumTotalCredits(authenticationBean.userName)}"/>
+		</h:form>
+		<canvas id="dashboardChart" width="400" height="450"></canvas>
+		<script>
 					var ctx = document.getElementById("dashboardChart");
 					var myChart = new Chart(ctx, {
 					    type: 'polarArea',
 					    data: {
 						    datasets: [{
 						        data: [
-						            (5 * 20) / 56,
-						            (1 * 20) / 14,
-						            (20 * 20) / 248,
-// 						            (4.00 * 20) / 4.00
+						            (#{approvedCourses} * 20) / #{totalCourses},
+						            (#{coursedTrimesters} * 20) / #{totalTrimesters},
+						            (#{approvedCredits} * 20) / #{totalCredits},
 						        ],
 						        backgroundColor: [
 						            "#72af47",
 						            "#343434",
 						            "#BD3630",
-// 						            "#797979"
 						        ],
 						        label: 'Datos Institucionales'
 						    }],
@@ -85,7 +121,6 @@
 						        "Asignaturas Aprobadas",
 						        "Trimestres Cursados",
 						        "Créditos Aprobados",
-// 						        "Índice General"      
 						    ]
 						},
 						options:{
@@ -111,19 +146,15 @@
 	
 									        case 0:
 										        currentValue = dataset.data[tooltipItem.index];
-										        return ((currentValue * 56) / 20)+"/56";
+										        return ((currentValue * #{totalCourses}) / 20) + "/" + #{totalCourses};
 										        
 									        case 1:
 										        currentValue = dataset.data[tooltipItem.index];
-										        return (currentValue * 14) / 20+"/14";
+										        return (currentValue * #{totalTrimesters}) / 20 + "/" + #{totalTrimesters};
 	
 									        case 2:
 										        currentValue = dataset.data[tooltipItem.index];
-										        return (currentValue * 248) / 20+"/248";
-	
-									         case 3:
-										         currentValue = dataset.data[tooltipItem.index];
-										         return (currentValue * 4) / 20;
+										        return (currentValue * #{totalCredits}) / 20 + "/" + #{totalCredits};
 	
 									         default:
 										          return 0;
@@ -147,11 +178,11 @@
        </h:panelGroup>
 		
 		<h:panelGroup layout="block" id="logoDiv">
-			<h:graphicImage id="logo" value="/Vistas/Images/Logo.png" />
+			<h:graphicImage id="logo" value="/Images/Logo.png" />
 		</h:panelGroup>
 
 		<h:panelGroup layout="block" id="intecLogo">
-			<h:graphicImage id="intec" value="/Vistas/Images/Logo-intec.png" />
+			<h:graphicImage id="intec" value="/Images/Logo-intec.png" />
 		</h:panelGroup>
 	</footer>
 		

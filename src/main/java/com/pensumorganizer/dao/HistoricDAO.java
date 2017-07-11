@@ -282,9 +282,8 @@ public class HistoricDAO {
 	
 	/*Add method that returns an array of History objects, similar to the Courses structure*/
 	public ArrayList<Course> getHistory(int studentId){
+		System.out.println(studentId + " historyDao");
 		ArrayList<Course> history= new ArrayList<Course>();
-		ArrayList<String> prerequisites=new ArrayList<String>();
-		ArrayList<String> corequisites=new ArrayList<String>();
 		StudentsDAO student=new StudentsDAO();
 		int trimester=1, admYear=student.getAdmissionYear(studentId), admTerm=student.getAdmissionTerm(studentId);
 		try{
@@ -295,6 +294,9 @@ public class HistoricDAO {
 			ptmt.setInt(1, studentId);
 			resultSet=ptmt.executeQuery();
 			while(resultSet.next()){ 
+				ArrayList<String> prerequisites=new ArrayList<String>();
+				ArrayList<String> corequisites=new ArrayList<String>();
+				
 				if(resultSet.getInt("Año")!=admYear || resultSet.getInt("Termino")!=admTerm){
 					admYear=resultSet.getInt("Año");
 					admTerm=resultSet.getInt("Termino");
@@ -317,13 +319,12 @@ public class HistoricDAO {
 				takenCourse.setCoReqID(corequisites);
 				System.out.println(trimester);
 				history.add(takenCourse);
-			  
-		}
-			
+			}
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
+		} 
+		finally {
 			try {
 				if (ptmt != null)
 					ptmt.close();
@@ -338,10 +339,13 @@ public class HistoricDAO {
 			}
 
 		}
+		if(history.size()==0){
+			System.out.println("null-historyDao");
+		}
 
 		return history;
-		
 	}
+
 	
 	public boolean isApproved(int studentId, String courseCode){
 		boolean isApproved=false;
@@ -381,8 +385,7 @@ public class HistoricDAO {
 	
 	public List<Course> getApprovedCourses(int studentId){
 		List<Course>approvedCourses=new ArrayList<Course>();
-		ArrayList<String> prerequisites=new ArrayList<String>();
-		ArrayList<String> corequisites=new ArrayList<String>();
+		
 		try{
 			String queryString = "SELECT * FROM HistoricoCursadas WHERE IdEstudiante=?;";
 			connection = getConnection();
@@ -390,9 +393,11 @@ public class HistoricDAO {
 			ptmt.setInt(1, studentId);
 			resultSet=ptmt.executeQuery();
 			while(resultSet.next()){ 
+				ArrayList<String> prerequisites=new ArrayList<String>();
+				ArrayList<String> corequisites=new ArrayList<String>();
 				Course takenCourse=new Course();
 //				System.out.println(resultSet.getString("TipoSeccion"));
-				if(resultSet.getString("Aprobado").equals('T')){
+				if(resultSet.getString("Aprobado").equals("T")){
 					takenCourse.setHistYear(resultSet.getInt("Año"));
 					takenCourse.setTerm(resultSet.getInt("Termino"));
 					takenCourse.setId(resultSet.getString("AsignaturaCodigo"));
@@ -403,6 +408,7 @@ public class HistoricDAO {
 					takenCourse.setPreqID(prerequisites);
 					corequisites.add(resultSet.getString("Corequisitos"));
 					takenCourse.setCoReqID(corequisites);
+					approvedCourses.add(takenCourse);
 				}					  
 		}
 		}

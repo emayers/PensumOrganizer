@@ -1,5 +1,6 @@
 package com.pensumorganizer.ejb;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -7,12 +8,12 @@ import java.util.List;
 import java.util.Map;
 
 import javax.ejb.Stateless;
+import javax.faces.context.FacesContext;
 
-import com.pensumorganizer.dao.StudentsDAO;
 import com.pensumorganizer.dao.PensumsDAO;
 import com.pensumorganizer.dao.ProgramsDAO;
+import com.pensumorganizer.dao.StudentsDAO;
 import com.pensumorganizer.ejb.interfaces.PensumEJBInterface;
-import com.pensumorganizer.managedbeans.AuthenticationBean;
 import com.pensumorganizer.util.structures.Course;
 
 @Stateless
@@ -22,7 +23,6 @@ public class PensumEJBImpl implements PensumEJBInterface {
 	private static PensumsDAO pensums = new PensumsDAO();
 	private static ProgramsDAO programs = new ProgramsDAO();
 	private static StudentsDAO students = new StudentsDAO();
-	private static Integer studentId = AuthenticationBean.aEJB.getUserName();
 
 	public Map<Integer, List<Course>> getPensum(){
 		Map<Integer, List<Course>> program = new HashMap<Integer, List<Course>>(actualPensum);
@@ -30,7 +30,9 @@ public class PensumEJBImpl implements PensumEJBInterface {
 		return program;
 	}
 	
-	public void recreatePensum(){
+	public void recreatePensum(int studentId){
+		actualPensum.clear();
+		
 		List<Course> coursesProgram = pensums.getCourses(students.getProgramCode(studentId));
 		
 		for (Course course : coursesProgram) {
@@ -46,17 +48,53 @@ public class PensumEJBImpl implements PensumEJBInterface {
 				actualPensum.put(courseTrimester, currentTrimester);
 			}
 		}
+		
+		try {
+			FacesContext.getCurrentInstance().getExternalContext().redirect("ProgramaCarrera.xhtml");
+		} 
+		catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
-	public String getPensumName(){
-		return programs.getProgramName(getStudentProgram());
+	public String getPensumName(int studentId){
+		return programs.getProgramName(getProgramCode(studentId));
 	}
 	
-	public int getPensumTotalTrimesters(){
-		return programs.getTotalTrimesters(getStudentProgram());
+	public int getPensumTotalTrimesters(int studentId){
+		int totalTrimesters = programs.getTotalTrimesters(getProgramCode(studentId));
+		
+		System.out.println("Total trimestres: " + totalTrimesters);
+		
+		return totalTrimesters;
 	}
 	
-	private String getStudentProgram(){
+	public int getPensumPermanence(int studentId){
+		int totalTrimesters = programs.getTotalTrimesters(getProgramCode(studentId));
+		totalTrimesters = (int)(totalTrimesters * 1.5); //FORCE
+		
+		System.out.println("Total permanencia: " + totalTrimesters);
+		
+		return totalTrimesters;
+	}
+
+	public int getPensumTotalCredits(int studentId) {
+		int totalCredits = programs.getProgramCredits(getProgramCode(studentId));
+		
+		System.out.println("Total creditos: " + totalCredits);
+		
+		return totalCredits;
+	}
+
+	public int getPensumTotalCourses(int studentId) {
+		int totalCourses = programs.getTotalSubjects(getProgramCode(studentId));
+		
+		System.out.println("Total materias: " + totalCourses);
+		
+		return totalCourses;
+	}
+	
+	private String getProgramCode(int studentId){
 		return students.getProgramCode(studentId);
 	}
 }

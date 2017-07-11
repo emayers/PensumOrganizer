@@ -5,7 +5,11 @@ import javax.ejb.Remote;
 @Remote
 public interface AuthenticationEJBInterface {
 
-	public String submit();
+	public void submit();
+	
+	public void logOut();
+	
+	public String getStudentName();
 
 	public int getUserName();
 
@@ -14,4 +18,15 @@ public interface AuthenticationEJBInterface {
 	public void setUserName(int userName);
 
 	public void setPassword(int password);
+	
+	public String getName();
+	
+	public String getGPA();
+	
+	public int getCoursedTrimesters();
+		
+	public void redirectDashboard();
+	
+	public void redirectHelp();
+	
 }

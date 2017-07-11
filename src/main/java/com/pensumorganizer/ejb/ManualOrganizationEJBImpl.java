@@ -55,7 +55,7 @@ public class ManualOrganizationEJBImpl implements ManualOrganizationEJBInterface
 	public String saveReorganization(){
 		System.out.println("Hey! Saving!");
     	AutoPrioritizerBean.apEJB.setOrganizedPensum(reorganizedPensum);
-    	return "VistaPOAuto";
+    	return "ReorganizarPensum";
 	}
 	
 	public Map<Integer, List<Course>> getReorganizedPensum(){
@@ -126,9 +126,9 @@ public class ManualOrganizationEJBImpl implements ManualOrganizationEJBInterface
 	
 	private static boolean requirementsNotMet(){
 		//TODO ENCADENAMIENTO PROYECTOS FINALES
-		if(getApprovedCredits() < clickedCourse.getCreditsReq()){
-			return true;
-		}
+//		if(getApprovedCredits() < clickedCourse.getCreditsReq()){
+//			return true;
+//		}
 		
 		for(int indice = 0; indice < selectedTrimester; indice++){
 			List<Course> currentTrimester = reorganizedPensum.get(indice);
@@ -163,16 +163,16 @@ public class ManualOrganizationEJBImpl implements ManualOrganizationEJBInterface
 		
 		return maxCredits;
 	}
-	
-	private static int getApprovedCredits(){
-		List<Course> approvedCourses = HistoryBean.hEJB.getApprovedCourses();
-		int approvedCredits = 0;
-		
-		for (Course course : approvedCourses) {
-			approvedCredits += course.getCredits();
-		}
-		
-		return approvedCredits;
-	}
+//TODO	
+//	private static int getApprovedCredits(){
+//		List<Course> approvedCourses = HistoryBean.hEJB.getApprovedCourses();
+//		int approvedCredits = 0;
+//		
+//		for (Course course : approvedCourses) {
+//			approvedCredits += course.getCredits();
+//		}
+//		
+//		return approvedCredits;
+//	}
 }
 

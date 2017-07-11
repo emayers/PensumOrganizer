@@ -22,19 +22,39 @@
 	<nav id="navigationMenuTag">
 		<h:panelGroup layout="block" id="menu" styleClass="nav-wrapper">
 			<ul id="navigationBar">
-				<li><h:link value="Página Principal" outcome="VistaDashboard">
-					</h:link></li>
-				<li><h:link id="currentPageMarker" value="Ver Historial" outcome="VistaHistorial"></h:link></li>
-				<li><h:link value="Programa de la Carrera" outcome="VistaPrograma">
-					</h:link></li>
-				<li><h:link value="Reorganizar Pensum" outcome="VistaPOAuto"></h:link></li>
-				<li><h:link value="Ayuda" outcome="VistaHelp"></h:link></li>
+				<li>
+					<h:form>
+						<h:commandLink value="Página Principal" 
+						action="#{authenticationBean.redirectDashboard()}"/>
+					</h:form>
+				</li>
+				<li>
+					<h:link id="currentPageMarker" value="Ver Historial"/>
+				</li>
+				<li>
+					<h:form>
+						<h:commandLink value="Programa de la Carrera" 
+						action="#{pensumBean.recreatePensum(authenticationBean.userName)}"/>
+					</h:form>
+				</li>
+				<li>
+					<h:form>
+						<h:commandLink value="Reorganizar Pensum" 
+						action="#{autoPrioritizerBean.recreateOrganizedPensum(authenticationBean.userName)}"/>
+					</h:form>
+				</li>
+				<li>
+					<h:form>
+						<h:commandLink value="Ayuda" 
+						action="#{authenticationBean.redirectHelp()}"/>
+					</h:form>
+				</li>
 				<li id="user">
-					<a class="dropdownTrigger"  onclick="dropList()" href="#">
-						#{studentBean.studentName}
-					</a>
+					<a class="dropdownTrigger" onclick="dropList()" href="#"> #{authenticationBean.name} </a>
 					<h:panelGroup layout="block" id="dropdownContent" class="dropdownClass">
-	    					<h:link value="Log Out" outcome="VistaLogin"></h:link>
+						<h:form>
+							<h:commandLink action="#{authenticationBean.logOut()}" value="Log Out" />
+						</h:form>
 					</h:panelGroup>
 				</li>
 			</ul>
@@ -43,10 +63,10 @@
 	
 		<h:panelGroup layout="block" id="titleBar">
 			<p>
-				<h:graphicImage id="titleBarImage" value="/Vistas/Images/Target-White.png" />
-				Historial Académico  -  Ingeniería de Software 
+				<h:graphicImage id="titleBarImage" value="/Images/Target-White.png" />
+				Historial Académico  -  #{pensumBean.getPensumName(authenticationBean.userName)} 
 			</p>
-			<p id="indice">Índice General 3.14</p>
+			<p id="indice">Índice General #{authenticationBean.GPA}</p>
 		</h:panelGroup>
 	
 	<h:panelGroup layout="block" id="cointainerOfHistoric" >
@@ -88,15 +108,27 @@
 					<f:facet name="header">
 						Pre-Requisito
 					</f:facet>
-						<h:outputText rendered="${fn:length(list.preqID) == '0'}" value="-" />
-						<h:outputText rendered="${fn:length(list.preqID) != '0'}" value="#{list.preqID}"/>
+					<c:when test="${fn:length(list.preqID) == '0'}">
+						<h:outputText value="-" />
+					</c:when>
+					<c:otherwise test="${fn:length(list.preqID) != '0'}">
+						<c:forEach items="#{list.preqID}" var="preq">
+							<h:outputText rendered="preq != null"  value="#{preq}"/>
+						</c:forEach>
+					</c:otherwise>
 				</h:column>
 				<h:column>
 					<f:facet name="header">
 						Co-Requisito
 					</f:facet>
-						<h:outputText rendered="${fn:length(list.coReqID) == '0'}" value="-" />
-						<h:outputText rendered="${fn:length(list.coReqID) != '0'}" value="#{list.preqID}"/>
+					<c:when test="${fn:length(list.coReqID) == '0'}">
+						<h:outputText value="-" />
+					</c:when>
+					<c:otherwise test="${fn:length(list.coReqID) != '0'}">
+						<c:forEach items="#{list.coReqID}" var="coReq">
+							<h:outputText rendered="coReq != null"  value="#{coReq}"/>
+						</c:forEach>
+					</c:otherwise>
 				</h:column>
 				<h:column>
 					<f:facet name="header">
@@ -109,7 +141,7 @@
 					<f:facet name="header">
 						Calificaciones
 					</f:facet>
-						A
+						#{list.grade}
 				</h:column>
 				
 			</h:dataTable>	
@@ -123,11 +155,11 @@
        </h:panelGroup>
 		
 		<h:panelGroup layout="block" id="logoDiv">
-			<h:graphicImage id="logo" value="/Vistas/Images/Logo.png" />
+			<h:graphicImage id="logo" value="/Images/Logo.png" />
 		</h:panelGroup>
 
 		<h:panelGroup layout="block" id="intecLogo">
-			<h:graphicImage id="intec" value="/Vistas/Images/Logo-intec.png" />
+			<h:graphicImage id="intec" value="/Images/Logo-intec.png" />
 		</h:panelGroup>
 	</footer>
   </h:body>

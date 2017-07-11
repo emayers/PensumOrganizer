@@ -1,5 +1,6 @@
 package com.pensumorganizer.ejb;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -8,11 +9,11 @@ import java.util.Map;
 import java.util.PriorityQueue;
 
 import javax.ejb.Singleton;
+import javax.faces.context.FacesContext;
 
 import com.pensumorganizer.dao.CoursesToTakeDAO;
 import com.pensumorganizer.dao.ReorganizationsDAO;
 import com.pensumorganizer.ejb.interfaces.AutoPrioritizerEJBInterface;
-import com.pensumorganizer.managedbeans.AuthenticationBean;
 import com.pensumorganizer.managedbeans.PensumBean;
 import com.pensumorganizer.util.CourseComparator;
 import com.pensumorganizer.util.structures.Course;
@@ -21,13 +22,12 @@ import com.pensumorganizer.util.structures.Course;
 public class AutoPrioritizerEJBImpl implements AutoPrioritizerEJBInterface {
 	private static CoursesToTakeDAO notTakenCourses = new CoursesToTakeDAO();
 	private static ReorganizationsDAO studentsOrganizations = new ReorganizationsDAO();
-	private static int studentId = AuthenticationBean.aEJB.getUserName();
-	final private static int IDEAL_TOTAL_TRIMESTERS = PensumBean.pEJB.getPensumTotalTrimesters(),
-							 MAX_CREDITS_PER_TRIMESTER = getMaxCreditsPerTrimester(),
+
+	final private static int MAX_CREDITS_PER_TRIMESTER = getMaxCreditsPerTrimester(),
 							 HIGH_PRIORITY_WEIGHT = 10,
 							 LOW_PRIORITY_WEIGHT = 5; 
 	
-	private static Map<Integer, List<Course>> actualReorganizedPensum = studentsOrganizations.getOrganization(studentId);
+	private static Map<Integer, List<Course>> actualReorganizedPensum = new HashMap<Integer, List<Course>>();
 	
 	public Map<Integer, List<Course>> getOrganizedPensum(){
 		Map<Integer, List<Course>> pensum = new HashMap<Integer, List<Course>>(actualReorganizedPensum);
@@ -35,24 +35,33 @@ public class AutoPrioritizerEJBImpl implements AutoPrioritizerEJBInterface {
 		return pensum;
 	}
 	
-	public String organizePensum(){
-		PriorityQueue<Course> orderedCourses = prioritizeCourses();
-		actualReorganizedPensum = reorganizePensum(orderedCourses);
+	public void recreateOrganizedPensum(int studentId){
+		actualReorganizedPensum = studentsOrganizations.getOrganization(studentId);
 		
-		return "VistaPOAuto";
+		try {
+			FacesContext.getCurrentInstance().getExternalContext().redirect("ReorganizarPensum.xhtml");
+		} 
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void organizePensum(int studentId){
+		PriorityQueue<Course> orderedCourses = prioritizeCourses(studentId);
+		actualReorganizedPensum = reorganizePensum(orderedCourses);
 	}
 	
 	public void setOrganizedPensum(Map<Integer, List<Course>> pensum){
 		actualReorganizedPensum = pensum;
 	}
 	
-	private static PriorityQueue<Course> prioritizeCourses(){
+	private static PriorityQueue<Course> prioritizeCourses(int studentId){
 		PriorityQueue<Course> prioritizedCourses = 
 				new PriorityQueue<Course>(new CourseComparator());
 		List<Course> coursesToTake = notTakenCourses.getSubjectsToTake(studentId);
 
 		for (Course currentCourse : coursesToTake) {	
-			int trimesterWeight = getTrimesterWeight(currentCourse);
+			int trimesterWeight = getTrimesterWeight(currentCourse, studentId);
 			int creditsWeight = currentCourse.getCredits();
 			int chainWeight = getChainWeight(currentCourse, coursesToTake);
 			
@@ -143,7 +152,9 @@ public class AutoPrioritizerEJBImpl implements AutoPrioritizerEJBInterface {
 		return currentCourse;
 	}
 	
-	private static int getTrimesterWeight(Course course){
+	private static int getTrimesterWeight(Course course, int studentId){
+		int IDEAL_TOTAL_TRIMESTERS = PensumBean.pEJB.getPensumTotalTrimesters(studentId);
+		
 		return (IDEAL_TOTAL_TRIMESTERS - course.getIdealTrimestrer()) * LOW_PRIORITY_WEIGHT;
 	}
 	

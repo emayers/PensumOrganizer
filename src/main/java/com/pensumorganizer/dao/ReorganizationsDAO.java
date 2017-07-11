@@ -66,21 +66,21 @@ public class ReorganizationsDAO {
 	
 	public Map<Integer, List<Course>> getOrganization(int id){
 		/*Returns the last organization*/
+		System.out.println(id + " ReorganizationsDAO");
 		Map<Integer, List<Course>> lastOrganization=new HashMap<Integer, List<Course>>();
 		List<Course>dummy=new ArrayList<Course>();
 		lastOrganization.put(0, dummy);
-		ArrayList<String> corequisites=new ArrayList<String>();
-		ArrayList<String> prerequisites=new ArrayList<String>();
 		int trimesterNumber=0;
-		PensumsDAO psmDao=new PensumsDAO();
-		StudentsDAO student=new StudentsDAO();
 		try{
-			String queryString = "SELECT AsignaturaCodigo, Descripcion, Termino, TerminoDescripcion, Creditos, Prerrequisito, RequisitoCred, Corequisito, NumTrimestre FROM EstudianteReorganizacion WHERE IdEstudiante=?;";
+			String queryString = "SELECT AsignaturaCodigo, Descripcion, Termino, TerminoDescripcion, Creditos, Prerrequisito, RequisitoCred, Corequisito, NumTrimestre, TrimestreIdeal FROM EstudianteReorganizacion WHERE IdEstudiante=?;";
 			connection = getConnection();
 			ptmt = connection.prepareStatement(queryString);
 			ptmt.setInt(1, id);
 			resultSet=ptmt.executeQuery();
 			while(resultSet.next()){
+
+				ArrayList<String> corequisites=new ArrayList<String>();
+				ArrayList<String> prerequisites=new ArrayList<String>();
 				trimesterNumber=resultSet.getInt("NumTrimestre");
 				if(trimesterNumber>=lastOrganization.size()){
 					List<Course>trimester=new ArrayList<Course>();
@@ -88,14 +88,6 @@ public class ReorganizationsDAO {
 				}
 				Course course=new Course();
 				
-//				System.out.println(resultSet.getString("AsignaturaCodigo")
-//				           +" "+resultSet.getString("Descripcion")
-//				           +" "+resultSet.getInt("Termino")
-//				           +" "+resultSet.getString("TerminoDescripcion")
-//				           +" "+resultSet.getInt("Creditos")
-//				           +" "+resultSet.getString("Prerrequisito")
-//				           +" "+resultSet.getInt("RequisitoCred")
-//				           +" "+resultSet.getString("Corequisito"));
 				course.setId(resultSet.getString("AsignaturaCodigo"));
 				course.setName(resultSet.getString("Descripcion"));
 				course.setCreditsReq(resultSet.getInt("RequisitoCred"));
@@ -107,11 +99,9 @@ public class ReorganizationsDAO {
 				prerequisites.add(resultSet.getString("Prerrequisito"));
 				course.setPreqID(prerequisites);
 				course.setTrimNum(resultSet.getInt("NumTrimestre"));
-				lastOrganization.get(trimesterNumber).add(course);
-				System.out.println("Trimestre "+ trimesterNumber);		
-				
+				course.setIdealTrimestrer(resultSet.getInt("TrimestreIdeal"));
+				lastOrganization.get(trimesterNumber).add(course);				
 			}
-			
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
@@ -130,18 +120,11 @@ public class ReorganizationsDAO {
 			}
 
 		}
-		for(int indice = 0; indice < lastOrganization.size(); indice++){
-			List<Course> trimester = lastOrganization.get(indice);
-			
-			for(int index = 0; index < trimester.size(); index++){
-				Course course = trimester.get(index);
-				course.setIdealTrimestrer(psmDao.getIdealTrimester(student.getProgramCode(id), course.getId()));
-			}
-		}
 		return lastOrganization;
 		
 		
 	}
+
 	
 	public void setReorganization(Map<Integer, List<Course>> reorganizedPensum, int id){
 		/*inserts the new organization to the DB*/

@@ -325,6 +325,7 @@ public class StudentsDAO {
 	public Integer getStudiedTrimesters(Integer id){
 		/*Returns the number of trimesters the student has been active, for example, 
 		 * we have 15 studied trimesters (16 counting this one)*/
+		System.out.println("EstudianteDAO ID " + id);
 		 Integer studiedTrimesters=0;
 		 try {				    
 				String queryString = "SELECT TrimestresCursados FROM EstudiantePrograma WHERE IdEstudiante=?;";

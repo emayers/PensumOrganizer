@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+<h:head>
+	<link type="text/css" rel="stylesheet"
+		href="./Style/Dash.css?version=6.0"></link>
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,800,600"></link>
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css"></link>
+
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+	<script type="text/javascript" src="Scripts/DropdownList.js?version=1"></script>
+
+</h:head>
+
+<h:body>
+	<nav id="navigationMenuTag">
+		<h:panelGroup layout="block" id="menu" styleClass="nav-wrapper">
+			<ul id="navigationBar">
+				<li>
+					<h:link id="currentPageMarker" value="Página Principal"/>
+				</li>
+				<li>
+					<h:form>
+						<h:commandLink value="Historial" 
+						action="#{historyBean.recreateHistory(authenticationBean.userName)}"/>
+					</h:form>
+				</li>
+				<li>
+					<h:form>
+						<h:commandLink value="Programa de la Carrera" 
+						action="#{pensumBean.recreatePensum(authenticationBean.userName)}"/>
+					</h:form>
+				</li>
+				<li>
+					<h:form>
+						<h:commandLink value="Reorganizar Pensum" 
+						action="#{autoPrioritizerBean.recreateOrganizedPensum(authenticationBean.userName)}"/>
+					</h:form>
+				</li>
+				<li>
+					<h:form>
+						<h:commandLink value="Ayuda" 
+						action="#{authenticationBean.redirectHelp()}"/>
+					</h:form>
+				</li>
+				<li id="user">
+					<a class="dropdownTrigger" onclick="dropList()" href="#"> #{authenticationBean.name} </a>
+					<h:panelGroup layout="block" id="dropdownContent" class="dropdownClass">
+						<h:form>
+							<h:commandLink action="#{authenticationBean.logOut()}" value="Log Out" />
+						</h:form>
+					</h:panelGroup>
+				</li>
+			</ul>
+		</h:panelGroup>
+	</nav>
+	<h:panelGroup layout="block" id="titleBar">
+		<p>
+			<h:graphicImage id="titleBarImage"
+				value="/Images/Target-White.png" />
+			Pensum Reorganizado - #{pensumBean.getPensumName(authenticationBean.userName)}
+		</p>
+		<p id="indice">Índice General #{authenticationBean.GPA}</p>
+	</h:panelGroup>
+	<h:panelGroup layout="block" id="containerOfPensumTable">
+		<c:forEach items="#{autoPrioritizerBean.pensum}" var="entry">
+			<c:set var="trimesterCuantity" value="#{trimesterCuantity}"></c:set>
+			<h:dataTable styleClass="highlight centered bordered"
+				value="#{entry.value}" var="list">
+				<c:set var="trimesterCuantity" value="#{trimesterCuantity + 1}"></c:set>
+				<f:facet name="header">
+					<p id="tableHead">Trimestre #{trimesterCuantity}</p>
+				</f:facet>
+				<h:column>
+					<f:facet name="header">
+						Clave
+					</f:facet>
+					#{list.id}
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						Asignatura
+					</f:facet>
+					#{list.name}
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						Créditos
+					</f:facet>
+					#{list.credits}
+					<f:facet name="footer">
+						<c:forEach items="#{entry.value}" var="ls">
+							<c:set var="crdTotal" value="#{crdTotal + ls.credits}"></c:set>
+						</c:forEach>
+						<p>#{crdTotal}</p>
+						<c:set var="crdTotal" value="0"></c:set>
+					</f:facet>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						Pre-Requisito
+					</f:facet>
+					<h:outputText rendered="${fn:length(list.preqID) == '0'}" value="-" />
+					<h:outputText rendered="${fn:length(list.preqID) != '0'}"
+						value="#{list.preqID}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						Co-Requisito
+					</f:facet>
+					<h:outputText rendered="${fn:length(list.coReqID) == '0'}"
+						value="-" />
+					<h:outputText rendered="${fn:length(list.coReqID) != '0'}"
+						value="#{list.preqID}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						Créditos Requeridos
+					</f:facet>
+					<h:outputText rendered="#{list.creditsReq != '0'}" value="#{list.creditsReq}" />
+					<h:outputText rendered="#{list.creditsReq == '0'}" value="-" />
+				</h:column>
+			</h:dataTable>
+		</c:forEach>
+	</h:panelGroup>
+
+	<h:panelGroup layout="block" id="leftSideOfTheScreenData">
+		<h:panelGroup layout="block" id="chartContainer"/>
+		<h:form>
+			<c:set var="approvedCourses" value="#{historyBean.getApprovedCourses(authenticationBean.userName)}"/>
+			<c:set var="approvedCredits" value="#{historyBean.getApprovedCredits(authenticationBean.userName)}"/>
+			<c:set var="coursedTrimesters" value="#{authenticationBean.coursedTrimesters}"/>
+			<c:set var="totalCourses" value="#{pensumBean.getPensumTotalCourses(authenticationBean.userName)}"/>
+			<c:choose>
+				<c:when test="${coursedTrimesters lt pensumBean.getPensumTotalTrimesters(authenticationBean.userName)}">
+					<c:set var="totalTrimesters" value="#{pensumBean.getPensumTotalTrimesters(authenticationBean.userName)}"/>
+				</c:when>
+				<c:otherwise>
+					<c:set var="totalTrimesters" value="#{pensumBean.getPensumPermanence((authenticationBean.userName))}"/>
+				</c:otherwise>
+			</c:choose>
+			<c:set var="totalCredits" value="#{pensumBean.getPensumTotalCredits(authenticationBean.userName)}"/>
+		</h:form>
+		<canvas id="dashboardChart" width="400" height="450"></canvas>
+		<script>
+					var ctx = document.getElementById("dashboardChart");
+					var myChart = new Chart(ctx, {
+					    type: 'polarArea',
+					    data: {
+						    datasets: [{
+						        data: [
+						            (#{approvedCourses} * 20) / #{totalCourses},
+						            (#{coursedTrimesters} * 20) / #{totalTrimesters},
+						            (#{approvedCredits} * 20) / #{totalCredits},
+						        ],
+						        backgroundColor: [
+						            "#72af47",
+						            "#343434",
+						            "#BD3630",
+						        ],
+						        label: 'Datos Institucionales'
+						    }],
+						    labels: [
+						        "Asignaturas Aprobadas",
+						        "Trimestres Cursados",
+						        "Créditos Aprobados",
+						    ]
+						},
+						options:{
+						    scale: {
+						        scaleShowLine:false,
+						        display:false,
+						    },
+						    legend: {
+					            display: true,
+					            labels: {
+					                padding: 20
+					            }
+					        },
+					        tooltips: {
+						        callbacks: {
+							        label: function(tooltipItem, data) {
+								        var dataset = data.datasets[tooltipItem.datasetIndex];
+								        
+								        var total = dataset.data.reduce(function() {
+									        var currentValue;
+									        
+									        switch(tooltipItem.index){
+	
+									        case 0:
+										        currentValue = dataset.data[tooltipItem.index];
+										        return ((currentValue * #{totalCourses}) / 20) + "/" + #{totalCourses};
+										        
+									        case 1:
+										        currentValue = dataset.data[tooltipItem.index];
+										        return (currentValue * #{totalTrimesters}) / 20 + "/" + #{totalTrimesters};
+	
+									        case 2:
+										        currentValue = dataset.data[tooltipItem.index];
+										        return (currentValue * #{totalCredits}) / 20 + "/" + #{totalCredits};
+	
+									         default:
+										          return 0;
+								          	}
+							          	});
+	
+							          	return total;
+						          	}
+			          			}
+		          			}
+						}
+					});
+				</script>
+	</h:panelGroup>
+
+	<footer id="footer" class="page-footer">
+		<h:panelGroup id="copyright" layout="block" class="footer-copyright">
+			<h:panelGroup layout="block" id="copyrightContainer">
+         HANDS © 2017
+         </h:panelGroup>
+		</h:panelGroup>
+
+		<h:panelGroup layout="block" id="logoDiv">
+			<h:graphicImage id="logo" value="/Images/Logo.png" />
+		</h:panelGroup>
+
+		<h:panelGroup layout="block" id="intecLogo">
+			<h:graphicImage id="intec" value="/Images/Logo-intec.png" />
+		</h:panelGroup>
+	</footer>
+
+</h:body>
+</html>

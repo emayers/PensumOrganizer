@@ -6,13 +6,13 @@ import java.util.Map;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
 import com.pensumorganizer.ejb.HistoryEJBImpl;
 import com.pensumorganizer.util.structures.Course;
 
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class HistoryBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -22,5 +22,17 @@ public class HistoryBean implements Serializable {
 	
 	public Map<Integer, List<Course>> getTrimester() {
 		return hEJB.getHistory();
+	}
+	
+	public void recreateHistory(int studentId){
+		hEJB.recreateHistory(studentId);
+	}
+	
+	public int getApprovedCredits(int studentId){
+		return hEJB.getApprovedCredits(studentId);
+	}
+	
+	public int getApprovedCourses(int studentId){
+		return hEJB.getTotalApprovedCourses(studentId);
 	}
 }

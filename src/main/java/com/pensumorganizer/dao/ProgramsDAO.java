@@ -121,9 +121,38 @@ public class ProgramsDAO {
 		
 	}
 	
-	
-	
+	public int getTotalSubjects(String programCode){
+		int totalSubjects=0;
+		try{
+			String queryString = "SELECT TotalMaterias FROM Programas WHERE ProgramaCodigo=?;";
+			connection = getConnection();
+			ptmt = connection.prepareStatement(queryString);
+			ptmt.setString(1, programCode);
+			resultSet=ptmt.executeQuery();
+			if(resultSet.next()){ 
+				totalSubjects=resultSet.getInt("TotalMaterias");			  
+		}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (ptmt != null)
+					ptmt.close();
+				if (connection != null)
+					connection.close();
+				if (resultSet != null)
+					resultSet.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 
+		}
+		return totalSubjects;
+		
+	}
 	
 	public static void main(String[] args) {
 		/*For testing, to be deleted*/

@@ -21,19 +21,20 @@
     <nav id="navigationMenuTag">
 		<h:panelGroup layout="block" id="menu" styleClass="nav-wrapper">
 			<ul id="navigationBar"> 
-				<li><h:link onclick="getLinkValue(this); PF('dialogToExit').show(); return false;" value="Página Principal" outcome="VistaDashboard">
+				<li><h:link onclick="getLinkValue(this); PF('dialogToExit').show(); return false;" value="Página Principal" outcome="Dashboard">
 					</h:link></li>
-				<li><h:link onclick="getLinkValue(this); PF('dialogToExit').show(); return false;" value="Ver Historial" outcome="VistaHistorial"></h:link></li>
-				<li><h:link onclick="getLinkValue(this); PF('dialogToExit').show(); return false;" value="Programa de la Carrera" outcome="VistaPrograma">
+				<li><h:link onclick="getLinkValue(this); PF('dialogToExit').show(); return false;" value="Ver Historial" outcome="Historial"></h:link></li>
+				<li><h:link onclick="getLinkValue(this); PF('dialogToExit').show(); return false;" value="Programa de la Carrera" outcome="ProgramaCarrera">
 					</h:link></li>
-				<li><h:link onclick="getLinkValue(this); PF('dialogToExit').show(); return false;" id="currentPageMarker" value="Reorganizar Pensum" outcome="VistaPOAuto"></h:link></li>
-				<li><h:link onclick="getLinkValue(this); PF('dialogToExit').show(); return false;" value="Ayuda" outcome="VistaHelp"></h:link></li>
-				<li id="user">
-					<a class="dropdownTrigger"  onclick="dropList()" href="#">
-						#{studentBean.studentName}
-					</a>
-					<h:panelGroup layout="block" id="dropdownContent" class="dropdownClass">
-	    					<h:link onclick="getLinkValue(this); PF('dialogToExit').show(); return false;" value="Log Out" outcome="VistaLogin"></h:link>
+				<li><h:link onclick="getLinkValue(this); PF('dialogToExit').show(); return false;" id="currentPageMarker" value="Reorganizar Pensum" outcome="ReorganizarPensum"></h:link></li>
+				<li><h:link onclick="getLinkValue(this); PF('dialogToExit').show(); return false;" value="Ayuda" outcome="Help"></h:link></li>
+				<li id="user"><a class="dropdownTrigger" onclick="dropList()"
+					href="#"> #{authenticationBean.studentName} </a> <h:panelGroup
+						layout="block" id="dropdownContent" class="dropdownClass">
+						<h:form>
+							<h:commandLink action="#{authenticationBean.logOut()}"
+								value="Log Out" />
+						</h:form>
 					</h:panelGroup>
 				</li>
 			</ul>
@@ -42,7 +43,7 @@
 	
 	<h:panelGroup layout="block" id="titleBar">
 		<p id="PensumRecomendado">
-			<h:graphicImage id="titleBarImage" value="/Vistas/Images/Target-White.png" />
+			<h:graphicImage id="titleBarImage" value="/Images/Target-White.png" />
 			Pensum Recomendado - Ingeniería de Software
 		</p>
 		<p id="Duration"> 
@@ -145,7 +146,7 @@
          		<h:link class="waves-effect waves-light btn" value="Reoganizar" outcome="#{autoPrioritizerBean.reorganizePensum()}"></h:link>
          	</h:panelGroup>
 			<h:panelGroup layout="block" id="Editar">
-				<h:link class="waves-effect waves-light btn" value="Editar" outcome="VistaPOManual"></h:link>
+				<h:link class="waves-effect waves-light btn" value="Editar" outcome="EditarReorganizacion"></h:link>
 			</h:panelGroup>
 			<h:panelGroup layout="block" id="Guardar">
 				<h:link class="waves-effect waves-light btn" value="Guardar" outcome="EnConstruccion"></h:link>
@@ -154,7 +155,7 @@
 				<h:link class="waves-effect waves-light btn" value="Descargar" outcome="EnConstruccion"></h:link>
 			</h:panelGroup>
          	<h:panelGroup layout="block" id="Cancelar">
-         		<h:link onclick="PF('dialogToExit').show(); return false;" class="waves-effect waves-light btn" outcome="VistaDashboard" value="Cancelar"/>
+         		<h:link onclick="PF('dialogToExit').show(); return false;" class="waves-effect waves-light btn" outcome="Dashboard" value="Cancelar"/>
          	</h:panelGroup>
 		</h:panelGroup>
 	</h:panelGroup>
@@ -179,11 +180,11 @@
        </h:panelGroup>
 		
 		<h:panelGroup layout="block" id="logoDiv">
-			<h:graphicImage id="logo" value="/Vistas/Images/Logo.png" />
+			<h:graphicImage id="logo" value="/Images/Logo.png" />
 		</h:panelGroup>
 
 		<h:panelGroup layout="block" id="intecLogo">
-			<h:graphicImage id="intec" value="/Vistas/Images/Logo-intec.png" />
+			<h:graphicImage id="intec" value="/Images/Logo-intec.png" />
 		</h:panelGroup>
 	</footer>
   </h:body>

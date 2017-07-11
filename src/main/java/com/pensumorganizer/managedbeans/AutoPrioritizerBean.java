@@ -20,8 +20,12 @@ public class AutoPrioritizerBean implements Serializable {
 	@EJB
 	public static AutoPrioritizerEJBImpl apEJB = new AutoPrioritizerEJBImpl();
 	
-	public String reorganizePensum(){
-		return apEJB.organizePensum();
+	public void reorganizePensum(int studentId){
+		apEJB.organizePensum(studentId);
+	}
+	
+	public void recreateOrganizedPensum(int studentId){
+		apEJB.recreateOrganizedPensum(studentId);
 	}
 	
 	public Map<Integer, List<Course>> getPensum() {

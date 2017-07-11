@@ -12,6 +12,9 @@ public interface HistoryEJBInterface {
 
 	public Map<Integer, List<Course>> getHistory();
 	
-	public void recreateHistory();
+	public void recreateHistory(int studentId);
 	
+	public int getApprovedCredits(int studentId);
+	
+	public int getTotalApprovedCourses(int studentId);	
 }
