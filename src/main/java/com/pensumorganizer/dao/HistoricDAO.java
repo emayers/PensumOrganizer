@@ -280,8 +280,9 @@ public class HistoricDAO {
 		
 	}
 	
-	/*Add method that returns an array of History objects, similar to the Courses structure*/
+	
 	public ArrayList<Course> getHistory(int studentId){
+		System.out.println(studentId + " historyDao");
 		ArrayList<Course> history= new ArrayList<Course>();
 		ArrayList<String> prerequisites=new ArrayList<String>();
 		ArrayList<String> corequisites=new ArrayList<String>();
@@ -337,6 +338,9 @@ public class HistoricDAO {
 				e.printStackTrace();
 			}
 
+		}
+		if(history.size()==0){
+			System.out.println("null-historyDao");
 		}
 
 		return history;

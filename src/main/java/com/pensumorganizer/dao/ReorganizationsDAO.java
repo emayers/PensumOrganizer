@@ -66,6 +66,7 @@ public class ReorganizationsDAO {
 	
 	public Map<Integer, List<Course>> getOrganization(int id){
 		/*Returns the last organization*/
+		System.out.println(id + " ReorganizationsDAO");
 		Map<Integer, List<Course>> lastOrganization=new HashMap<Integer, List<Course>>();
 		List<Course>dummy=new ArrayList<Course>();
 		lastOrganization.put(0, dummy);
