@@ -1,63 +1,84 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
-	
-  <h:head>
-  	<link rel="Stylesheet" type="text/css" href="./Style/Auto.css?version=6.1"/>
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,800,600"></link>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css"></link>
-  	
-  	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
-  	<script type="text/javascript" src="Scripts/DropdownList.js?version=1"></script>
-  	<script type="text/javascript" src="Scripts/OutcomeLink.js?version=1"></script>
-  </h:head>
-  
-  <h:body>
-    <nav id="navigationMenuTag">
+
+<h:head>
+	<link rel="Stylesheet" type="text/css"
+		href="./Style/Auto.css?version=6.1" />
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,800,600"></link>
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css"></link>
+
+	<script type="text/javascript"
+		src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.28/pdfmake.min.js"></script>
+	<script type="text/javascript"
+		src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
+	<script type="text/javascript"
+		src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.debug.js"></script>
+	<script type="text/javascript"
+		src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+	<script type="text/javascript" src="Scripts/DropdownList.js?version=1"></script>
+	<script type="text/javascript" src="Scripts/OutcomeLink.js?version=1"></script>
+	<script type="text/javascript" src="Scripts/PDFDload.js?version=3"></script>
+</h:head>
+<h:body>
+	<nav id="navigationMenuTag">
 		<h:panelGroup layout="block" id="menu" styleClass="nav-wrapper">
-			<ul id="navigationBar"> 
-				<li><h:link onclick="getLinkValue(this); PF('dialogToExit').show(); return false;" value="Página Principal" outcome="VistaDashboard">
+			<ul id="navigationBar">
+				<li><h:link
+						onclick="getLinkValue(this); PF('dialogToExit').show(); return false;"
+						value="Página Principal" outcome="VistaDashboard">
 					</h:link></li>
-				<li><h:link onclick="getLinkValue(this); PF('dialogToExit').show(); return false;" value="Ver Historial" outcome="VistaHistorial"></h:link></li>
-				<li><h:link onclick="getLinkValue(this); PF('dialogToExit').show(); return false;" value="Programa de la Carrera" outcome="VistaPrograma">
+				<li><h:link
+						onclick="getLinkValue(this); PF('dialogToExit').show(); return false;"
+						value="Ver Historial" outcome="VistaHistorial"></h:link></li>
+				<li><h:link
+						onclick="getLinkValue(this); PF('dialogToExit').show(); return false;"
+						value="Programa de la Carrera" outcome="VistaPrograma">
 					</h:link></li>
-				<li><h:link onclick="getLinkValue(this); PF('dialogToExit').show(); return false;" id="currentPageMarker" value="Reorganizar Pensum" outcome="VistaPOAuto"></h:link></li>
-				<li><h:link onclick="getLinkValue(this); PF('dialogToExit').show(); return false;" value="Ayuda" outcome="VistaHelp"></h:link></li>
-				<li id="user">
-					<a class="dropdownTrigger"  onclick="dropList()" href="#">
-						#{studentBean.studentName}
-					</a>
-					<h:panelGroup layout="block" id="dropdownContent" class="dropdownClass">
-	    					<h:link onclick="getLinkValue(this); PF('dialogToExit').show(); return false;" value="Log Out" outcome="VistaLogin"></h:link>
-					</h:panelGroup>
-				</li>
+				<li><h:link
+						onclick="getLinkValue(this); PF('dialogToExit').show(); return false;"
+						id="currentPageMarker" value="Reorganizar Pensum"
+						outcome="VistaPOAuto"></h:link></li>
+				<li><h:link
+						onclick="getLinkValue(this); PF('dialogToExit').show(); return false;"
+						value="Ayuda" outcome="VistaHelp"></h:link></li>
+				<li id="user"><a class="dropdownTrigger" onclick="dropList()"
+					href="#"> #{studentBean.studentName} </a> <h:panelGroup
+						layout="block" id="dropdownContent" class="dropdownClass">
+						<h:link
+							onclick="getLinkValue(this); PF('dialogToExit').show(); return false;"
+							value="Log Out" outcome="VistaLogin"></h:link>
+					</h:panelGroup></li>
 			</ul>
 		</h:panelGroup>
 	</nav>
-	
+
 	<h:panelGroup layout="block" id="titleBar">
 		<p id="PensumRecomendado">
-			<h:graphicImage id="titleBarImage" value="/Vistas/Images/Target-White.png" />
+			<h:graphicImage id="titleBarImage"
+				value="/Vistas/Images/Target-White.png" />
 			Pensum Recomendado - Ingeniería de Software
 		</p>
-		<p id="Duration"> 
-			Duración del Pensum: #{autoPrioritizerBean.pensum.size()} Trimestres
-		</p>
+		<p id="Duration">Duración del Pensum:
+			#{autoPrioritizerBean.pensum.size()} Trimestres</p>
 	</h:panelGroup>
-	
-	<h:panelGroup layout="block" id="containerOfPensumTable" >
+
+	<h:panelGroup layout="block" id="containerOfPensumTable">
 		<c:forEach items="#{autoPrioritizerBean.pensum}" var="entry">
 			<c:set var="trimesterCuantity" value="#{trimesterCuantity}"></c:set>
-			<h:dataTable styleClass="highlight centered bordered" value="#{entry.value}" var="list">
-					<c:set var="trimesterCuantity" value="#{trimesterCuantity + 1}"></c:set>
-					<f:facet name="header">
-						<p id="tableHead">Trimestre #{trimesterCuantity}</p> 
-					</f:facet>
+			<h:dataTable id="Tri" styleClass="highlight centered bordered"
+				var="list">
+				<c:set var="trimesterCuantity" value="#{trimesterCuantity + 1}"></c:set>
+				<f:facet name="header">
+					<p id="tableHead">Trimestre #{trimesterCuantity}</p>
+				</f:facet>
 				<h:column>
 					<f:facet name="header">
 						Clave
@@ -75,11 +96,12 @@
 						Créditos
 					</f:facet>
 					#{list.credits}
+					<h:outputText value="Dato" />
 					<f:facet name="footer">
 						<c:forEach items="#{entry.value}" var="ls">
-							<c:set var="crdTotal" value="#{crdTotal + ls.credits}"></c:set>	
+							<c:set var="crdTotal" value="#{crdTotal + ls.credits}"></c:set>
 						</c:forEach>
-							<p>#{crdTotal}</p>
+						<p>#{crdTotal}</p>
 						<c:set var="crdTotal" value="0"></c:set>
 					</f:facet>
 				</h:column>
@@ -87,43 +109,69 @@
 					<f:facet name="header">
 						Pre-Requisito
 					</f:facet>
-						<h:outputText rendered="${fn:length(list.preqID) == '0'}" value="-" />
-						<h:outputText rendered="${fn:length(list.preqID) != '0'}" value="#{list.preqID}"/>
+					<c:choose>
+						<c:when test="${fn:length(list.preqID) le 1}">
+							<ui:repeat var="preq" value="#{list.preqID}">
+								<h:outputText rendered="#{preq eq null}" value="-" />
+								<h:outputText rendered="#{preq ne null}" value="#{preq}" />
+							</ui:repeat>
+						</c:when>
+						<c:otherwise>
+							<ui:repeat var="perq" value="#{list.preqID}">
+								<h:outputText value="#{perq}" /> 
+							</ui:repeat>
+						</c:otherwise>
+					</c:choose>
 				</h:column>
 				<h:column>
 					<f:facet name="header">
 						Co-Requisito
 					</f:facet>
-						<h:outputText rendered="${fn:length(list.coReqID) == '0'}" value="-" />
-						<h:outputText rendered="${fn:length(list.coReqID) != '0'}" value="#{list.preqID}"/>
+					<c:choose>
+						<c:when test="${fn:length(list.coReqID) le 1}">
+							<ui:repeat var="coReq" value="#{list.coReqID}">
+								<h:outputText rendered="#{coReq eq null}" value="-" />
+								<h:outputText rendered="#{coReq ne null}" value="#{coReq}" />
+							</ui:repeat>
+						</c:when>
+						<c:otherwise>
+							<ui:repeat var="coRerq" value="#{list.coReqID}">
+								<h:outputText value="#{coRerq}" />
+							</ui:repeat>
+						</c:otherwise>
+					</c:choose>
 				</h:column>
+				
 				<h:column>
 					<f:facet name="header">
 						Créditos Requeridos
 					</f:facet>
-					<h:outputText rendered="#{list.creditsReq != '0'}" value="#{list.creditsReq}" />
+					<h:outputText rendered="#{list.creditsReq != '0'}"
+						value="#{list.creditsReq}" />
 					<h:outputText rendered="#{list.creditsReq == '0'}" value="-" />
 				</h:column>
-			</h:dataTable>	
+			</h:dataTable>
 		</c:forEach>
 	</h:panelGroup>
-	
-	
+
+
 	<h:panelGroup layout="block" id="InformationAndBotons">
 		<h:panelGroup layout="block" id="Information">
-				
-				<c:set var="colorChangedivTrimes" value="#{autoPrioritizerBean.pensum.size()}"></c:set>
-				<c:set var="colorChangedivMonth" value="#{colorChangedivTrimes*3}"></c:set>
-				
-				<h:panelGroup layout="block" class="row" >
-					<h:panelGroup layout="block" class="col s12 m6">
-					
-						<h:panelGroup layout="block" class="card" id="cardTimePosition">
-							<h:panelGroup layout="block" class="card-content white-text" id="cardTimeArenge" >
-								<p id="perm">Permanencia</p>
-								<p id="trimNum">#{colorChangedivTrimes}</p>
-								<p id="trimLimit">de 21 Trimestres</p>
-								<script type="text/javascript">
+
+			<c:set var="colorChangedivTrimes"
+				value="#{autoPrioritizerBean.pensum.size()}"></c:set>
+			<c:set var="colorChangedivMonth" value="#{colorChangedivTrimes*3}"></c:set>
+
+			<h:panelGroup layout="block" class="row">
+				<h:panelGroup layout="block" class="col s12 m6">
+
+					<h:panelGroup layout="block" class="card" id="cardTimePosition">
+						<h:panelGroup layout="block" class="card-content white-text"
+							id="cardTimeArenge">
+							<p id="perm">Permanencia</p>
+							<p id="trimNum">#{colorChangedivTrimes}</p>
+							<p id="trimLimit">de 21 Trimestres</p>
+							<script type="text/javascript">
 									function colorChange(){
 										if(#{colorChangedivTrimes} >= 21){
 											document.getElementById("cardTimePosition").style.backgroundColor = "#EC3E3F";
@@ -134,50 +182,57 @@
 									}
 									window.onload = colorChange;
 								</script>
-							</h:panelGroup>
 						</h:panelGroup>
 					</h:panelGroup>
 				</h:panelGroup>
-				
-         </h:panelGroup>
+			</h:panelGroup>
+
+		</h:panelGroup>
 		<h:panelGroup layout="block" id="Botons">
 			<h:panelGroup layout="block" id="Reorganizar">
-         		<h:link class="waves-effect waves-light btn" value="Reoganizar" outcome="#{autoPrioritizerBean.reorganizePensum()}"></h:link>
-         	</h:panelGroup>
+				<h:link class="waves-effect waves-light btn" value="Reoganizar"
+					outcome="#{autoPrioritizerBean.reorganizePensum()}"></h:link>
+			</h:panelGroup>
 			<h:panelGroup layout="block" id="Editar">
-				<h:link class="waves-effect waves-light btn" value="Editar" outcome="VistaPOManual"></h:link>
+				<h:link class="waves-effect waves-light btn" value="Editar"
+					outcome="VistaPOManual"></h:link>
 			</h:panelGroup>
 			<h:panelGroup layout="block" id="Guardar">
-				<h:link class="waves-effect waves-light btn" value="Guardar" outcome="EnConstruccion"></h:link>
+				<h:link class="waves-effect waves-light btn" value="Guardar"
+					outcome="EnConstruccion"></h:link>
 			</h:panelGroup>
 			<h:panelGroup layout="block" id="Descargar">
-				<h:link class="waves-effect waves-light btn" value="Descargar" outcome="EnConstruccion"></h:link>
+			<h:form>
+				<h:commandLink action="#{pdfgeneratorBean.generator()}" class="waves-effect waves-light btn" value="Descargar"/>
+			</h:form>
 			</h:panelGroup>
-         	<h:panelGroup layout="block" id="Cancelar">
-         		<h:link onclick="PF('dialogToExit').show(); return false;" class="waves-effect waves-light btn" outcome="VistaDashboard" value="Cancelar"/>
-         	</h:panelGroup>
+			<h:panelGroup layout="block" id="Cancelar">
+				<h:link onclick="PF('dialogToExit').show(); return false;"
+					class="waves-effect waves-light btn" outcome="VistaDashboard"
+					value="Cancelar" />
+			</h:panelGroup>
 		</h:panelGroup>
 	</h:panelGroup>
-	
-	<p:dialog widgetVar="dialogToExit" closeOnEscape="true" 
-			  header="Cancelar cambios" closable="false" resizable="false">
-			  
+
+	<p:dialog widgetVar="dialogToExit" closeOnEscape="true"
+		header="Cancelar cambios" closable="false" resizable="false">
+
 		<form>
-			<p id="formText" >Pueden existir cambios no guardados</p>
+			<p id="formText">Pueden existir cambios no guardados</p>
 			<p id="formText">¿Desea salir?</p>
 			<h:button value="Si" type="submit" onclick="return outcomeSwich();"></h:button>
-			<h:button value="No" type="submit" ></h:button>
+			<h:button value="No" type="submit"></h:button>
 		</form>
-		
+
 	</p:dialog>
-	
+
 	<footer id="footer" class="page-footer">
-       <h:panelGroup id="copyright" layout="block" class="footer-copyright">
-         <h:panelGroup layout="block" id="copyrightContainer">
+		<h:panelGroup id="copyright" layout="block" class="footer-copyright">
+			<h:panelGroup layout="block" id="copyrightContainer">
          HANDS © 2017
          </h:panelGroup>
-       </h:panelGroup>
-		
+		</h:panelGroup>
+
 		<h:panelGroup layout="block" id="logoDiv">
 			<h:graphicImage id="logo" value="/Vistas/Images/Logo.png" />
 		</h:panelGroup>
@@ -186,5 +241,5 @@
 			<h:graphicImage id="intec" value="/Vistas/Images/Logo-intec.png" />
 		</h:panelGroup>
 	</footer>
-  </h:body>
+</h:body>
 </html>
